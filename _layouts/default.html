@@ -13,6 +13,10 @@
 
 		<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
 		<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+
+		{% if jekyll.environment == 'production' %} 
+		{% include analytics.html %} 
+		{% endif %}
 	</head>
 
 	<body>
@@ -39,7 +43,5 @@
 		<footer>
 			{% include svg-icons.html %}
 		</footer>
-
-		<!-- {% include analytics.html %} -->
 	</body>
 </html>
