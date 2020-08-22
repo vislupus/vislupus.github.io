@@ -1,7 +1,7 @@
 ---
 layout: post
 title: First post in my new blog
-test: test
+tags: [jekyll]
 ---
 
 This is my first blog post in the history.

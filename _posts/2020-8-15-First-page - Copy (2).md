@@ -1,6 +1,7 @@
 ---
 layout: post
 title: First post in my new blog
+tags: [jekyll, theme]
 ---
 
 This is my first blog post in the history.

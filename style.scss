@@ -22,6 +22,9 @@ body {
 	font: 18px/1.4 $helvetica;
 	color: $darkGray;
 	// background-color: $lightGray;
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
 }
 
 .container {
@@ -30,6 +33,7 @@ body {
 	padding: 0 10px;
 	width: 100%;
 	// background-color: $white;
+	flex-grow: 1;
 }
 
 h1,
@@ -43,7 +47,7 @@ h6 {
 	font-weight: bold;
 
 	line-height: 1.7;
-	margin: 1em 0 15px;
+	// margin: 1em 0 15px;
 	padding: 0;
 
 	@include mobile {
@@ -137,6 +141,7 @@ img {
 .date {
 	font-style: italic;
 	color: $gray;
+	font-size: small;
 }
 
 // Specify the color of the selection
@@ -287,11 +292,44 @@ footer {
 	text-align: center;
 	margin-top: 5vh;
 	border-top: 1px solid #ddd;
-	background-color: rgba($color: $lightGray, $alpha: 0.1);
+	background-color: rgba($color: $lightGray, $alpha: 01);
 
 	a {
 		margin-left: 2vw;
 	}
+}
+
+.post-container{
+	padding: 10px 10px 5px 10px;
+	
+	&:hover{
+		background-color: $lightGray;
+		cursor: pointer;
+	}
+}
+
+.tags{
+	padding-bottom: 0.6em; 
+	list-style: none;
+}
+
+.tags-list{
+	display: flex;
+	align-content: center;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.tag-boxs{
+	border:1px solid black;
+	border-radius: 10px;
+	padding: 5px 10px;
+	margin-bottom: 5px;
+	margin-left: 10px;
+}
+
+.title{
+	text-align: center;
 }
 
 @import "highlights";
