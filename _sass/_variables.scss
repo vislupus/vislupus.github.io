@@ -1,10 +1,9 @@
-
 //
 // VARIABLES
 //
 
 // Colors
-$blue: #4183C4;
+$blue: #4183c4;
 
 // Grays
 $black: #000;
@@ -21,7 +20,7 @@ $georgia: Georgia, serif;
 
 // Mobile breakpoints
 @mixin mobile {
-  @media screen and (max-width: 640px) {
-    @content;
-  }
+	@media screen and (max-width: 640px) {
+		@content;
+	}
 }
