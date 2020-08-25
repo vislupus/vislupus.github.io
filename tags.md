@@ -4,13 +4,13 @@ permalink: /tags/
 ---
 
 <h1 id="Tags" class="title">Tags</h1>
-<header>
+<div id="tags-head">
     <div class="tags-list">
         {% for tag in site.tags %}
             <div class="tag-boxs"><a href="#{{ tag | first }}">{{ tag | first }}</a></div>
         {% endfor %}
     </div>
-</header>
+</div>
 <main>
     <div class="tag-container">
         {% for tag in site.tags %}

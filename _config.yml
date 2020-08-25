@@ -9,6 +9,8 @@ email: nikolaobozhinov@gmail.com
 
 # Build settings
 markdown: kramdown
+kramdown:
+    math_engine: katex
 sass:
     style: :compressed
 plugins:
