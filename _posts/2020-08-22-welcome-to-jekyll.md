@@ -3,14 +3,17 @@ layout: post
 title:  "Welcome to Jekyll!"
 tags: [toc.js, kramdown, Markdown, Customization, fsdkjhhj, dgfkjshkjdsf, kjsdhfkhs, jlksdfjs, kjsdhfkhks, lksdklfjk, kjhsdhkfkjs, kjhsldkflkj, kjsldfklj, lkslkdjfj, oilsjdfklj, kksjdfllk, kkljsdfklj]
 excerpt: This is my awesome writeup of this fantastic thing
-author: Nikola Bozhinov
-katex: True
 ---
+
+{% include math-jax.html %}
+
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
 $$\frac{1}{2}=ax^2-bx^\circ$$
-$$f(x) = \int_{-\infty}^\infty \hat f(\xi)\,e^{2 \pi i \xi x} \,d\xi$$
-Katex.render 'c = \\pm\\sqrt{a^2 + b^2}'
+
+This is a equation
+
+$f(x) = \int_{-\infty}^\infty \hat f(\xi)\,e^{2 \pi i \xi x} \,d\xi$
 
 Jekyll requires blog post files to be named according to the following format:
 

@@ -8,6 +8,8 @@ This is my first blog post in the history.
 {: .intro }
 It's very easy to make some words **bold** and other words *italic* with Markdown. You can even [link to Google!](http://google.com)
 
+$$\frac{1}{2}=ax^2-bx^\circ$$
+
 {% highlight html %}
 
 <link rel="stylesheet" href="{{"{{ site.baseurl "}}}}/css/main.css">
