@@ -80,14 +80,14 @@ p {
 }
 
 a {
-	color: $gray;
+	color: $blue;
 	text-decoration: none;
 	cursor: pointer;
 	&:hover,
 	&:active {
 		color: $gray;
 	}
-	
+
 	&:visited {
 		color: $gray;
 	}
@@ -172,7 +172,7 @@ header {
 	padding: 1.5vw 2vw;
 	border-bottom: 1px solid $lightGray;
 	margin-bottom: 5vh;
-	background-color: rgba($color: $lightGray, $alpha: 0.1);
+	background-color: rgba($color: $lightGray, $alpha: 1);
 
 	@include mobile {
 		text-align: center;
@@ -258,7 +258,7 @@ nav {
 //
 
 .posts > .post {
-	padding-bottom: 2em;
+	padding-bottom: 0.5em;
 	border-bottom: 1px solid $lightGray;
 }
 
@@ -288,47 +288,52 @@ nav {
 }
 
 footer {
-	padding: 20px 20px 15px 20px;
+	padding: 20px 20px 0px 20px;
 	text-align: center;
-	margin-top: 5vh;
+	margin-top: 20px;
 	border-top: 1px solid #ddd;
-	background-color: rgba($color: $lightGray, $alpha: 01);
+	background-color: rgba($color: $lightGray, $alpha: 1);
 
-	a {
+	a:nth-child(2) {
 		margin-left: 2vw;
+		margin-right: 2vw;
+	}
+
+	p {
+		font-size: 0.7em;
 	}
 }
 
-.post-container{
+.post-container {
 	padding: 10px 10px 5px 10px;
-	
-	&:hover{
+
+	&:hover {
 		background-color: $lightGray;
 		cursor: pointer;
 	}
 }
 
-.tags{
-	padding-bottom: 0.6em; 
+.tags {
+	padding-bottom: 0.6em;
 	list-style: none;
 }
 
-.tags-list{
+.tags-list {
 	display: flex;
 	align-content: center;
 	justify-content: center;
 	flex-wrap: wrap;
 }
 
-.tag-boxs{
-	border:1px solid black;
+.tag-boxs {
+	border: 1px solid black;
 	border-radius: 10px;
 	padding: 5px 10px;
 	margin-bottom: 5px;
 	margin-left: 10px;
 }
 
-.title{
+.title {
 	text-align: center;
 }
 

@@ -2,6 +2,9 @@
 layout: post
 # title:  "Welcome to Jekyll!"
 tags: [toc.js, kramdown, Markdown, Customization, text, tes, ters, tegsa, teqw, uyuwii, sdfjhjsf, hkdfkhskfd, dhfkjhsdf, skjdfkjskldf, sjkflkslfd, ksjdlfjlskdf, ljksldfjlsdf]
+description: Some text to test
+color: red
+author: Nikola Bozhinov
 ---
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
