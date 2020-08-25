@@ -1,8 +1,8 @@
 ---
 layout: post
 # title:  "Welcome to Jekyll!"
-tags: [toc.js, kramdown, Markdown, Customization, text, tes, ters, tegsa, teqw, uyuwii, sdfjhjsf, hkdfkhskfd, dhfkjhsdf, skjdfkjskldf, sjkflkslfd, ksjdlfjlskdf, ljksldfjlsdf]
-description: Some text to test
+tags: [toc.js, kramdown, Markdown, Customization]
+description: This is my awesome writeup of this fantastic thing
 color: red
 author: Nikola Bozhinov
 ---
