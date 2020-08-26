@@ -66,7 +66,7 @@ First Header | Second Header
 Content from cell 1 | Content from cell 2
 Content in the first column | Content in the second column
 
-![GitHub Logo](/images/404.jpg)
+![GitHub Logo](/assets/404.jpg)
 
 [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
 
