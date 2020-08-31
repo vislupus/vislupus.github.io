@@ -14,9 +14,9 @@
 		<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
 		<link rel="shortcut icon" type="image/png" href="{{ site.baseurl }}/assets/favicon.png" />
 		
-
+		{% if jekyll.environment == 'production' %}
 			{% include analytics.html %}
-
+		{% endif %}
 	</head>
 
 	<body>
