@@ -4,15 +4,8 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+Hi, I'm **Nikola Bozhinov** — an e-learning developer from Bulgaria.
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+This blog is my field notebook: experiments with code, math, physics simulations, and whatever else catches my curiosity. Expect Python plots, strange attractors, puzzles, and the occasional deep dive.
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
-
-
-[jekyll-organization]: https://github.com/jekyll
+You can find me on [GitHub](https://github.com/{{ site.github_username }}), [LinkedIn](https://www.linkedin.com/in/{{ site.linkedin }}), or reach me by [email](mailto:{{ site.email }}).

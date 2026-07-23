@@ -1,25 +1,27 @@
 ---
 layout: page
+title: Tags
 permalink: /tags/
 ---
 
-<h1 id="Tags" class="title">Tags</h1>
 <div id="tags-head">
     <div class="tags-list">
         {% for tag in site.tags %}
-            <div class="tag-boxs"><a href="#{{ tag | first }}">{{ tag | first }}</a></div>
+            <a class="tag-chip" href="#{{ tag | first | slugify }}">{{ tag | first }} ({{ tag | last | size }})</a>
         {% endfor %}
     </div>
 </div>
-<main>
-    <div class="tag-container">
-        {% for tag in site.tags %}
-            <h3 id="{{ tag | first }}"><a href="#Tags">{{ tag | first | capitalize }}</a></h3>
-            <ul>
-                {% for post in tag.last %} 
-                    <li class="tags"><a href="{{ post.url }}">{{ post.title }}</a></li>
-                {% endfor %}
-            </ul>
+
+{% for tag in site.tags %}
+<section class="tag-section" id="{{ tag | first | slugify }}">
+    <h3><a href="#{{ tag | first | slugify }}">#{{ tag | first }}</a> <span class="count">× {{ tag | last | size }}</span></h3>
+    <ul>
+        {% for post in tag.last %}
+            <li>
+                <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+                <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+            </li>
         {% endfor %}
-    </div>
-</main>
+    </ul>
+</section>
+{% endfor %}

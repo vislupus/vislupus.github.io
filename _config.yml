@@ -12,6 +12,6 @@ markdown: kramdown
 kramdown:
     math_engine: mathjax
 sass:
-    style: :compressed
+    style: compressed
 plugins:
   - jekyll-feed
