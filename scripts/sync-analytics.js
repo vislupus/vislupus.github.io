@@ -59,7 +59,7 @@ async function main() {
   const lastHitId = Number(state?.last_hit_id ?? 0);
 
   // 1. Поръчваме експорт от последното известно посещение нататък
-  let exp = await (await gc("POST", "/export", { start_from_hit_id: lastHitId })).json();
+  let exp = await (await gc("POST", "/export", { format: "csv", start_from_hit_id: lastHitId })).json();
   console.log(`[sync] експорт #${exp.id} от hit ${lastHitId}…`);
   for (let i = 0; i < 120 && !exp.finished_at; i++) {
     await sleep(2000);
