@@ -104,8 +104,10 @@ create table if not exists events (
 create table if not exists analytics_sync (
   id          integer primary key default 1 check (id = 1),
   last_day    date,
+  last_hit_id bigint not null default 0,        -- курсор на експорта от GoatCounter
   updated_at  timestamptz not null default now()
 );
+alter table analytics_sync add column if not exists last_hit_id bigint not null default 0;
 
 create or replace view page_views_total as
   select path, max(title) as title, sum(views)::integer as views, max(day) as last_day

@@ -147,7 +147,7 @@ description: { en: "…", bg: "…", jp: "…" }   # по желание
 
 За да се показва броячът на прегледите на публикациите: GoatCounter → Settings → **Allow adding visitor counts on your website**.
 
-Workflow-ът `sync-analytics.yml` всеки ден записва статистиката в Neon (таблици `page_views`, `events`; изгледи `page_views_total`, `events_total`). Нужни secrets: `GOATCOUNTER_API_TOKEN` (GoatCounter → Settings → API, права „Read statistics“) и `DATABASE_URL`.
+Workflow-ът `sync-analytics.yml` всеки ден записва статистиката в Neon (таблици `page_views`, `events`; изгледи `page_views_total`, `events_total`). Ползва експорта на GoatCounter (CSV на всички посещения) с курсор, така че всяко пускане добавя само новите посещения. Нужни secrets: `GOATCOUNTER_API_TOKEN` (GoatCounter → Settings → API, с права „Export data“ и „Read statistics“) и `DATABASE_URL`.
 
 ## Коментари (giscus)
 
