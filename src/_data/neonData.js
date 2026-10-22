@@ -1,7 +1,7 @@
-// Данни от Neon при билда (ако има DATABASE_URL): харесвания на рисунките и прегледи на страниците.
-import { getDrawingLikes, getPageViews } from "../../lib/neon.js";
+// Данни от Neon при билда (ако има DATABASE_URL): реакции (харесвания, прослушвания) и прегледи на страниците.
+import { getReactions, getPageViews } from "../../lib/neon.js";
 
 export default async function () {
-  const [likes, views] = await Promise.all([getDrawingLikes(), getPageViews()]);
-  return { likes, views, enabled: Boolean(process.env.DATABASE_URL) };
+  const [reactions, views] = await Promise.all([getReactions(), getPageViews()]);
+  return { reactions, views, enabled: Boolean(process.env.DATABASE_URL) };
 }

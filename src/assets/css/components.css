@@ -229,13 +229,14 @@ a.link-card:hover, a.download-card:hover { border-color: var(--c-accent); transf
 /* --- Проекти ----------------------------------------------------------------- */
 .project-header h1 .icon { vertical-align: -.1em; }
 .project-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.25rem; }
-.project-layout { display: grid; grid-template-columns: 17rem minmax(0, 1fr); gap: 2.5rem; align-items: start; }
+.project-layout { display: grid; grid-template-columns: 19rem minmax(0, 1fr); gap: 2.5rem; align-items: start; }
 .project-side { position: sticky; top: calc(var(--header-h) + 1.5rem); display: flex; flex-direction: column; gap: 1.25rem; }
 @media (max-width: 52rem) { .project-layout { grid-template-columns: 1fr; } .project-side { position: static; } }
 .facts { margin: 0; display: grid; gap: .6rem; padding: 1rem 1.2rem; background: var(--c-surface); border: var(--border-w) solid var(--c-border); border-radius: var(--radius); font-size: .92rem; }
-.facts div { display: flex; justify-content: space-between; gap: 1rem; }
-.facts dt { color: var(--c-muted); }
-.facts dd { margin: 0; font-weight: 600; text-align: right; display: inline-flex; align-items: center; gap: .3rem; }
+.facts div { display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: center; }
+.facts dt { color: var(--c-muted); white-space: nowrap; }
+.facts dd { margin: 0; font-weight: 600; text-align: right; display: inline-flex; justify-content: flex-end; align-items: center; gap: .3rem; white-space: nowrap; }
+.facts dd small { font-weight: 500; color: var(--c-muted); }
 .lang-bar-track { display: flex; height: .6rem; border-radius: 999px; overflow: hidden; background: var(--c-surface2); }
 .lang-bar ul { list-style: none; margin: .5rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: .3rem .9rem; font-size: .82rem; }
 .lang-bar small { color: var(--c-muted); }
@@ -261,8 +262,23 @@ a.link-card:hover, a.download-card:hover { border-color: var(--c-accent); transf
 .song-meta span { display: inline-flex; align-items: center; gap: .3rem; }
 .song-style { margin: 0 0 .75rem; color: var(--c-muted); font-size: .92rem; }
 .song-actions { display: flex; flex-wrap: wrap; gap: .4rem; }
-.song-lyrics { margin-top: 1rem; padding-top: 1rem; border-top: var(--border-w) solid var(--c-border); }
-.song-lyrics h3 { font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--c-muted); margin: 0 0 .5rem; }
+.song-panel { margin-top: 1rem; padding-top: 1rem; border-top: var(--border-w) solid var(--c-border); }
+.song-panel h3 { font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--c-muted); margin: 0 0 .5rem; }
+.song-actions .like-btn[aria-pressed="true"] { color: var(--c-danger); border-color: var(--c-danger); }
+.song-actions .like-btn .like-count:not(:empty) { margin-left: .1rem; }
+.song-actions .is-copied { color: var(--c-tip); border-color: var(--c-tip); }
+.song-page .eyebrow { display: inline-flex; align-items: center; gap: .3rem; }
+.song-hero { display: grid; grid-template-columns: minmax(12rem, 22rem) 1fr; gap: 2rem; align-items: start; margin-bottom: 2.5rem; }
+.song-hero-cover img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
+.song-hero-cover .song-cover-placeholder { aspect-ratio: 1; border-radius: var(--radius-lg); }
+.song-hero-body h1 { margin-bottom: .5rem; }
+.song-hero-body .song-actions { margin: 1rem 0 1.25rem; }
+.song-hero-body .song-meta { font-size: 1rem; }
+.song-page-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+.song-page-columns .song-panel { padding: 1.25rem 1.5rem; border: var(--border-w) solid var(--c-border); border-radius: var(--radius); background: var(--c-surface); margin: 0; }
+.song-page-columns .section-title { margin-bottom: .75rem; }
+.song-list-single { display: none; }
+@media (max-width: 52rem) { .song-hero, .song-page-columns { grid-template-columns: 1fr; } .song-hero-cover { max-width: 18rem; } }
 .song-style-full { white-space: pre-line; font-size: .92rem; color: var(--c-muted); }
 .lyrics { white-space: pre-wrap; font-family: var(--font-body); font-size: 1rem; line-height: 1.7; margin: 0; }
 .song-meta .song-eq { display: none; gap: 2px; align-items: flex-end; height: 14px; }

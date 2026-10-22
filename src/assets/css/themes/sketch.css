@@ -22,6 +22,9 @@ html[data-theme="sketch"] .nav-list a[aria-current="page"] { background: transpa
 /* Рамките са в ::before (с филтъра), за да не се изкривява текстът. */
 html[data-theme="sketch"] :where(.card, .song, .drawing-card, .callout, .repo-card, .link-card, .download-card, .post-nav-link, .facts, .series-box, .search-box, .search-results li, .lang-menu, .details, .toc, .share, .map-figure, .chart-box, .diagram pre.mermaid, .song-strip a, .prose pre, .table-wrap, .snake-item figure, .btn, .tag, .chip, .like-btn, .segmented, .theme-buttons, .step-num, .social-list a) { position: relative; isolation: isolate; border-color: transparent !important; box-shadow: none !important; background: transparent; }
 html[data-theme="sketch"] :where(.card, .song, .drawing-card, .callout, .repo-card, .link-card, .download-card, .post-nav-link, .facts, .series-box, .search-box, .search-results li, .lang-menu, .details, .toc, .share, .map-figure, .chart-box, .diagram pre.mermaid, .song-strip a, .prose pre, .table-wrap, .snake-item figure, .btn, .tag, .chip, .like-btn, .segmented, .theme-buttons, .step-num, .social-list a)::before { content: ""; position: absolute; inset: 0; z-index: -1; border: var(--border-w) solid var(--c-border); border-radius: inherit; background: var(--sk-bg, var(--c-surface)); box-shadow: var(--sk-shadow, var(--shadow)); filter: var(--sketch-filter); pointer-events: none; }
+html[data-theme="sketch"] .lang-menu { position: absolute; }
+html[data-theme="sketch"] .toc { position: sticky; }
+@media (max-width: 64rem) { html[data-theme="sketch"] .toc { position: static; } }
 html[data-theme="sketch"] .card { overflow: visible; }
 html[data-theme="sketch"] .card .card-image { border-radius: var(--radius-sm); margin: .5rem .5rem 0; aspect-ratio: 16 / 9; }
 html[data-theme="sketch"] .card-image img { border-radius: inherit; }

@@ -5,6 +5,7 @@
   <figcaption>
     <span class="drawing-title">{{ dTitle }}</span>
     <span class="drawing-meta"><time datetime="{{ d.date | isoDate }}">{{ d.date | localeDate(lang, "month") }}</time> · {{ ("drawings.media." + d.data.medium) | t(lang) }}</span>
-    <button type="button" class="like-btn" data-like="{{ d.fileSlug }}" aria-label="{{ 'ui.like' | t(lang) }}" aria-pressed="false">{% icon "heart", 18 %}<span class="like-count">{{ (neonData.likes[d.fileSlug] | localeNumber(lang)) if neonData.likes[d.fileSlug] else "" }}</span></button>
+    {%- set rx = neonData.reactions["drawing:" + d.fileSlug] %}
+    <button type="button" class="like-btn" data-like="drawing:{{ d.fileSlug }}" aria-label="{{ 'ui.like' | t(lang) }}" aria-pressed="false">{% icon "heart", 18 %}<span class="like-count">{{ (rx.likes | localeNumber(lang)) if rx and rx.likes else "" }}</span></button>
   </figcaption>
 </figure>

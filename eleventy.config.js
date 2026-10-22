@@ -140,7 +140,7 @@ export default function (eleventyConfig) {
   );
   // Многоезични полета: title може да е "Текст" или { en: "...", bg: "...", jp: "..." }
   eleventyConfig.addFilter("ml", (v, lang) => (v && typeof v === "object" ? v[lang] ?? v[defaultLang] ?? Object.values(v)[0] ?? "" : v ?? ""));
-  eleventyConfig.addFilter("absoluteUrl", (u) => (u ? (/^https?:/.test(u) ? u : `${site.url}${u.startsWith("/") ? "" : "/"}${u}`) : ""));
+  eleventyConfig.addFilter("toAbsolute", (u) => (u ? (/^https?:/.test(u) ? u : `${site.url}${u.startsWith("/") ? "" : "/"}${u}`) : ""));
   eleventyConfig.addFilter("langLabel", (code) => byCode[code]?.label ?? code);
   eleventyConfig.addFilter("hreflang", (code) => byCode[code]?.hreflang ?? code);
 

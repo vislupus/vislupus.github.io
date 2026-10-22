@@ -26,8 +26,6 @@ html[data-theme="iso"] .tag, html[data-theme="iso"] .chip, html[data-theme="iso"
 html[data-theme="iso"] .chip[aria-pressed="true"] { box-shadow: 2px 2px 0 0 var(--c-accent2); }
 html[data-theme="iso"] .section-title { padding-left: .9rem; position: relative; }
 html[data-theme="iso"] .section-title::before { content: ""; position: absolute; left: 0; top: .2em; bottom: .2em; width: 6px; background: linear-gradient(var(--c-accent), var(--c-accent2)); transform: skewY(-20deg); }
-html[data-theme="iso"] .page-header h1 { position: relative; display: inline-block; }
-html[data-theme="iso"] .page-header h1::before { content: ""; position: absolute; left: -.3em; right: -.3em; bottom: .05em; height: .35em; background: color-mix(in srgb, var(--c-accent2) 45%, transparent); transform: skewX(-20deg); z-index: -1; }
 html[data-theme="iso"] .callout { border-left-width: 6px; box-shadow: 4px 4px 0 -1px color-mix(in srgb, var(--cc) 25%, transparent); }
 html[data-theme="iso"] .prose pre { box-shadow: 8px 8px 0 -2px color-mix(in srgb, var(--c-accent) 35%, transparent); }
 html[data-theme="iso"] .prose img, html[data-theme="iso"] .post-cover img { box-shadow: 8px 8px 0 -2px color-mix(in srgb, var(--c-accent2) 35%, transparent); }
@@ -47,7 +45,6 @@ html[data-theme="iso"] .site-header { border-bottom: 2px solid color-mix(in srgb
 html[data-theme="iso"] .iso-scene { filter: drop-shadow(10px 14px 0 color-mix(in srgb, var(--c-accent) 18%, transparent)); }
 
 /* --- Още изометрична графика: кубчета до заглавията, „плочки“ под картите, декорация на футъра ---- */
-html[data-theme="iso"] .page-header h1 { padding-left: 0; }
 html[data-theme="iso"] .page-header { position: relative; }
 html[data-theme="iso"] .page-header::after { content: ""; position: absolute; right: -1rem; top: -1.5rem; width: 9rem; height: 9rem; pointer-events: none; opacity: .55; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg stroke='%230d9488' stroke-width='1.2' fill='none'%3E%3Cpath d='M60 10l40 23v46L60 102 20 79V33z'/%3E%3Cpath d='M20 33l40 23 40-23M60 56v46'/%3E%3Cpath d='M60 40l20 11.5v23L60 86 40 74.5v-23z' fill='%230d948822'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain; }
 @media (max-width: 52rem) { html[data-theme="iso"] .page-header::after { display: none; } }

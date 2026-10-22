@@ -1,0 +1,27 @@
+{#- Лента на плейъра (долу). Песните са <li data-song='{...}'> на страницата. -#}
+<div class="player" data-player hidden aria-label="{{ 'songs.nowPlaying' | t(lang) }}">
+  <div class="wrap player-inner">
+    <div class="player-track">
+      <img class="player-cover" alt="" width="48" height="48" eleventy:ignore>
+      <div class="player-text"><strong class="player-title">–</strong><small class="player-artist"></small></div>
+    </div>
+    <div class="player-controls">
+      <button type="button" class="icon-btn" data-player-shuffle aria-pressed="false" aria-label="{{ 'songs.shuffle' | t(lang) }}" title="{{ 'songs.shuffle' | t(lang) }}">{% icon "shuffle", 18 %}</button>
+      <button type="button" class="icon-btn" data-player-prev aria-label="{{ 'songs.prev' | t(lang) }}" title="{{ 'songs.prev' | t(lang) }}">{% icon "skip-back", 20 %}</button>
+      <button type="button" class="icon-btn player-play" data-player-toggle aria-label="{{ 'songs.play' | t(lang) }}" title="{{ 'songs.play' | t(lang) }} / {{ 'songs.pause' | t(lang) }}">{% icon "play", 24 %}{% icon "pause", 24 %}</button>
+      <button type="button" class="icon-btn" data-player-next aria-label="{{ 'songs.next' | t(lang) }}" title="{{ 'songs.next' | t(lang) }}">{% icon "skip-forward", 20 %}</button>
+      <button type="button" class="icon-btn" data-player-repeat aria-pressed="false" aria-label="{{ 'songs.repeat' | t(lang) }}" title="{{ 'songs.repeat' | t(lang) }}">{% icon "repeat", 18 %}</button>
+    </div>
+    <div class="player-progress">
+      <span class="player-time" data-player-current>0:00</span>
+      <input type="range" min="0" max="1000" value="0" step="1" data-player-seek aria-label="{{ 'songs.duration' | t(lang) }}">
+      <span class="player-time" data-player-duration>0:00</span>
+    </div>
+    <div class="player-volume">
+      {% icon "volume-2", 18 %}
+      <input type="range" min="0" max="1" step="0.02" value="0.9" data-player-volume aria-label="{{ 'songs.volume' | t(lang) }}">
+    </div>
+    <button type="button" class="icon-btn" data-player-close aria-label="{{ 'ui.close' | t(lang) }}">{% icon "x", 20 %}</button>
+  </div>
+  <audio data-player-audio preload="none"></audio>
+</div>

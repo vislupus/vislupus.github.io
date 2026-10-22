@@ -18,5 +18,4 @@ eleventyComputed:
     <p class="lede">{{ "projects.lede" | t(lang) }}</p>
   </header>
   <div class="card-grid">{% for pr in projects %}{% include "partials/project-card.njk" %}{% endfor %}</div>
-  <p class="muted"><small>{% icon "github", 14 %} <a href="https://github.com/{{ site.author.github }}?tab=repositories" target="_blank" rel="noopener">github.com/{{ site.author.github }}</a></small></p>
 </div>

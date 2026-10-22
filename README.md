@@ -37,11 +37,11 @@ npm run screenshots  # снимки на екрана на трите дизай
 В `site.config.js`:
 
 ```js
-theme: "modern",     // "modern" | "sketch" | "iso"
+theme: "iso",        // "modern" | "sketch" | "iso"
 themePreview: true,  // превключвател в долния колонтитул, за да ги сравниш на живо
 ```
 
-- **modern** – чист и въздушен, меки градиентни петна, стъклени карти.
+- **modern** – спокоен и чист: неутрален фон с фина мрежа, бели карти, един ярък акцент.
 - **sketch** – като Excalidraw: неравни ръчно рисувани линии (SVG филтър), щриховки, подчертавания.
 - **iso** – изометрична решетка и илюстрации, цветни „3D“ ръбове.
 
@@ -112,6 +112,8 @@ comments: false              # без коментари на тази публ�
 
 Четат се от хранилището в `site.config.js → songs` (`vislupus/ai-songs`): всеки `.mp3` с `.md` до него (първи ред – връзка към Suno, после стил, после текст, разделени с `---`). Обложката и заглавието идват от ID3 тага на MP3 файла (тегли се само началото му). Плейърът е долу на страницата: пускане, следваща/предишна, разбъркване, повторение, сила на звука, клавиш интервал.
 
+Всяка песен има бутони „Стил“ и „Текст“ (отделни панели), харесване, брояч на прослушванията (брои се след 5 секунди слушане, веднъж на сесия) и споделяне. Всяка песен има и собствена страница (`/en/songs/<slug>/`) с обложката като картинка за споделяне – бутонът за споделяне в списъка копира тази връзка (или отваря системния диалог на телефона).
+
 ## Рисунки
 
 Един файл на рисунка в `src/content/drawings/`:
@@ -126,16 +128,18 @@ description: { en: "…", bg: "…", jp: "…" }   # по желание
 ---
 ```
 
-Страницата има галерия с филтър по техника и **линия на времето** (змиевидна, най-новите първи, годината се показва при смяна), а всяка рисунка може да се хареса. Харесванията се пазят в Neon (виж по-долу); без Neon остават само в браузъра.
+Страницата има галерия с филтър по техника и **линия на времето** (змиевидна, най-новите първи, годината се показва при смяна), а всяка рисунка може да се хареса. Харесванията (и прослушванията на песните) се пазят в таблицата `reactions` в Neon (виж по-долу); без Neon остават само в браузъра.
 
 Примерните рисунки и снимки са генерирани (`scripts/placeholders.js`) – замени ги със свои.
 
 ## Neon
 
-1. Направи проект в [console.neon.tech](https://console.neon.tech) и изпълни `neon/schema.sql` в SQL Editor.
-2. **Харесвания от браузъра**: Postgres database → **Data API** → Enable. Копирай **API URL** (`https://….apirest.….neon.tech/neondb/rest/v1`) в GitHub → Settings → Secrets and variables → Actions → като secret или variable `NEON_DATA_API_URL` (или директно в `site.config.js → neon.dataApiUrl`). Заявките без Authorization се изпълняват с ролята `anonymous`, която има право само да чете таблицата и да вика функциите `like_drawing`/`unlike_drawing`.
-3. **Четене при билда** (броячи на харесвания и прегледи в HTML-а): secret `DATABASE_URL` с connection string.
-4. **Аналитика**: виж по-долу.
+1. Направи проект в [console.neon.tech](https://console.neon.tech).
+2. **Първо включи Data API**: Postgres database → **Data API** → Enable Data API (може без Neon Auth). Това създава ролите `authenticated` и `anonymous`. Копирай **API URL** (`https://….apirest.….neon.tech/neondb/rest/v1`) в GitHub → Settings → Secrets and variables → Actions → като secret или variable `NEON_DATA_API_URL` (или директно в `site.config.js → neon.dataApiUrl`).
+3. **После** изпълни `neon/schema.sql` в SQL Editor (ако го пуснеш преди Data API, ролята `anonymous` липсва и скриптът спира с „role "anonymous" does not exist“; новата версия на файла я създава сама, но Data API все пак трябва да е включен, за да работят заявките от браузъра). След това: Data API → **Refresh schema cache**.
+4. Заявките без Authorization се изпълняват с ролята `anonymous`, която може само да чете таблицата `reactions` и да вика функциите `add_like`, `remove_like`, `add_play`.
+5. **Четене при билда** (броячи на харесвания, прослушвания и прегледи в HTML-а): secret `DATABASE_URL` с connection string.
+6. **Аналитика**: виж по-долу.
 
 ## Аналитика (GoatCounter → Neon)
 
@@ -147,8 +151,9 @@ Workflow-ът `sync-analytics.yml` всеки ден записва статис
 
 ## Коментари (giscus)
 
-1. Включи Discussions в хранилището (Settings → Features) и инсталирай приложението [giscus](https://github.com/apps/giscus).
-2. На [giscus.app](https://giscus.app) избери хранилището и категория; копирай `repoId` и `categoryId` в `site.config.js → comments`.
+1. Включи Discussions в хранилището (Settings → General → Features → Discussions) и инсталирай приложението [giscus](https://github.com/apps/giscus) за хранилището.
+2. На [giscus.app](https://giscus.app) в секцията „Configuration“ въведи `vislupus/vislupus.github.io`, избери категория (например „Announcements“ или нова „Comments“) и mapping „pathname“.
+3. Най-долу, в секцията „Enable giscus“, се появява готов `<script>`. От него вземи `data-repo-id` (напр. `R_kgDO…`) → `repoId` и `data-category-id` (напр. `DIC_kwDO…`) → `categoryId` в `site.config.js → comments`. Категорията (`category`) трябва да е същата като избраната.
 
 Езикът на коментарите следва езика на страницата.
 
