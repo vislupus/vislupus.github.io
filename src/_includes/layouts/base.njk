@@ -1,0 +1,108 @@
+{#- Основен шаблон: <head> с мета данни за споделяне, езици, шрифтове, CSS; хедър, футър и скриптове. -#}
+{%- set lang = lang or site.defaultLanguage -%}
+{%- set pageTitle = (title | ml(lang)) if title else "" -%}
+{%- set pageDescription = (description | ml(lang)) if description else ("siteTagline" | t(lang)) -%}
+{%- set translations = collections.translatable | translations(page) if translationKey else {} -%}
+{%- set hasMath = content | includes('class="katex') -%}
+{%- set hasMap = content | includes('class="map"') -%}
+{%- set hasLightbox = content | includes('data-lightbox') -%}
+{%- set hasMermaid = content | includes('class="mermaid"') -%}
+{%- set hasChart = content | includes('data-chart=') -%}
+{%- set hasYoutube = content | includes('data-yt=') -%}
+{%- set ogImage = ogImageUrl or (image if image and image.startsWith("http")) or (page | ogImage({ title: pageTitle or site.title, subtitle: pageDescription, section: ("nav." + section) | t(lang) if section and section != "pages" and section != "index" else "", lang: lang })) -%}
+{%- set ogImage = ogImage | absoluteUrl -%}
+<!doctype html>
+<html lang="{{ lang | hreflang }}" data-theme="{{ site.theme }}" data-scheme="{{ site.colorScheme }}" data-lang="{{ lang }}"{% if site.neon.dataApiUrl %} data-neon-api="{{ site.neon.dataApiUrl }}"{% endif %}>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if pageTitle %}{{ pageTitle }} · {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ pageDescription | stripHtml }}">
+  <meta name="author" content="{{ site.author.name }}">
+  <meta name="generator" content="{{ eleventy.generator }}">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="{{ site.colors[site.theme].light.bg }}" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="{{ site.colors[site.theme].dark.bg }}" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="{{ page.url | absoluteUrl }}">
+  {%- for code, url in translations %}
+  <link rel="alternate" hreflang="{{ code | hreflang }}" href="{{ url | absoluteUrl }}">
+  {%- endfor %}
+  {%- if translations[site.defaultLanguage] %}
+  <link rel="alternate" hreflang="x-default" href="{{ translations[site.defaultLanguage] | absoluteUrl }}">
+  {%- endif %}
+  <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="/{{ lang }}/feed.xml">
+  {#- Open Graph / Twitter – за хубав изглед при споделяне #}
+  <meta property="og:type" content="{{ 'article' if section == 'blog' else 'website' }}">
+  <meta property="og:site_name" content="{{ site.title }}">
+  <meta property="og:title" content="{{ pageTitle or site.title }}">
+  <meta property="og:description" content="{{ pageDescription | stripHtml }}">
+  <meta property="og:url" content="{{ page.url | absoluteUrl }}">
+  <meta property="og:image" content="{{ ogImage }}">
+  <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+  <meta property="og:locale" content="{{ (lang | hreflang) | replace('-', '_') }}">
+  {%- if section == 'blog' and page.date %}
+  <meta property="article:published_time" content="{{ page.date | isoDate }}">
+  {%- for tg in tags %}<meta property="article:tag" content="{{ tg }}">{% endfor %}
+  {%- endif %}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ pageTitle or site.title }}">
+  <meta name="twitter:description" content="{{ pageDescription | stripHtml }}">
+  <meta name="twitter:image" content="{{ ogImage }}">
+  {#- Шрифтове #}
+  <link rel="preload" href="/assets/fonts/roboto-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  {%- if lang == 'bg' %}
+  <link rel="preload" href="/assets/fonts/roboto-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  {%- endif %}
+  {%- if lang == 'jp' %}
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="{{ site.fonts.japaneseStylesheet }}">
+  {%- endif %}
+  {#- CSS: променливи (от site.config.js), основа, компоненти, тема #}
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  {%- if site.themePreview %}
+  <link rel="stylesheet" href="/assets/css/themes/modern.css">
+  <link rel="stylesheet" href="/assets/css/themes/sketch.css">
+  <link rel="stylesheet" href="/assets/css/themes/iso.css">
+  {%- else %}
+  <link rel="stylesheet" href="/assets/css/themes/{{ site.theme }}.css">
+  {%- endif %}
+  <link rel="stylesheet" href="/assets/css/prism.css">
+  {%- if hasMath %}<link rel="stylesheet" href="/assets/vendor/katex/katex.min.css">{% endif %}
+  {%- if hasMap %}<link rel="stylesheet" href="/assets/vendor/leaflet/leaflet.css">{% endif %}
+  <script>
+    // Преди рисуването: тъмна/светла тема и (при преглед) избраният дизайн, за да няма премигване.
+    (function () {
+      try {
+        var d = document.documentElement, s = localStorage.getItem('scheme');
+        if (s === 'light' || s === 'dark') d.dataset.scheme = s;
+        {% if site.themePreview %}var t = localStorage.getItem('theme'); if (t === 'modern' || t === 'sketch' || t === 'iso') d.dataset.theme = t;{% endif %}
+      } catch (e) {}
+    })();
+  </script>
+  {%- if site.analytics.goatcounter and not site.isDev %}
+  <script data-goatcounter="{{ site.analytics.goatcounter }}/count" data-goatcounter-settings='{"allow_local": false, "no_onload": true}' async src="//gc.zgo.at/count.js"></script>
+  {%- endif %}
+  {%- block head %}{% endblock %}
+</head>
+<body class="section-{{ section or 'index' }}{% if bodyClass %} {{ bodyClass }}{% endif %}">
+  <a class="skip-link" href="#main">{{ "ui.skip" | t(lang) }}</a>
+  {% include "partials/decor.njk" %}
+  {% include "partials/header.njk" %}
+  <main id="main" class="site-main">
+    {% block main %}{{ content | safe }}{% endblock %}
+  </main>
+  {% include "partials/footer.njk" %}
+  {% include "partials/lightbox.njk" %}
+  <script src="/assets/js/main.js" defer></script>
+  {%- if site.analytics.goatcounter and not site.isDev %}<script src="/assets/js/analytics.js" defer></script>{% endif %}
+  {%- if hasLightbox %}<script src="/assets/js/lightbox.js" defer></script>{% endif %}
+  {%- if hasMap %}<script src="/assets/vendor/leaflet/leaflet.js" defer></script><script src="/assets/js/map.js" defer></script>{% endif %}
+  {%- if hasMermaid %}<script src="/assets/js/diagrams.js" defer></script>{% endif %}
+  {%- if hasChart %}<script src="/assets/js/charts.js" defer></script>{% endif %}
+  {%- if hasYoutube %}<script src="/assets/js/youtube.js" defer></script>{% endif %}
+  {%- block scripts %}{% endblock %}
+</body>
+</html>

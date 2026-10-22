@@ -1,0 +1,29 @@
+---
+pagination:
+  data: languages
+  size: 1
+  alias: language
+permalink: "/{{ language.code }}/series/"
+layout: layouts/base.njk
+section: series
+translationKey: series-index
+eleventyComputed:
+  lang: "{{ language.code }}"
+  title: "{{ 'nav.series' | t(language.code) }}"
+---
+{%- set posts = collections["posts_" + lang] -%}
+<div class="wrap">
+  <header class="page-header"><h1>{% icon "layers", 30 %} {{ "ui.seriesAll" | t(lang) }}</h1></header>
+  {%- set all = posts | seriesList %}
+  {%- if all.length %}
+  <div class="card-grid">
+    {%- for s in all %}
+    <article class="card series-card"><div class="card-body">
+      <h3 class="card-title"><a href="/{{ lang }}/series/{{ s.slug }}/">{% icon "layers", 18 %} {{ s.name }}</a></h3>
+      <p class="card-meta">{{ s.count }} {{ "ui.seriesParts" | t(lang) }}</p>
+      <ol class="series-list">{% for p in s.posts | limit(5) %}<li><a href="{{ p.url }}">{{ p.data.title }}</a></li>{% endfor %}</ol>
+    </div></article>
+    {%- endfor %}
+  </div>
+  {%- else %}<p class="muted">{{ "ui.noPosts" | t(lang) }}</p>{% endif %}
+</div>

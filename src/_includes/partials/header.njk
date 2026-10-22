@@ -1,0 +1,31 @@
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="/{{ lang }}/" aria-label="{{ site.title }}">
+      <span class="brand-mark" aria-hidden="true">{% include "partials/logo.njk" %}</span>
+      <span class="brand-text"><strong>{{ site.title }}</strong><small>{{ site.shortTitle }}</small></span>
+    </a>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="{{ 'ui.menu' | t(lang) }}">{% icon "menu", 22 %}{% icon "x", 22 %}</button>
+    <nav id="site-nav" class="site-nav" aria-label="{{ 'ui.menu' | t(lang) }}">
+      <ul class="nav-list">
+        {%- for item in site.nav %}
+        {%- set href = "/" + lang + "/" + item + "/" %}
+        {%- set current = (section == item) or (item == 'blog' and section in ['tags', 'series']) %}
+        <li><a href="{{ href }}"{% if current %} aria-current="page"{% endif %} data-track="nav:{{ item }}">{{ ("nav." + item) | t(lang) }}</a></li>
+        {%- endfor %}
+      </ul>
+      <div class="nav-tools">
+        <a class="icon-btn" href="/{{ lang }}/search/" aria-label="{{ 'ui.search' | t(lang) }}" title="{{ 'ui.search' | t(lang) }}" data-track="nav:search">{% icon "search", 20 %}</a>
+        <div class="lang-switch">
+          <button type="button" class="icon-btn" aria-haspopup="true" aria-expanded="false" aria-label="{{ 'ui.language' | t(lang) }}" title="{{ 'ui.language' | t(lang) }}">{% icon "languages", 20 %}<span class="lang-current">{{ (lang | langLabel) if lang == 'jp' else lang | upper }}</span></button>
+          <ul class="lang-menu" role="list">
+            {%- for l in site.languages %}
+            {%- set target = translations[l.code] if translations and translations[l.code] else ("/" + l.code + "/" + (section + "/" if section and section not in ['pages', 'index', 'tags', 'series'] else "")) %}
+            <li><a href="{{ target }}" hreflang="{{ l.hreflang }}" lang="{{ l.hreflang }}"{% if l.code == lang %} aria-current="true"{% endif %} data-track="lang:{{ l.code }}">{{ l.label }}{% if translations and not translations[l.code] and l.code != lang %} <small>↗</small>{% endif %}</a></li>
+            {%- endfor %}
+          </ul>
+        </div>
+        <button type="button" class="icon-btn scheme-toggle" aria-label="{{ 'ui.theme' | t(lang) }}" title="{{ 'ui.light' | t(lang) }} / {{ 'ui.dark' | t(lang) }}">{% icon "sun", 20, "only-dark" %}{% icon "moon", 20, "only-light" %}</button>
+      </div>
+    </nav>
+  </div>
+</header>

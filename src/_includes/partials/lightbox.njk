@@ -1,0 +1,8 @@
+<dialog class="lightbox" aria-label="{{ 'ui.fullscreen' | t(lang) }}" data-i18n-fullscreen="{{ 'ui.fullscreen' | t(lang) }}" data-i18n-exit="{{ 'ui.exitFullscreen' | t(lang) }}">
+  <figure><img alt=""><figcaption></figcaption></figure>
+  <div class="lb-counter" aria-live="polite"></div>
+  <button type="button" class="lb-btn lb-prev" aria-label="{{ 'ui.previous' | t(lang) }}">{% icon "chevron-left", 28 %}</button>
+  <button type="button" class="lb-btn lb-next" aria-label="{{ 'ui.next' | t(lang) }}">{% icon "chevron-right", 28 %}</button>
+  <button type="button" class="lb-btn lb-full" aria-label="{{ 'ui.fullscreen' | t(lang) }}">{% icon "maximize", 22 %}{% icon "minimize", 22 %}</button>
+  <button type="button" class="lb-btn lb-close" aria-label="{{ 'ui.close' | t(lang) }}">{% icon "x", 24 %}</button>
+</dialog>

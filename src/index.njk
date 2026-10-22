@@ -1,0 +1,29 @@
+---
+permalink: /index.html
+eleventyExcludeFromCollections: true
+---
+{#- Коренът на сайта: пренасочва към езика на браузъра (или към езика по подразбиране). -#}
+<!doctype html>
+<html lang="{{ site.defaultLanguage | hreflang }}">
+<head>
+  <meta charset="utf-8">
+  <title>{{ site.title }}</title>
+  <meta name="robots" content="noindex">
+  {%- for l in site.languages %}<link rel="alternate" hreflang="{{ l.hreflang }}" href="{{ ('/' + l.code + '/') | absoluteUrl }}">{% endfor %}
+  <link rel="alternate" hreflang="x-default" href="{{ ('/' + site.defaultLanguage + '/') | absoluteUrl }}">
+  <script>
+    (function () {
+      var langs = {{ site.languageCodes | json | safe }}, map = { ja: "jp" }, pick = null;
+      try { pick = localStorage.getItem("lang"); } catch (e) {}
+      if (!pick) {
+        var pref = (navigator.languages || [navigator.language || ""]).map(function (l) { l = l.toLowerCase().slice(0, 2); return map[l] || l; });
+        for (var i = 0; i < pref.length; i++) if (langs.indexOf(pref[i]) >= 0) { pick = pref[i]; break; }
+      }
+      if (langs.indexOf(pick) < 0) pick = "{{ site.defaultLanguage }}";
+      location.replace("{{ '/' | url }}" + pick + "/" + location.hash);
+    })();
+  </script>
+  <meta http-equiv="refresh" content="1; url={{ ('/' + site.defaultLanguage + '/') | url }}">
+</head>
+<body><p><a href="{{ ('/' + site.defaultLanguage + '/') | url }}">{{ site.title }}</a></p></body>
+</html>

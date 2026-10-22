@@ -1,0 +1,26 @@
+---
+pagination:
+  data: collections.seriesPages
+  size: 1
+  alias: sp
+permalink: "{{ sp.url }}"
+layout: layouts/base.njk
+section: series
+eleventyComputed:
+  lang: "{{ sp.lang }}"
+  title: "{{ sp.name }}"
+  translationKey: "series-{{ sp.slug }}"
+---
+<div class="wrap">
+  <header class="page-header">
+    <p class="eyebrow"><a href="/{{ lang }}/series/">{{ "ui.seriesAll" | t(lang) }}</a></p>
+    <h1>{% icon "layers", 30 %} {{ sp.name }}</h1>
+    {%- if sp.description %}<p class="lede">{{ sp.description }}</p>{% endif %}
+    <p class="muted">{{ sp.posts.length }} {{ "ui.seriesParts" | t(lang) }}</p>
+  </header>
+  <ol class="series-steps">
+    {%- for p in sp.posts %}
+    <li><span class="step-num">{{ loop.index }}</span><div><h3><a href="{{ p.url }}">{{ p.data.title }}</a></h3><p class="card-meta"><time datetime="{{ p.date | isoDate }}">{{ p.date | localeDate(lang) }}</time></p><p>{{ p.data.description or (p.templateContent | excerpt(160)) }}</p></div></li>
+    {%- endfor %}
+  </ol>
+</div>

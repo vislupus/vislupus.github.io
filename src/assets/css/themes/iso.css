@@ -1,0 +1,68 @@
+/* ==========================================================================
+   Тема „iso“: изометрична решетка на фона, 3D „плочки“ с цветни ръбове,
+   изометрични SVG илюстрации, по-изразени сенки под ъгъл.
+   ========================================================================== */
+html[data-theme="iso"] {
+  --radius: 10px; --radius-sm: 6px; --radius-lg: 14px;
+  --shadow: 6px 6px 0 -1px color-mix(in srgb, var(--c-accent) 16%, transparent);
+  --shadow-lg: 10px 10px 0 -2px color-mix(in srgb, var(--c-accent) 22%, transparent);
+}
+html[data-theme="iso"] .art-iso { display: block; }
+html[data-theme="iso"] .theme-bg-iso { display: block; color: var(--c-border); }
+html[data-theme="iso"] .iso-grid { width: 100%; height: 60vh; opacity: .55; mask-image: linear-gradient(#000, transparent); -webkit-mask-image: linear-gradient(#000, transparent); }
+html[data-theme="iso"] .hero-title { color: var(--c-text); text-shadow: 3px 3px 0 color-mix(in srgb, var(--c-accent) 35%, transparent); }
+html[data-theme="iso"] .hero-title::first-letter { color: var(--c-accent); }
+html[data-theme="iso"] .brand-mark { border-radius: 6px; background: var(--c-accent); box-shadow: 3px 3px 0 0 var(--c-accent2); }
+html[data-theme="iso"] .nav-list a { border-radius: 6px; }
+html[data-theme="iso"] .nav-list a[aria-current="page"] { box-shadow: 3px 3px 0 0 var(--c-accent2); }
+html[data-theme="iso"] .card, html[data-theme="iso"] .song, html[data-theme="iso"] .drawing-card, html[data-theme="iso"] .post-nav-link, html[data-theme="iso"] .facts, html[data-theme="iso"] .repo-card, html[data-theme="iso"] .link-card, html[data-theme="iso"] .download-card, html[data-theme="iso"] .search-results li, html[data-theme="iso"] .song-strip a { box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--c-accent) 25%, var(--c-border)); }
+html[data-theme="iso"] .card:hover, html[data-theme="iso"] .drawing-card:hover { transform: translate(-3px, -3px); box-shadow: var(--shadow-lg); border-color: var(--c-accent); }
+html[data-theme="iso"] .card-body::before { content: ""; display: block; width: 2.5rem; height: 4px; background: linear-gradient(90deg, var(--c-accent), var(--c-accent2)); border-radius: 2px; margin-bottom: .6rem; }
+html[data-theme="iso"] .btn { border-radius: 8px; box-shadow: 3px 3px 0 0 color-mix(in srgb, var(--c-accent) 30%, transparent); }
+html[data-theme="iso"] .btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 0 color-mix(in srgb, var(--c-accent) 40%, transparent); }
+html[data-theme="iso"] .btn-primary { box-shadow: 3px 3px 0 0 var(--c-accent2); }
+html[data-theme="iso"] .btn-primary:hover { box-shadow: 5px 5px 0 0 var(--c-accent2); }
+html[data-theme="iso"] .tag, html[data-theme="iso"] .chip, html[data-theme="iso"] .segmented, html[data-theme="iso"] .segmented button, html[data-theme="iso"] .theme-buttons, html[data-theme="iso"] .theme-buttons button, html[data-theme="iso"] .like-btn, html[data-theme="iso"] .icon-btn, html[data-theme="iso"] .lang-menu a { border-radius: 6px; }
+html[data-theme="iso"] .chip[aria-pressed="true"] { box-shadow: 2px 2px 0 0 var(--c-accent2); }
+html[data-theme="iso"] .section-title { padding-left: .9rem; position: relative; }
+html[data-theme="iso"] .section-title::before { content: ""; position: absolute; left: 0; top: .2em; bottom: .2em; width: 6px; background: linear-gradient(var(--c-accent), var(--c-accent2)); transform: skewY(-20deg); }
+html[data-theme="iso"] .page-header h1 { position: relative; display: inline-block; }
+html[data-theme="iso"] .page-header h1::before { content: ""; position: absolute; left: -.3em; right: -.3em; bottom: .05em; height: .35em; background: color-mix(in srgb, var(--c-accent2) 45%, transparent); transform: skewX(-20deg); z-index: -1; }
+html[data-theme="iso"] .callout { border-left-width: 6px; box-shadow: 4px 4px 0 -1px color-mix(in srgb, var(--cc) 25%, transparent); }
+html[data-theme="iso"] .prose pre { box-shadow: 8px 8px 0 -2px color-mix(in srgb, var(--c-accent) 35%, transparent); }
+html[data-theme="iso"] .prose img, html[data-theme="iso"] .post-cover img { box-shadow: 8px 8px 0 -2px color-mix(in srgb, var(--c-accent2) 35%, transparent); }
+html[data-theme="iso"] .prose h2 { padding-left: .7rem; border-left: 5px solid var(--c-accent); }
+html[data-theme="iso"] .step-num { border-radius: 8px; transform: rotate(45deg); }
+html[data-theme="iso"] .step-num { display: grid; }
+html[data-theme="iso"] .site-footer { background: var(--c-bg2); border-top: 3px solid var(--c-accent); }
+html[data-theme="iso"] .footer-inner { position: relative; }
+html[data-theme="iso"] .social-list a { border-radius: 6px; box-shadow: 2px 2px 0 0 color-mix(in srgb, var(--c-accent) 30%, transparent); }
+html[data-theme="iso"] .snake-row::before, html[data-theme="iso"] .snake-row::after { border-color: var(--c-accent); border-style: solid; opacity: .6; }
+html[data-theme="iso"] .snake-item img { border-radius: 8px; box-shadow: 5px 5px 0 -1px color-mix(in srgb, var(--c-accent2) 40%, transparent); }
+html[data-theme="iso"] .snake-year { transform: skewX(-10deg); }
+html[data-theme="iso"] .toc ol { border-left: 3px solid var(--c-accent); }
+html[data-theme="iso"] .player { border-top: 3px solid var(--c-accent); }
+html[data-theme="iso"] .lightbox { background: rgb(5 15 12 / .96); }
+html[data-theme="iso"] .site-header { border-bottom: 2px solid color-mix(in srgb, var(--c-accent) 35%, var(--c-border)); }
+html[data-theme="iso"] .iso-scene { filter: drop-shadow(10px 14px 0 color-mix(in srgb, var(--c-accent) 18%, transparent)); }
+
+/* --- Още изометрична графика: кубчета до заглавията, „плочки“ под картите, декорация на футъра ---- */
+html[data-theme="iso"] .page-header h1 { padding-left: 0; }
+html[data-theme="iso"] .page-header { position: relative; }
+html[data-theme="iso"] .page-header::after { content: ""; position: absolute; right: -1rem; top: -1.5rem; width: 9rem; height: 9rem; pointer-events: none; opacity: .55; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg stroke='%230d9488' stroke-width='1.2' fill='none'%3E%3Cpath d='M60 10l40 23v46L60 102 20 79V33z'/%3E%3Cpath d='M20 33l40 23 40-23M60 56v46'/%3E%3Cpath d='M60 40l20 11.5v23L60 86 40 74.5v-23z' fill='%230d948822'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain; }
+@media (max-width: 52rem) { html[data-theme="iso"] .page-header::after { display: none; } }
+html[data-theme="iso"] .card, html[data-theme="iso"] .drawing-card, html[data-theme="iso"] .song { clip-path: none; }
+html[data-theme="iso"] .card::after, html[data-theme="iso"] .drawing-card::after { content: ""; position: absolute; left: 1rem; right: 1rem; bottom: -.5rem; height: .5rem; background: color-mix(in srgb, var(--c-accent2) 30%, transparent); transform: skewX(-30deg); z-index: -1; pointer-events: none; }
+html[data-theme="iso"] .card-grid, html[data-theme="iso"] .drawing-grid { row-gap: 1.75rem; }
+html[data-theme="iso"] .btn-primary { background: linear-gradient(180deg, var(--c-accent), color-mix(in srgb, var(--c-accent) 80%, black)); }
+html[data-theme="iso"] .site-footer { position: relative; overflow: hidden; }
+html[data-theme="iso"] .site-footer::before { content: ""; position: absolute; right: -3rem; bottom: -3rem; width: 22rem; height: 14rem; pointer-events: none; opacity: .35; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200'%3E%3Cg stroke='%230d9488' stroke-width='1' fill='%230d948818'%3E%3Cpath d='M150 20l60 35v40l-60 35-60-35V55z'/%3E%3Cpath d='M90 55l60 35 60-35M150 90v40'/%3E%3Cpath d='M230 80l40 23v26l-40 23-40-23v-26z'/%3E%3Cpath d='M190 103l40 23 40-23M230 126v26'/%3E%3Cpath d='M70 110l40 23v26l-40 23-40-23v-26z'/%3E%3Cpath d='M30 133l40 23 40-23M70 156v26'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain; }
+html[data-theme="iso"] .hero-art .art-iso { filter: drop-shadow(0 30px 30px color-mix(in srgb, var(--c-accent) 18%, transparent)); }
+html[data-theme="iso"] .hero-text { position: relative; }
+html[data-theme="iso"] .prose blockquote { border-left: 0; padding-left: 1.5rem; background: transparent; }
+html[data-theme="iso"] .prose blockquote::before { content: ""; position: absolute; left: 0; top: .3rem; bottom: .3rem; width: 8px; background: linear-gradient(var(--c-accent), var(--c-accent2)); transform: skewY(-20deg); }
+html[data-theme="iso"] .prose blockquote { position: relative; }
+html[data-theme="iso"] .callout-title::before { content: ""; width: .9rem; height: .9rem; background: var(--cc); transform: rotate(45deg) scale(.7); margin-right: .1rem; }
+html[data-theme="iso"] .snake-item.is-year-start::after { transform: skewX(-10deg); border-radius: 4px; }
+html[data-theme="iso"] .tag { border-radius: 4px; }
+html[data-theme="iso"] .segmented button[aria-selected="true"] { box-shadow: 2px 2px 0 0 var(--c-accent2); }

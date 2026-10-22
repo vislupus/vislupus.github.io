@@ -1,0 +1,22 @@
+---
+pagination:
+  data: languages
+  size: 1
+  alias: language
+permalink: "/{{ language.code }}/projects/"
+layout: layouts/base.njk
+section: projects
+translationKey: projects-index
+eleventyComputed:
+  lang: "{{ language.code }}"
+  title: "{{ 'projects.title' | t(language.code) }}"
+  description: "{{ 'projects.lede' | t(language.code) }}"
+---
+<div class="wrap">
+  <header class="page-header">
+    <h1>{% icon "folder-git-2", 30 %} {{ "projects.title" | t(lang) }}</h1>
+    <p class="lede">{{ "projects.lede" | t(lang) }}</p>
+  </header>
+  <div class="card-grid">{% for pr in projects %}{% include "partials/project-card.njk" %}{% endfor %}</div>
+  <p class="muted"><small>{% icon "github", 14 %} <a href="https://github.com/{{ site.author.github }}?tab=repositories" target="_blank" rel="noopener">github.com/{{ site.author.github }}</a></small></p>
+</div>

@@ -1,0 +1,34 @@
+---
+permalink: /assets/css/tokens.css
+eleventyExcludeFromCollections: true
+---
+/* Генерира се от site.config.js (colors, fonts). Не редактирай този файл – редактирай конфигурацията. */
+{%- for themeName, scheme in site.colors %}
+{%- for mode, c in scheme %}
+{%- set sel = 'html[data-theme="' + themeName + '"]' %}
+{%- if mode == "light" %}{{ sel | safe }}, {{ sel | safe }}[data-scheme="light"]{% else %}{{ sel | safe }}[data-scheme="dark"]{% endif %} {
+{%- for k, v in c %}
+  --c-{{ k }}: {{ v }};
+{%- endfor %}
+  color-scheme: {{ mode }};
+}
+{%- if mode == 'dark' %}
+@media (prefers-color-scheme: dark) {
+  {{ sel | safe }}:not([data-scheme="light"]) {
+{%- for k, v in c %}
+    --c-{{ k }}: {{ v }};
+{%- endfor %}
+    color-scheme: dark;
+  }
+}
+{%- endif %}
+{%- endfor %}
+{%- endfor %}
+
+:root {
+  --font-body: {{ site.fonts.body | safe }};
+  --font-heading: {{ site.fonts.heading | safe }};
+  --font-mono: {{ site.fonts.mono | safe }};
+  --font-jp: {{ site.fonts.japanese | safe }};
+}
+html[data-lang="jp"] { --font-body: {{ site.fonts.japanese | safe }}, {{ site.fonts.body | safe }}; --font-heading: {{ site.fonts.japanese | safe }}, {{ site.fonts.heading | safe }}; }
