@@ -6,6 +6,7 @@
 
   ready(() => {
     const gc = window.goatcounter;
+    console.info("[analytics] GoatCounter е зареден; прегледът се брои към", gc.get_data ? gc.get_data().p : location.pathname);
     gc.count({ path: base, title: document.title, referrer: document.referrer });
 
     const send = (name, title) => gc.count({ path: name.slice(0, 200), title: (title || "").slice(0, 200), event: true });
