@@ -70,14 +70,26 @@ async function main() {
   }
   if (!exp.finished_at) throw new Error("GoatCounter export: не завърши навреме");
 
-  // 2. Теглим CSV-то (gzip)
-  const buf = Buffer.from(await (await gc("GET", `/export/${exp.id}/download`)).arrayBuffer());
-  const text = (buf[0] === 0x1f && buf[1] === 0x8b ? gunzipSync(buf) : buf).toString("utf8");
+  console.log(`[sync] експортът е готов: ${exp.num_rows ?? "?"} реда, ${exp.size ?? "?"} KB, last_hit_id ${exp.last_hit_id ?? "?"}`);
+  if (Number(exp.num_rows) === 0) { console.log("[sync] няма нови посещения."); return; }
+
+  // 2. Теглим CSV-то (gzip). 202 = още се генерира → изчакваме.
+  let res;
+  for (let i = 0; i < 30; i++) {
+    res = await gc("GET", `/export/${exp.id}/download`);
+    if (res.status !== 202) break;
+    await sleep(2000);
+  }
+  const buf = Buffer.from(await res.arrayBuffer());
+  console.log(`[sync] сваляне: HTTP ${res.status}, ${res.headers.get("content-type")}, ${buf.length} байта, encoding: ${res.headers.get("content-encoding") ?? "-"}`);
+  let text;
+  try { text = (buf[0] === 0x1f && buf[1] === 0x8b ? gunzipSync(buf) : buf).toString("utf8"); }
+  catch (err) { throw new Error(`Файлът не може да се разархивира: ${err.message}; начало: ${buf.subarray(0, 120).toString("latin1")}`); }
   const rows = parseCsv(text).filter((r) => r.length > 1);
   const header = rows.shift() ?? [];
   const col = (name) => header.findIndex((h) => h.replace(/^\d+/, "") === name);
   const iPath = col("Path"), iTitle = col("Title"), iEvent = col("Event"), iBot = col("Bot"), iFirst = col("FirstVisit"), iDate = col("Date");
-  if (iPath < 0 || iDate < 0) throw new Error(`Неочакван формат на експорта: ${header.join(",")}`);
+  if (iPath < 0 || iDate < 0) throw new Error(`Неочакван формат на експорта (заглавен ред: "${header.join(",")}"); начало на файла: ${JSON.stringify(text.slice(0, 300))}`);
 
   // 3. Събираме по (път, ден): посещения = първи посещения (както „visits“ в GoatCounter)
   const views = new Map(), events = new Map();
