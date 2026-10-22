@@ -41,7 +41,7 @@ eleventyComputed:
         {%- set shareText = "songs.shareText" | t(lang, { title: s.title }) %}
         <a class="icon-btn" href="https://bsky.app/intent/compose?text={{ (shareText + ' ' + (page.url | toAbsolute)) | urlencode }}" target="_blank" rel="noopener" aria-label="Bluesky" title="Bluesky" data-track="share:bluesky">{% icon "bluesky", 18 %}</a>
         <a class="icon-btn" href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | toAbsolute | urlencode }}" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook" data-track="share:facebook">{% icon "facebook", 18 %}</a>
-        <a class="icon-btn" href="https://x.com/intent/post?text={{ shareText | urlencode }}&url={{ page.url | toAbsolute | urlencode }}" target="_blank" rel="noopener" aria-label="X" title="X" data-track="share:x">{% icon "x", 16 %}</a>
+        <a class="icon-btn" href="https://x.com/intent/post?text={{ shareText | urlencode }}&url={{ page.url | toAbsolute | urlencode }}" target="_blank" rel="noopener" aria-label="X" title="X" data-track="share:x">{% icon "x-logo", 16 %}</a>
         <a class="icon-btn" href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | toAbsolute | urlencode }}" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn" data-track="share:linkedin">{% icon "linkedin", 18 %}</a>
         <a class="icon-btn" href="mailto:?subject={{ s.title | urlencode }}&body={{ page.url | toAbsolute | urlencode }}" aria-label="Email" title="Email" data-track="share:email">{% icon "mail", 18 %}</a>
         <button type="button" class="icon-btn" data-copy="{{ page.url | toAbsolute }}" aria-label="{{ 'ui.copyLink' | t(lang) }}" title="{{ 'ui.copyLink' | t(lang) }}" data-track="share:copy">{% icon "copy", 18 %}</button>

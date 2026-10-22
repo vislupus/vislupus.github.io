@@ -1,4 +1,5 @@
 ---
+section: about
 title: About me
 description: E-learning developer from Bulgaria who plays with code, mathematics, ink and songs.
 eyebrow: Nikola Bozhinov · vislupus

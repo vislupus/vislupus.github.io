@@ -60,10 +60,14 @@
   }
 
   // Сгъваеми панели (стил и текст на песните): <button data-panel-toggle="id">
+  // В една песен е отворен само един панел: стил ИЛИ текст.
   $$("[data-panel-toggle]").forEach((b) => b.addEventListener("click", () => {
     const box = document.getElementById(b.dataset.panelToggle);
     if (!box) return;
-    box.hidden = !box.hidden;
-    b.setAttribute("aria-expanded", String(!box.hidden));
+    const open = box.hidden;
+    const scope = b.closest(".song") ?? document;
+    $$("[data-panel-toggle]", scope).forEach((o) => { const ob = document.getElementById(o.dataset.panelToggle); if (ob) ob.hidden = true; o.setAttribute("aria-expanded", "false"); });
+    box.hidden = !open;
+    b.setAttribute("aria-expanded", String(open));
   }));
 })();
