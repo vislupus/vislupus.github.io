@@ -1,27 +1,31 @@
 /* ==========================================================================
-   Тема „modern“: чиста, въздушна, меки градиентни петна, стъклени повърхности,
-   заоблени карти и плавни движения.
+   Тема „modern“: спокойна и чиста – неутрален фон с фина мрежа, бели карти
+   с меки сенки, един ярък акцент. Без цветни петна.
    ========================================================================== */
 html[data-theme="modern"] {
-  --radius: 16px; --radius-sm: 10px; --radius-lg: 24px;
-  --shadow: 0 1px 2px rgb(16 24 40 / .04), 0 12px 32px -16px rgb(16 24 40 / .18);
-  --shadow-lg: 0 24px 60px -24px rgb(16 24 40 / .35);
+  --radius: 14px; --radius-sm: 9px; --radius-lg: 20px;
+  --shadow: 0 1px 2px rgb(16 24 40 / .05), 0 10px 28px -16px rgb(16 24 40 / .16);
+  --shadow-lg: 0 24px 60px -28px rgb(16 24 40 / .3);
 }
-html[data-theme="modern"] .theme-bg-modern { display: block; }
 html[data-theme="modern"] .art-modern { display: block; }
-html[data-theme="modern"] .blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .35; animation: drift 24s ease-in-out infinite alternate; }
-html[data-theme="modern"] .blob-1 { width: 40vw; height: 40vw; left: -10vw; top: -10vw; background: var(--c-accent); }
-html[data-theme="modern"] .blob-2 { width: 34vw; height: 34vw; right: -8vw; top: 10vh; background: var(--c-accent2); animation-delay: -8s; }
-html[data-theme="modern"] .blob-3 { width: 30vw; height: 30vw; left: 30vw; bottom: -15vw; background: var(--c-curious); opacity: .2; animation-delay: -16s; }
-@keyframes drift { from { transform: translate(0, 0) scale(1); } to { transform: translate(4vw, 3vh) scale(1.08); } }
-html[data-theme="modern"] .hero-title { background: linear-gradient(100deg, var(--c-text), var(--c-accent) 60%, var(--c-accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-html[data-theme="modern"] .site-header { background: color-mix(in srgb, var(--c-bg) 70%, transparent); }
-html[data-theme="modern"] .card, html[data-theme="modern"] .song, html[data-theme="modern"] .drawing-card { background: color-mix(in srgb, var(--c-surface) 85%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-html[data-theme="modern"] .btn-primary { background: linear-gradient(135deg, var(--c-accent), color-mix(in srgb, var(--c-accent) 60%, var(--c-accent2))); border: 0; box-shadow: 0 8px 24px -10px var(--c-accent); }
-html[data-theme="modern"] .brand-mark { background: linear-gradient(135deg, var(--c-accent), var(--c-accent2)); box-shadow: 0 6px 16px -8px var(--c-accent); }
-html[data-theme="modern"] .section-title .icon, html[data-theme="modern"] .page-header h1 .icon { filter: drop-shadow(0 4px 10px color-mix(in srgb, var(--c-accent) 50%, transparent)); }
-html[data-theme="modern"] .nav-list a[aria-current="page"] { box-shadow: 0 6px 16px -8px var(--c-accent); }
-html[data-theme="modern"] .step-num { background: linear-gradient(135deg, var(--c-accent), var(--c-accent2)); }
-html[data-theme="modern"] .callout { backdrop-filter: blur(6px); }
+html[data-theme="modern"] body { background-image: linear-gradient(color-mix(in srgb, var(--c-border) 35%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--c-border) 35%, transparent) 1px, transparent 1px); background-size: 48px 48px; background-position: -1px -1px; }
+html[data-theme="modern"] .site-header { background: color-mix(in srgb, var(--c-bg) 85%, transparent); }
+html[data-theme="modern"] .hero-title { letter-spacing: -.03em; }
+html[data-theme="modern"] .hero-title::first-letter { color: var(--c-accent); }
+html[data-theme="modern"] .brand-mark { border-radius: 10px; }
+html[data-theme="modern"] .btn-primary { box-shadow: 0 8px 20px -10px var(--c-accent); }
+html[data-theme="modern"] .card, html[data-theme="modern"] .song, html[data-theme="modern"] .drawing-card, html[data-theme="modern"] .facts, html[data-theme="modern"] .search-results li { box-shadow: var(--shadow); }
+html[data-theme="modern"] .card-body::before { content: ""; display: block; width: 2rem; height: 3px; border-radius: 2px; background: var(--c-accent); margin-bottom: .6rem; }
+html[data-theme="modern"] .section-title { padding-bottom: .4rem; border-bottom: 2px solid var(--c-border); }
+html[data-theme="modern"] .section-head { border-bottom: 2px solid var(--c-border); padding-bottom: .4rem; }
+html[data-theme="modern"] .section-head .section-title { border: 0; padding-bottom: 0; }
+html[data-theme="modern"] .page-header h1 { position: relative; display: inline-block; }
+html[data-theme="modern"] .page-header h1::after { content: ""; display: block; width: 3rem; height: 4px; border-radius: 2px; background: var(--c-accent); margin-top: .35rem; }
+html[data-theme="modern"] .prose h2 { padding-left: 0; border-left: 0; }
 html[data-theme="modern"] .prose pre { box-shadow: var(--shadow-lg); }
-html[data-theme="modern"] .site-footer { background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--c-accent) 6%, var(--c-bg2))); }
+html[data-theme="modern"] .callout { box-shadow: var(--shadow); }
+html[data-theme="modern"] .site-footer { background: var(--c-bg2); }
+html[data-theme="modern"] .nav-list a[aria-current="page"] { box-shadow: 0 6px 16px -8px var(--c-accent); }
+html[data-theme="modern"] .step-num { border-radius: 10px; }
+html[data-theme="modern"] .tag { border-radius: 6px; }
+html[data-theme="modern"] .lightbox { background: rgb(12 12 14 / .96); }

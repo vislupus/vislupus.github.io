@@ -20,21 +20,64 @@
     <circle cx="420" cy="330" r="30"/><path d="M408 330l8 8 16-18" stroke="var(--c-tip)" stroke-width="3.5"/>
   </g>
 </svg>
-<svg class="art art-iso" viewBox="0 0 520 420" role="img" aria-label="">
-  <defs><linearGradient id="isoTop" x1="0" x2="1"><stop offset="0" stop-color="var(--c-accent)"/><stop offset="1" stop-color="var(--c-accent2)"/></linearGradient></defs>
-  <g class="iso-scene">
-    {#- Платформа #}
-    <path d="M260 390L60 275 260 160l200 115z" fill="var(--c-surface2)" stroke="var(--c-border)"/>
-    <path d="M60 275v18l200 115v-18z" fill="var(--c-border)"/><path d="M460 275v18L260 408v-18z" fill="var(--c-muted)" opacity=".5"/>
-    {#- Кула от блокове (код) #}
-    <g class="float f1"><path d="M170 250l-60-35 60-35 60 35z" fill="var(--c-accent)"/><path d="M110 215v40l60 35v-40z" fill="var(--c-accent)" opacity=".7"/><path d="M230 215v40l-60 35v-40z" fill="var(--c-accent)" opacity=".5"/></g>
-    <g class="float f2"><path d="M170 190l-60-35 60-35 60 35z" fill="var(--c-surface)" stroke="var(--c-border)"/><path d="M110 155v35l60 35v-35z" fill="var(--c-bg2)" stroke="var(--c-border)"/><path d="M230 155v35l-60 35v-35z" fill="var(--c-surface2)" stroke="var(--c-border)"/><path d="M130 165l20 12M130 178l32 18M130 191l14 8" stroke="var(--c-accent2)" stroke-width="3" stroke-linecap="round"/></g>
-    {#- Планина/карта #}
-    <g class="float f3"><path d="M330 300l-70-40 70-40 70 40z" fill="var(--c-surface)" stroke="var(--c-border)"/><path d="M290 268l20-18 14 10 22-24 24 20" fill="none" stroke="var(--c-tip)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="346" cy="236" r="5" fill="var(--c-danger)"/></g>
-    {#- Екран с графика #}
-    <g class="float f1"><path d="M400 200l-60-35v-70l60 35z" fill="var(--c-surface)" stroke="var(--c-border)"/><path d="M400 200l50-29v-70l-50 29z" fill="var(--c-bg2)" stroke="var(--c-border)"/><path d="M350 150l12-18 10 8 14-24 14 10" fill="none" stroke="url(#isoTop)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>
-    {#- Нотка и четка #}
-    <g class="float f2"><path d="M250 120c-6-30 10-50 30-55 0 20 6 40 0 55-8 10-24 10-30 0z" fill="var(--c-accent2)" opacity=".9"/><path d="M280 65v-30" stroke="var(--c-accent2)" stroke-width="4" stroke-linecap="round"/></g>
-    <g class="float f3"><path d="M120 120l40-50" stroke="var(--c-text)" stroke-width="5" stroke-linecap="round"/><path d="M118 122c-8 6-10 18-6 22 6 4 16 0 20-8z" fill="var(--c-accent)"/></g>
+<svg class="art art-iso" viewBox="0 0 520 440" role="img" aria-label="">
+  <defs>
+    <linearGradient id="isoSea" x1="0" x2="1"><stop offset="0" stop-color="var(--c-accent)" stop-opacity=".18"/><stop offset="1" stop-color="var(--c-accent2)" stop-opacity=".18"/></linearGradient>
+    <linearGradient id="isoCode" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--c-surface)"/><stop offset="1" stop-color="var(--c-surface2)"/></linearGradient>
+    <linearGradient id="isoPaint" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff7ed"/><stop offset="1" stop-color="#ffedd5"/></linearGradient>
+    <clipPath id="isoLeft"><path d="M260 120L50 240l210 120z"/></clipPath>
+    <clipPath id="isoRight"><path d="M260 120l210 120-210 120z"/></clipPath>
+  </defs>
+  {#- Вода и сянка #}
+  <ellipse cx="260" cy="392" rx="215" ry="22" fill="url(#isoSea)"/>
+  <ellipse cx="260" cy="392" rx="150" ry="12" fill="var(--c-accent)" opacity=".08"/>
+  {#- Страни на островчето #}
+  <path d="M50 240l210 120v32L50 272z" fill="var(--c-accent)" opacity=".55"/>
+  <path d="M470 240L260 360v32l210-120z" fill="var(--c-accent2)" opacity=".55"/>
+  <path d="M50 240l210 120v32L50 272z" fill="url(#isoCode)" opacity=".35"/>
+  {#- Горна повърхност: лява половина – код и уравнения #}
+  <g clip-path="url(#isoLeft)">
+    <path d="M260 120L50 240l210 120z" fill="url(#isoCode)"/>
+    <g transform="matrix(.866 .5 -.866 .5 260 120)" fill="none" stroke="var(--c-accent)" stroke-width=".8" opacity=".35">
+      <path d="M0 30h242M0 60h242M0 90h242M0 120h242M0 150h242M0 180h242M0 210h242M30 0v242M60 0v242M90 0v242M120 0v242M150 0v242M180 0v242M210 0v242"/>
+    </g>
+    <g transform="matrix(.866 .5 -.866 .5 260 120)" font-family="var(--font-mono)" font-size="13" font-weight="600" fill="var(--c-accent)">
+      <text x="8" y="70" opacity=".9">∑ f(x)·dx</text>
+      <text x="6" y="100">if (lake) {</text>
+      <text x="22" y="122">  return π;</text>
+      <text x="6" y="144">}</text>
+      <text x="40" y="176" fill="var(--c-tip)">E = mc²</text>
+      <text x="70" y="206" fill="var(--c-curious)">∂y/∂t</text>
+      <text x="110" y="232" opacity=".8">0101 1010</text>
+      <rect x="10" y="36" width="90" height="10" rx="3" fill="var(--c-accent)" opacity=".25"/>
+      <rect x="10" y="50" width="60" height="6" rx="3" fill="var(--c-accent2)" opacity=".5"/>
+    </g>
+    {#- Кубчета код #}
+    <g class="float f1"><path d="M120 230l-34-20 34-20 34 20z" fill="var(--c-accent)"/><path d="M86 210v26l34 20v-26z" fill="var(--c-accent)" opacity=".7"/><path d="M154 210v26l-34 20v-26z" fill="var(--c-accent)" opacity=".45"/><text x="106" y="217" font-family="var(--font-mono)" font-size="11" font-weight="700" fill="var(--c-accentText)" transform="skewY(30)" transform-origin="106 217">&lt;/&gt;</text></g>
+    <g class="float f2"><path d="M170 300l-26-15 26-15 26 15z" fill="var(--c-tip)"/><path d="M144 285v20l26 15v-20z" fill="var(--c-tip)" opacity=".7"/><path d="M196 285v20l-26 15v-20z" fill="var(--c-tip)" opacity=".45"/></g>
   </g>
+  {#- Горна повърхност: дясна половина – рисувана с туш и бои #}
+  <g clip-path="url(#isoRight)">
+    <path d="M260 120l210 120-210 120z" fill="url(#isoPaint)"/>
+    <g transform="matrix(.866 .5 -.866 .5 260 120)">
+      <circle cx="190" cy="60" r="22" fill="var(--c-danger)" opacity=".85"/>
+      <path d="M90 170c20-50 40-70 60-70s35 25 55 55 40 10 50 25" fill="none" stroke="#1e1e1e" stroke-width="7" stroke-linecap="round" opacity=".85"/>
+      <path d="M130 185c10-22 22-35 34-35s24 15 34 35" fill="none" stroke="#1e1e1e" stroke-width="4" stroke-linecap="round" opacity=".55"/>
+      <path d="M150 215c30-10 60-8 85 2" fill="none" stroke="var(--c-accent2)" stroke-width="12" stroke-linecap="round" opacity=".8"/>
+      <path d="M175 232c20-6 40-6 60 0" fill="none" stroke="#2563eb" stroke-width="7" stroke-linecap="round" opacity=".5"/>
+      <circle cx="120" cy="95" r="4" fill="#f472b6"/><circle cx="132" cy="80" r="3" fill="#f472b6"/><circle cx="108" cy="110" r="3" fill="#f472b6"/>
+      <path d="M205 95h30M208 100h24M212 95v26M228 95v26" stroke="var(--c-danger)" stroke-width="4" stroke-linecap="round"/>
+    </g>
+    {#- Четка и туш #}
+    <g class="float f3"><path d="M372 150l50-62" stroke="#1e1e1e" stroke-width="6" stroke-linecap="round"/><path d="M372 150c-10 8-12 22-6 26 7 5 18 0 22-12z" fill="var(--c-accent2)"/><path d="M425 86l6-8" stroke="var(--c-accent2)" stroke-width="6" stroke-linecap="round"/></g>
+    <g class="float f1"><path d="M300 265c-5-22 8-38 20-42 0 15 6 30 0 42-6 8-16 8-20 0z" fill="#1e1e1e" opacity=".85"/></g>
+    <g class="float f2"><path d="M420 290l-30-17v-38l30 17z" fill="#fff" stroke="var(--c-border)"/><path d="M398 262c6-10 10-12 16-6" fill="none" stroke="#1e1e1e" stroke-width="2.5" stroke-linecap="round"/><circle cx="412" cy="250" r="2.5" fill="var(--c-danger)"/></g>
+  </g>
+  {#- Ръбът между двата свята #}
+  <path d="M260 120v240" stroke="var(--c-surface)" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round" opacity=".9"/>
+  <path d="M260 120L50 240l210 120 210-120z" fill="none" stroke="var(--c-border)" stroke-width="1.2"/>
+  {#- Летящи елементи #}
+  <g class="float f1"><rect x="40" y="40" width="130" height="44" rx="8" fill="var(--c-surface)" stroke="var(--c-border)"/><text x="56" y="68" font-family="var(--font-mono)" font-size="15" font-weight="700" fill="var(--c-accent)">∫ eˣ dx = eˣ</text></g>
+  <g class="float f3"><rect x="372" y="36" width="110" height="44" rx="8" fill="var(--c-surface)" stroke="var(--c-border)"/><path d="M390 66c12-14 20-18 30-10s16 12 28-4 16-2 26-2" fill="none" stroke="var(--c-accent2)" stroke-width="4" stroke-linecap="round"/></g>
+  <g class="float f2"><circle cx="455" cy="130" r="9" fill="var(--c-danger)" opacity=".9"/><circle cx="60" cy="140" r="6" fill="var(--c-accent)" opacity=".7"/></g>
 </svg>

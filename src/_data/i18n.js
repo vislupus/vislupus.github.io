@@ -39,7 +39,7 @@ export default {
       title: "Songs", lede: "Songs I write with AI: lyrics, style, mood. Press play and read along.",
       play: "Play", pause: "Pause", prev: "Previous", next: "Next", shuffle: "Shuffle", repeat: "Repeat", volume: "Volume", lyrics: "Lyrics", style: "Style",
       openOnSuno: "Open on Suno", download: "Download MP3", duration: "Duration", nowPlaying: "Now playing", tracks: "tracks", all: "All", spotlight: "In the spotlight", playAll: "Play all",
-    },
+      plays: "plays", likes: "likes", share: "Share song", allSongs: "All songs", listen: "Listen", shareText: "Listen to {title}", page: "Song", copied: "Link copied" },
     drawings: {
       title: "Drawings", lede: "Digital sketches and sumi-e ink. Newest first. Click a picture to see it full screen.",
       gallery: "Gallery", timeline: "Timeline", all: "All", filter: "Technique", newest: "Newest", oldest: "Oldest", count: "drawings",
@@ -85,7 +85,7 @@ export default {
       title: "Песни", lede: "Песни, които пиша с изкуствен интелект: текст, стил, настроение. Пусни и чети заедно с музиката.",
       play: "Пусни", pause: "Пауза", prev: "Предишна", next: "Следваща", shuffle: "Разбъркай", repeat: "Повтори", volume: "Сила на звука", lyrics: "Текст", style: "Стил",
       openOnSuno: "Отвори в Suno", download: "Свали MP3", duration: "Продължителност", nowPlaying: "Сега свири", tracks: "песни", all: "Всички", spotlight: "На светлината на прожекторите", playAll: "Пусни всички",
-    },
+      plays: "прослушвания", likes: "харесвания", share: "Сподели песента", allSongs: "Всички песни", listen: "Слушай", shareText: "Чуй {title}", page: "Песен", copied: "Връзката е копирана" },
     drawings: {
       title: "Рисунки", lede: "Дигитални скици и туш суми-е. Най-новите са първи. Кликни върху рисунка, за да я видиш на цял екран.",
       gallery: "Галерия", timeline: "Линия на времето", all: "Всички", filter: "Техника", newest: "Най-нови", oldest: "Най-стари", count: "рисунки",
@@ -131,7 +131,7 @@ export default {
       title: "歌", lede: "AIと一緒に作った歌：歌詞、スタイル、雰囲気。再生して、歌詞を読みながら聴いてください。",
       play: "再生", pause: "一時停止", prev: "前の曲", next: "次の曲", shuffle: "シャッフル", repeat: "リピート", volume: "音量", lyrics: "歌詞", style: "スタイル",
       openOnSuno: "Sunoで開く", download: "MP3をダウンロード", duration: "長さ", nowPlaying: "再生中", tracks: "曲", all: "すべて", spotlight: "スポットライト", playAll: "すべて再生",
-    },
+      plays: "回再生", likes: "いいね", share: "歌を共有", allSongs: "すべての歌", listen: "聴く", shareText: "{title}を聴く", page: "歌", copied: "リンクをコピーしました" },
     drawings: {
       title: "絵", lede: "デジタルスケッチと墨絵。新しいものから順に。クリックすると全画面で見られます。",
       gallery: "ギャラリー", timeline: "タイムライン", all: "すべて", filter: "技法", newest: "新しい順", oldest: "古い順", count: "点",

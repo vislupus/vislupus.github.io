@@ -33,6 +33,8 @@
     }
   };
   const play = (i) => { if (i != null) { pos = order.indexOf(i); load(current()); } audio.play().catch(() => {}); mark(); };
+  // Прослушване: броим веднъж на песен (след 5 секунди слушане), виж likes.js.
+  audio.addEventListener("timeupdate", () => { const s = current(); if (s && !s.counted && audio.currentTime > 5) { s.counted = true; document.dispatchEvent(new CustomEvent("song:play", { detail: s.slug })); } });
   const next = () => { if (pos + 1 < order.length) { pos++; load(current()); play(); } else if (repeat) { pos = 0; load(current()); play(); } else { audio.pause(); mark(); } };
   const prev = () => { if (audio.currentTime > 3 || pos === 0) { audio.currentTime = 0; return; } pos--; load(current()); play(); };
   const reshuffle = () => { const cur = order[pos]; order = songs.map((_, i) => i); if (shuffle) { for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; } order.splice(order.indexOf(cur), 1); order.unshift(cur); pos = 0; } else pos = order.indexOf(cur); };
@@ -56,6 +58,14 @@
   seek.addEventListener("input", () => { if (audio.duration) audio.currentTime = (seek.value / 1000) * audio.duration; });
   vol.addEventListener("input", () => { audio.volume = Number(vol.value); store.set("volume", vol.value); });
   document.addEventListener("keydown", (e) => { if (e.target.matches("input, textarea") || player.hidden) return; if (e.code === "Space") { e.preventDefault(); $("[data-player-toggle]").click(); } });
+  // Споделяне на песен: системният диалог за споделяне, иначе копиране на връзката.
+  document.querySelectorAll("[data-share-song]").forEach((b) => b.addEventListener("click", async () => {
+    const url = b.dataset.shareSong, title = b.dataset.shareTitle;
+    if (navigator.share) { try { await navigator.share({ title, url }); return; } catch { /* отказано */ } }
+    try { await navigator.clipboard.writeText(url); } catch { /* ignore */ }
+    const old = b.getAttribute("title"); b.setAttribute("title", b.dataset.copied); b.classList.add("is-copied");
+    setTimeout(() => { b.classList.remove("is-copied"); b.setAttribute("title", old); }, 1800);
+  }));
   // Ако адресът е #slug – скрол до песента (без автоматично пускане).
   if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView({ block: "center" });
 })();

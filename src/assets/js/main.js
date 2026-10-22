@@ -59,9 +59,9 @@
     links.forEach((_, id) => { const h = document.getElementById(id); if (h) io.observe(h); });
   }
 
-  // Текстове за песните (сгъване на текста)
-  $$("[data-lyrics-toggle]").forEach((b) => b.addEventListener("click", () => {
-    const box = document.getElementById(`lyrics-${b.dataset.lyricsToggle}`);
+  // Сгъваеми панели (стил и текст на песните): <button data-panel-toggle="id">
+  $$("[data-panel-toggle]").forEach((b) => b.addEventListener("click", () => {
+    const box = document.getElementById(b.dataset.panelToggle);
     if (!box) return;
     box.hidden = !box.hidden;
     b.setAttribute("aria-expanded", String(!box.hidden));

@@ -10,7 +10,7 @@
 {%- set hasChart = content | includes('data-chart=') -%}
 {%- set hasYoutube = content | includes('data-yt=') -%}
 {%- set ogImage = ogImageUrl or (image if image and image.startsWith("http")) or (page | ogImage({ title: pageTitle or site.title, subtitle: pageDescription, section: ("nav." + section) | t(lang) if section and section != "pages" and section != "index" else "", lang: lang })) -%}
-{%- set ogImage = ogImage | absoluteUrl -%}
+{%- set ogImage = ogImage | toAbsolute -%}
 <!doctype html>
 <html lang="{{ lang | hreflang }}" data-theme="{{ site.theme }}" data-scheme="{{ site.colorScheme }}" data-lang="{{ lang }}"{% if site.neon.dataApiUrl %} data-neon-api="{{ site.neon.dataApiUrl }}"{% endif %}>
 <head>
@@ -24,12 +24,12 @@
   <meta name="theme-color" content="{{ site.colors[site.theme].light.bg }}" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="{{ site.colors[site.theme].dark.bg }}" media="(prefers-color-scheme: dark)">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="canonical" href="{{ page.url | absoluteUrl }}">
+  <link rel="canonical" href="{{ page.url | toAbsolute }}">
   {%- for code, url in translations %}
-  <link rel="alternate" hreflang="{{ code | hreflang }}" href="{{ url | absoluteUrl }}">
+  <link rel="alternate" hreflang="{{ code | hreflang }}" href="{{ url | toAbsolute }}">
   {%- endfor %}
   {%- if translations[site.defaultLanguage] %}
-  <link rel="alternate" hreflang="x-default" href="{{ translations[site.defaultLanguage] | absoluteUrl }}">
+  <link rel="alternate" hreflang="x-default" href="{{ translations[site.defaultLanguage] | toAbsolute }}">
   {%- endif %}
   <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="/{{ lang }}/feed.xml">
   {#- Open Graph / Twitter – за хубав изглед при споделяне #}
@@ -37,9 +37,12 @@
   <meta property="og:site_name" content="{{ site.title }}">
   <meta property="og:title" content="{{ pageTitle or site.title }}">
   <meta property="og:description" content="{{ pageDescription | stripHtml }}">
-  <meta property="og:url" content="{{ page.url | absoluteUrl }}">
+  <meta property="og:url" content="{{ page.url | toAbsolute }}">
   <meta property="og:image" content="{{ ogImage }}">
+  <meta property="og:image:secure_url" content="{{ ogImage }}">
+  <meta property="og:image:type" content="{{ 'image/jpeg' if ogImage.endsWith('.jpg') or ogImage.endsWith('.jpeg') else 'image/png' }}">
   <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ pageTitle or site.title }}">
   <meta property="og:locale" content="{{ (lang | hreflang) | replace('-', '_') }}">
   {%- if section == 'blog' and page.date %}
   <meta property="article:published_time" content="{{ page.date | isoDate }}">

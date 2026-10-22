@@ -1,0 +1,58 @@
+---
+pagination:
+  data: songPages
+  size: 1
+  alias: sp
+permalink: "{{ sp.url }}"
+layout: layouts/base.njk
+section: songs
+bodyClass: has-player
+eleventyComputed:
+  lang: "{{ sp.lang }}"
+  title: "{{ sp.song.title }}"
+  description: "{{ sp.song.style | truncate(160) if sp.song.style else ('songs.lede' | t(sp.lang)) }}"
+  ogImageUrl: "{{ sp.song.ogImage or '' }}"
+  translationKey: "song-{{ sp.song.slug }}"
+---
+{%- set s = sp.song -%}
+{%- set rx = neonData.reactions["song:" + s.slug] -%}
+<article class="wrap song-page">
+  <p class="eyebrow"><a href="/{{ lang }}/songs/">{% icon "arrow-left", 14 %} {{ "songs.allSongs" | t(lang) }}</a></p>
+  <div class="song-hero">
+    <div class="song-hero-cover">
+      {%- if s.cover %}<img src="{{ s.cover }}" alt="{{ s.title }}" width="360" height="360" eleventy:ignore>{% else %}<span class="song-cover-placeholder">{% icon "music", 60 %}</span>{% endif %}
+    </div>
+    <div class="song-hero-body">
+      <h1>{{ s.title }}</h1>
+      <p class="song-meta">
+        {%- if s.duration %}<span>{% icon "clock", 16 %} {{ s.duration | duration }}</span>{% endif %}
+        <span data-plays="song:{{ s.slug }}"{% if not (rx and rx.plays) %} hidden{% endif %}>{% icon "headphones", 16 %} <span data-plays-count>{{ (rx.plays | localeNumber(lang)) if rx and rx.plays else "0" }}</span> {{ "songs.plays" | t(lang) }}</span>
+        {%- if s.genre %}<span>{% icon "tag", 16 %} {{ s.genre }}</span>{% endif %}
+      </p>
+      <ol class="song-list song-list-single" data-songs hidden><li id="{{ s.slug }}" data-song='{{ { slug: s.slug, title: s.title, artist: s.artist, src: s.src, cover: s.cover, duration: s.duration } | jsonAttr | safe }}'></li></ol>
+      <div class="song-actions">
+        <button type="button" class="btn btn-primary" data-play="{{ s.slug }}">{% icon "play", 18 %} <span>{{ "songs.listen" | t(lang) }}</span></button>
+        <button type="button" class="btn like-btn" data-like="song:{{ s.slug }}" aria-label="{{ 'ui.like' | t(lang) }}" aria-pressed="false">{% icon "heart", 18 %}<span class="like-count">{{ (rx.likes | localeNumber(lang)) if rx and rx.likes else "" }}</span> <span>{{ "ui.like" | t(lang) }}</span></button>
+        {%- if s.suno %}<a class="btn" href="{{ s.suno }}" target="_blank" rel="noopener" data-track="song-suno:{{ s.slug }}">{% icon "suno", 18 %} <span>{{ "songs.openOnSuno" | t(lang) }}</span></a>{% endif %}
+        <a class="btn" href="{{ s.download }}" download data-track="song-download:{{ s.slug }}">{% icon "download", 18 %} <span>{{ "songs.download" | t(lang) }}</span> <small>{{ s.size | bytes }}</small></a>
+      </div>
+      <div class="share" data-share data-copied="{{ 'ui.copied' | t(lang) }}">
+        <span class="share-label">{% icon "share-2", 16 %} {{ "songs.share" | t(lang) }}</span>
+        {%- set shareText = "songs.shareText" | t(lang, { title: s.title }) %}
+        <a class="icon-btn" href="https://bsky.app/intent/compose?text={{ (shareText + ' ' + (page.url | toAbsolute)) | urlencode }}" target="_blank" rel="noopener" aria-label="Bluesky" title="Bluesky" data-track="share:bluesky">{% icon "bluesky", 18 %}</a>
+        <a class="icon-btn" href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | toAbsolute | urlencode }}" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook" data-track="share:facebook">{% icon "facebook", 18 %}</a>
+        <a class="icon-btn" href="https://x.com/intent/post?text={{ shareText | urlencode }}&url={{ page.url | toAbsolute | urlencode }}" target="_blank" rel="noopener" aria-label="X" title="X" data-track="share:x">{% icon "x", 16 %}</a>
+        <a class="icon-btn" href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | toAbsolute | urlencode }}" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn" data-track="share:linkedin">{% icon "linkedin", 18 %}</a>
+        <a class="icon-btn" href="mailto:?subject={{ s.title | urlencode }}&body={{ page.url | toAbsolute | urlencode }}" aria-label="Email" title="Email" data-track="share:email">{% icon "mail", 18 %}</a>
+        <button type="button" class="icon-btn" data-copy="{{ page.url | toAbsolute }}" aria-label="{{ 'ui.copyLink' | t(lang) }}" title="{{ 'ui.copyLink' | t(lang) }}" data-track="share:copy">{% icon "copy", 18 %}</button>
+      </div>
+    </div>
+  </div>
+  <div class="song-page-columns">
+    {%- if s.style %}<section class="song-panel is-open"><h2 class="section-title">{% icon "sparkles", 20 %} {{ "songs.style" | t(lang) }}</h2><p class="song-style-full">{{ s.style }}</p></section>{% endif %}
+    {%- if s.lyrics %}<section class="song-panel is-open"><h2 class="section-title">{% icon "quote", 20 %} {{ "songs.lyrics" | t(lang) }}</h2><pre class="lyrics">{{ s.lyrics }}</pre></section>{% endif %}
+  </div>
+</article>
+{% include "partials/player.njk" %}
+<script src="/assets/js/player.js" defer></script>
+<script src="/assets/js/likes.js" defer></script>

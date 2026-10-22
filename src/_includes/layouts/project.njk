@@ -6,7 +6,6 @@ layout: layouts/base.njk
 {%- for n in collections.projectNotes %}{% if n.data.lang == lang and n.data.translationKey | lower == pr.slug %}{% set notes = n %}{% endif %}{% endfor -%}
 <article class="wrap project-page">
   <header class="page-header project-header">
-    <p class="eyebrow"><a href="/{{ lang }}/projects/">{{ "nav.projects" | t(lang) }}</a></p>
     <h1>{% icon "folder-git-2", 30 %} {{ pr.name }}</h1>
     <p class="lede">{{ (notes.data.description | ml(lang)) if notes and notes.data.description else (pr.description or ("projects.noDescription" | t(lang))) }}</p>
     <div class="project-actions">
@@ -31,7 +30,8 @@ layout: layouts/base.njk
         {%- if pr.license %}<div><dt>{{ "projects.license" | t(lang) }}</dt><dd>{{ pr.license }}</dd></div>{% endif %}
         {%- if pr.createdAt %}<div><dt>{{ "projects.created" | t(lang) }}</dt><dd>{{ pr.createdAt | localeDate(lang, "short") }}</dd></div>{% endif %}
         {%- if pr.pushedAt %}<div><dt>{{ "projects.updated" | t(lang) }}</dt><dd>{{ pr.pushedAt | localeDate(lang, "short") }}</dd></div>{% endif %}
-        {%- if pr.release %}<div><dt>{{ "projects.latestRelease" | t(lang) }}</dt><dd><a href="{{ pr.release.url }}" target="_blank" rel="noopener">{{ pr.release.tag }}</a>{% if pr.release.publishedAt %} <small>· {{ pr.release.publishedAt | localeDate(lang, "short") }}</small>{% endif %}</dd></div>{% endif %}
+        {%- if pr.release %}<div><dt>{{ "projects.latestRelease" | t(lang) }}</dt><dd><a href="{{ pr.release.url }}" target="_blank" rel="noopener">{{ pr.release.tag }}</a></dd></div>
+        {%- if pr.release.publishedAt %}<div><dt></dt><dd><small>{{ pr.release.publishedAt | localeDate(lang, "short") }}</small></dd></div>{% endif %}{% endif %}
       </dl>
       {%- if pr.languages.length %}
       <div class="lang-bar" aria-label="{{ 'projects.languages' | t(lang) }}">

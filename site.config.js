@@ -25,7 +25,7 @@ export default {
   //   modern – модерен, чист, с меки градиенти и стъклени повърхности
   //   sketch – като Excalidraw: ръчно рисувани, неравни линии
   //   iso    – изометрични SVG илюстрации и много графика
-  theme: "modern",
+  theme: "iso",
   // true = в долния колонтитул има превключвател за преглед на трите теми
   // (и трите CSS файла се зареждат). Сложи false, когато вече си избрал тема.
   themePreview: true,
@@ -45,16 +45,16 @@ export default {
   colors: {
     modern: {
       light: {
-        bg: "#f7f8fc", bg2: "#eef1f8", surface: "#ffffff", surface2: "#f1f4fa",
-        text: "#141824", muted: "#5b6478", border: "#dfe4ef",
-        accent: "#4f46e5", accent2: "#06b6d4", accentText: "#ffffff", link: "#4338ca",
+        bg: "#f8f8f6", bg2: "#f1f1ed", surface: "#ffffff", surface2: "#f2f2ee",
+        text: "#1a1b1e", muted: "#5f6368", border: "#e1e2dc",
+        accent: "#2563eb", accent2: "#f97316", accentText: "#ffffff", link: "#1d4ed8",
         codeBg: "#1b1f2e", codeText: "#e6e9f2",
         note: "#3b82f6", tip: "#10b981", curious: "#a855f7", warning: "#f59e0b", danger: "#ef4444",
       },
       dark: {
-        bg: "#0c0f17", bg2: "#11141f", surface: "#171b28", surface2: "#1f2434",
-        text: "#eceef6", muted: "#9aa3b8", border: "#2a3042",
-        accent: "#818cf8", accent2: "#22d3ee", accentText: "#0c0f17", link: "#a5b4fc",
+        bg: "#111214", bg2: "#17181b", surface: "#1c1d21", surface2: "#25262b",
+        text: "#eceeee", muted: "#9a9ea6", border: "#2e3036",
+        accent: "#60a5fa", accent2: "#fb923c", accentText: "#111214", link: "#93c5fd",
         codeBg: "#0a0d14", codeText: "#e6e9f2",
         note: "#60a5fa", tip: "#34d399", curious: "#c084fc", warning: "#fbbf24", danger: "#f87171",
       },
@@ -107,7 +107,7 @@ export default {
   nav: ["blog", "projects", "songs", "drawings", "about"],
 
   // --- Социални мрежи и контакти ------------------------------------------
-  // icon = име на иконка от https://lucide.dev/icons/ или от src/_includes/icons/ (bluesky, huggingface, kaggle).
+  // icon = име на иконка от https://lucide.dev/icons/ или официално лого от Simple Icons (github, bluesky, huggingface, kaggle, facebook, x, youtube, suno …).
   social: [
     { id: "github", label: "GitHub", url: "https://github.com/vislupus", icon: "github" },
     { id: "bluesky", label: "Bluesky", url: "https://bsky.app/profile/vislupus.bsky.social", icon: "bluesky" },
@@ -184,7 +184,7 @@ export default {
 
   // --- Neon ----------------------------------------------------------------
   // dataApiUrl: адресът на Neon Data API (Console → Data API → API URL), напр. https://ep-....apirest.eu-central-1.aws.neon.tech/neondb/rest/v1
-  // Използва се от браузъра за харесванията на рисунките (ролята anonymous, виж neon/schema.sql).
+  // Използва се от браузъра за харесванията и прослушванията (ролята anonymous, виж neon/schema.sql).
   // DATABASE_URL (secret в GitHub Actions) се ползва само при билда и за синхронизацията на аналитиката.
   neon: {
     dataApiUrl: process.env.NEON_DATA_API_URL || "",

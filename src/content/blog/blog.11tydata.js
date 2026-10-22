@@ -10,7 +10,7 @@ export default {
     // Снимката на публикацията (image: images/cover.jpg) като път от корена на проекта – за картите и OG.
     imagePath: (data) => (data.image && !/^https?:/.test(data.image) ? path.join(path.dirname(data.page.inputPath), data.image).replace(/^\.?\//, "") : data.image ?? null),
     coverMeta: async (data) => imageMeta(data.imagePath, [480, 960, 1600]),
-    ogImageUrl: async (data) => ogImageFrom(data.imagePath),
+    ogImageUrl: async (data) => ogImageFrom(data.imagePath, data.page.fileSlug),
     permalink: (data) => {
       if (data.draft && process.env.ELEVENTY_RUN_MODE !== "serve") return false;
       const { key, lang } = splitSlug(data.page.fileSlug);

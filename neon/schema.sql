@@ -1,62 +1,96 @@
 -- ============================================================================
 --  Neon (Postgres) за сайта. Изпълни този файл в SQL Editor в console.neon.tech.
---  1) drawing_likes – харесвания на рисунките (пишат се от браузъра през Data API, ролята anonymous)
+--
+--  ВАЖНО: първо включи Data API (Postgres database → Data API → Enable Data API).
+--  Това създава ролите authenticated и anonymous. Ако все пак ролята anonymous липсва,
+--  блокът по-долу я създава, за да не спира скриптът с „role "anonymous" does not exist“.
+--
+--  1) reactions – харесвания и прослушвания (рисунки, песни); пишат се от браузъра през Data API
 --  2) page_views, events – аналитика, синхронизирана от GoatCounter (scripts/sync-analytics.js)
 -- ============================================================================
 
--- --- 1. Харесвания на рисунките -------------------------------------------------
-create table if not exists drawing_likes (
-  slug        text primary key,            -- името на файла в src/content/drawings/ без .md (напр. fox-moon)
+do $$ begin
+  if not exists (select 1 from pg_roles where rolname = 'anonymous') then
+    create role anonymous nologin;
+  end if;
+end $$;
+
+-- --- 1. Реакции: харесвания и прослушвания -----------------------------------
+create table if not exists reactions (
+  kind        text not null check (kind in ('drawing', 'song', 'post')),
+  slug        text not null,                 -- рисунка: името на .md файла; песен: slug от заглавието
   likes       integer not null default 0 check (likes >= 0),
-  updated_at  timestamptz not null default now()
+  plays       integer not null default 0 check (plays >= 0),
+  updated_at  timestamptz not null default now(),
+  primary key (kind, slug)
 );
 
--- Функции, които браузърът вика през Data API: POST /rest/v1/rpc/like_drawing  {"p_slug": "fox-moon"}
--- Връщат новия брой харесвания. SECURITY DEFINER = изпълняват се с правата на създателя, не на anonymous.
-create or replace function like_drawing(p_slug text) returns integer
+-- Функции, които браузърът вика през Data API:
+--   POST /rest/v1/rpc/add_like     {"p_kind": "song", "p_slug": "across-the-screen"}
+--   POST /rest/v1/rpc/remove_like  {...}
+--   POST /rest/v1/rpc/add_play     {...}
+-- Връщат новата стойност. SECURITY DEFINER = изпълняват се с правата на създателя, не на anonymous.
+create or replace function reactions_check(p_kind text, p_slug text) returns void
+language plpgsql as $$
+begin
+  if p_kind is null or p_kind not in ('drawing', 'song', 'post') then raise exception 'invalid kind'; end if;
+  if p_slug is null or length(p_slug) > 160 or p_slug !~ '^[a-z0-9][a-z0-9_-]*$' then raise exception 'invalid slug'; end if;
+end $$;
+
+create or replace function add_like(p_kind text, p_slug text) returns integer
 language plpgsql security definer set search_path = public as $$
 declare n integer;
 begin
-  if p_slug is null or length(p_slug) > 120 or p_slug !~ '^[a-z0-9][a-z0-9_-]*$' then
-    raise exception 'invalid slug';
-  end if;
-  insert into drawing_likes (slug, likes) values (p_slug, 1)
-    on conflict (slug) do update set likes = drawing_likes.likes + 1, updated_at = now()
+  perform reactions_check(p_kind, p_slug);
+  insert into reactions (kind, slug, likes) values (p_kind, p_slug, 1)
+    on conflict (kind, slug) do update set likes = reactions.likes + 1, updated_at = now()
     returning likes into n;
   return n;
 end $$;
 
-create or replace function unlike_drawing(p_slug text) returns integer
+create or replace function remove_like(p_kind text, p_slug text) returns integer
 language plpgsql security definer set search_path = public as $$
 declare n integer;
 begin
-  update drawing_likes set likes = greatest(likes - 1, 0), updated_at = now() where slug = p_slug returning likes into n;
+  perform reactions_check(p_kind, p_slug);
+  update reactions set likes = greatest(likes - 1, 0), updated_at = now() where kind = p_kind and slug = p_slug returning likes into n;
   return coalesce(n, 0);
+end $$;
+
+create or replace function add_play(p_kind text, p_slug text) returns integer
+language plpgsql security definer set search_path = public as $$
+declare n integer;
+begin
+  perform reactions_check(p_kind, p_slug);
+  insert into reactions (kind, slug, plays) values (p_kind, p_slug, 1)
+    on conflict (kind, slug) do update set plays = reactions.plays + 1, updated_at = now()
+    returning plays into n;
+  return n;
 end $$;
 
 -- Права за анонимните заявки от сайта (Data API без Authorization header → ролята anonymous).
 -- Таблицата е само за четене; промените минават само през функциите.
 grant usage on schema public to anonymous;
-grant select on drawing_likes to anonymous;
-grant execute on function like_drawing(text) to anonymous;
-grant execute on function unlike_drawing(text) to anonymous;
-alter table drawing_likes enable row level security;
-drop policy if exists "public read likes" on drawing_likes;
-create policy "public read likes" on drawing_likes for select to anonymous using (true);
+grant select on reactions to anonymous;
+grant execute on function add_like(text, text) to anonymous;
+grant execute on function remove_like(text, text) to anonymous;
+grant execute on function add_play(text, text) to anonymous;
+revoke execute on function reactions_check(text, text) from public;
+alter table reactions enable row level security;
+drop policy if exists "public read reactions" on reactions;
+create policy "public read reactions" on reactions for select to anonymous using (true);
 
 -- --- 2. Аналитика от GoatCounter ----------------------------------------------------
--- Прегледи по страница и ден.
 create table if not exists page_views (
   path        text not null,               -- напр. /en/blog/seven-rila-lakes/
   day         date not null,
-  views       integer not null default 0,  -- посетители за деня (GoatCounter брои уникални посетители)
+  views       integer not null default 0,  -- посетители за деня
   title       text,
   synced_at   timestamptz not null default now(),
   primary key (path, day)
 );
 create index if not exists page_views_path_idx on page_views (path);
 
--- Събития: кликове по връзки, бутони, сваляния, смяна на език и т.н. (виж src/assets/js/analytics.js).
 create table if not exists events (
   name        text not null,               -- напр. click:social:bluesky, outbound:github.com, download:track.gpx
   day         date not null,
@@ -66,14 +100,12 @@ create table if not exists events (
   primary key (name, day)
 );
 
--- Състояние на синхронизацията (до кой ден е изтеглено).
 create table if not exists analytics_sync (
   id          integer primary key default 1 check (id = 1),
   last_day    date,
   updated_at  timestamptz not null default now()
 );
 
--- Удобни изгледи
 create or replace view page_views_total as
   select path, max(title) as title, sum(views)::integer as views, max(day) as last_day
   from page_views group by path order by views desc;
@@ -81,8 +113,4 @@ create or replace view events_total as
   select name, sum(count)::integer as count, max(day) as last_day
   from events group by name order by count desc;
 
--- Ролята за билда (DATABASE_URL в GitHub Secrets) може да е само за четене:
--- create role site_reader with login password '...';
--- grant usage on schema public to site_reader;
--- grant select on all tables in schema public to site_reader;
--- Скриптът за синхронизация обаче пише – за него ползвай connection string с права за запис.
+-- След промяна на схемата: Data API → „Refresh schema cache“.
