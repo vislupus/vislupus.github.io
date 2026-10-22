@@ -27,6 +27,10 @@ html[data-theme="sketch"] .lang-menu { position: absolute; }
 html[data-theme="sketch"] .toc { position: sticky; }
 @media (max-width: 64rem) { html[data-theme="sketch"] .toc { position: static; } }
 html[data-theme="sketch"] .card { overflow: visible; }
+html[data-theme="sketch"] .field input, html[data-theme="sketch"] .field textarea { border: var(--border-w) solid var(--c-border); border-radius: var(--radius-sm); box-shadow: 2px 2px 0 0 color-mix(in srgb, var(--c-border) 35%, transparent); }
+html[data-theme="sketch"] .comment-main, html[data-theme="sketch"] .comment-form { position: relative; isolation: isolate; border-color: transparent !important; box-shadow: none !important; background: transparent; }
+html[data-theme="sketch"] .comment-main::before, html[data-theme="sketch"] .comment-form::before { content: ""; position: absolute; inset: 0; z-index: -1; border: var(--border-w) solid var(--c-border); border-radius: inherit; background: var(--c-surface); box-shadow: var(--shadow); filter: var(--sketch-filter); pointer-events: none; }
+html[data-theme="sketch"] .comment-form::before { background: var(--c-surface2); border-style: dashed; box-shadow: none; }
 html[data-theme="sketch"] .card .card-image { border-radius: var(--radius-sm); margin: .5rem .5rem 0; aspect-ratio: 16 / 9; }
 html[data-theme="sketch"] .card-image img { border-radius: inherit; }
 html[data-theme="sketch"] .prose pre { --sk-bg: var(--c-codeBg); }

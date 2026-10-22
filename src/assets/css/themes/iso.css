@@ -63,3 +63,7 @@ html[data-theme="iso"] .callout-title::before { content: ""; width: .9rem; heigh
 html[data-theme="iso"] .snake-item.is-year-start::after { transform: skewX(-10deg); border-radius: 4px; }
 html[data-theme="iso"] .tag { border-radius: 4px; }
 html[data-theme="iso"] .segmented button[aria-selected="true"] { box-shadow: 2px 2px 0 0 var(--c-accent2); }
+html[data-theme="iso"] .comment-main { box-shadow: 4px 4px 0 -1px color-mix(in srgb, var(--c-accent) 16%, transparent); }
+html[data-theme="iso"] .comment-avatar { position: relative; background: none; isolation: isolate; }
+html[data-theme="iso"] .comment-avatar::before { content: ""; position: absolute; inset: .25rem; z-index: -1; border-radius: 6px; background: color-mix(in srgb, var(--c-accent) 18%, var(--c-surface2)); transform: rotate(45deg); box-shadow: 2px 2px 0 0 color-mix(in srgb, var(--c-accent2) 50%, transparent); }
+html[data-theme="iso"] .field input, html[data-theme="iso"] .field textarea { border-radius: 6px; }

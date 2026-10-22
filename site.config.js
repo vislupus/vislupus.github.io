@@ -170,10 +170,12 @@ export default {
     showViews: true,
   },
 
-  // --- Коментари (giscus) --------------------------------------------------
-  // Включи Discussions в хранилището, инсталирай https://github.com/apps/giscus и вземи repoId/categoryId от https://giscus.app
+  // --- Коментари -----------------------------------------------------------
+  // provider: "neon"   – собствени коментари в Neon (име + текст, без регистрация; таблица comments, виж neon/schema.sql)
+  //           "giscus" – GitHub Discussions (изисква вход в GitHub; repoId/categoryId от https://giscus.app)
   comments: {
     enabled: true,
+    provider: "neon",
     repo: "vislupus/vislupus.github.io",
     repoId: "",
     category: "Comments",

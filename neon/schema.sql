@@ -117,3 +117,49 @@ create or replace view events_total as
   from events group by name order by count desc;
 
 -- След промяна на схемата: Data API → „Refresh schema cache“.
+
+-- --- 3. Коментари -----------------------------------------------------------------
+-- Пишат се от браузъра (анонимен токен → ролята anonymous → функцията add_comment), четат се от изгледа comments_public.
+create table if not exists comments (
+  id          bigint generated always as identity primary key,
+  page        text not null,                 -- ключ на страницата, общ за преводите ѝ: напр. blog:seven-rila-lakes
+  url         text,                          -- адресът, от който е написан коментарът
+  lang        text,
+  parent_id   bigint references comments(id) on delete cascade,
+  name        text not null,
+  body        text not null,
+  approved    boolean not null default true, -- за одобрение преди показване: alter table comments alter column approved set default false;
+  created_at  timestamptz not null default now()
+);
+create index if not exists comments_page_idx on comments (page, created_at);
+
+create or replace view comments_public as
+  select id, page, lang, parent_id, name, body, created_at from comments where approved;
+
+-- POST /rest/v1/rpc/add_comment  {"p_page": "blog:seven-rila-lakes", "p_name": "Иван", "p_body": "…", "p_parent": null, "p_lang": "bg", "p_url": "/bg/blog/…/"}
+-- Връща новия коментар (id, approved, created_at). Проверки: дължина, не повече от 20 коментара на час за цялата таблица
+-- от анонимни, и родителят да е от същата страница.
+create or replace function add_comment(p_page text, p_name text, p_body text, p_parent bigint default null, p_lang text default null, p_url text default null)
+returns json language plpgsql security definer set search_path = public as $$
+declare r record;
+begin
+  if p_page is null or length(p_page) > 200 or p_page !~ '^[a-z0-9:_-]+$' then raise exception 'invalid page'; end if;
+  if p_name is null or length(btrim(p_name)) < 1 or length(p_name) > 60 then raise exception 'invalid name'; end if;
+  if p_body is null or length(btrim(p_body)) < 2 or length(p_body) > 4000 then raise exception 'invalid body'; end if;
+  if p_body ~* 'https?://' and (length(p_body) - length(replace(lower(p_body), 'http', ''))) / 4 > 2 then raise exception 'too many links'; end if;
+  if (select count(*) from comments where created_at > now() - interval '1 hour') >= 20 then raise exception 'too many comments, try later'; end if;
+  if p_parent is not null and not exists (select 1 from comments where id = p_parent and page = p_page) then raise exception 'invalid parent'; end if;
+  insert into comments (page, url, lang, parent_id, name, body)
+    values (p_page, left(p_url, 300), left(p_lang, 5), p_parent, btrim(p_name), btrim(p_body))
+    returning id, approved, created_at into r;
+  return json_build_object('id', r.id, 'approved', r.approved, 'created_at', r.created_at);
+end $$;
+
+grant select on comments_public to anonymous;
+grant execute on function add_comment(text, text, text, bigint, text, text) to anonymous;
+alter table comments enable row level security;
+drop policy if exists "public read approved comments" on comments;
+create policy "public read approved comments" on comments for select to anonymous using (approved);
+
+-- Модерация: в конзолата на Neon (Tables → comments) изтрий ред или сложи approved = false.
+-- За одобрение преди показване: alter table comments alter column approved set default false;

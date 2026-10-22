@@ -149,13 +149,13 @@ description: { en: "…", bg: "…", jp: "…" }   # по желание
 
 Workflow-ът `sync-analytics.yml` всеки ден записва статистиката в Neon (таблици `page_views`, `events`; изгледи `page_views_total`, `events_total`). Ползва експорта на GoatCounter (CSV на всички посещения) с курсор, така че всяко пускане добавя само новите посещения. Нужни secrets: `GOATCOUNTER_API_TOKEN` (GoatCounter → Settings → API, с права „Export data“ и „Read statistics“) и `DATABASE_URL`.
 
-## Коментари (giscus)
+## Коментари
 
-1. Включи Discussions в хранилището (Settings → General → Features → Discussions) и инсталирай приложението [giscus](https://github.com/apps/giscus) за хранилището.
-2. На [giscus.app](https://giscus.app) в секцията „Configuration“ въведи `vislupus/vislupus.github.io`, избери категория (например „Announcements“ или нова „Comments“) и mapping „pathname“.
-3. Най-долу, в секцията „Enable giscus“, се появява готов `<script>`. От него вземи `data-repo-id` (напр. `R_kgDO…`) → `repoId` и `data-category-id` (напр. `DIC_kwDO…`) → `categoryId` в `site.config.js → comments`. Категорията (`category`) трябва да е същата като избраната.
+По подразбиране коментарите са **собствени, в Neon** (`site.config.js → comments.provider: "neon"`): посетителят пише име и коментар, без регистрация. Коментарите за една публикация са общи за трите ѝ превода. Може да се отговаря на коментар (едно ниво). Таблицата `comments` и функцията `add_comment` са в `neon/schema.sql` (изпълни го отново, ако вече си пускал старата версия – добавя само новото). Защита: скрито поле срещу ботове, ограничения за дължина и брой връзки, най-много 20 коментара на час.
 
-Езикът на коментарите следва езика на страницата.
+Модерация: в Neon → Tables → `comments` изтрий ред или сложи `approved = false`. За одобрение преди показване: `alter table comments alter column approved set default false;` – тогава авторът вижда „ще се появи след одобрение“.
+
+Ако предпочиташ GitHub Discussions, сложи `provider: "giscus"` и `repoId`/`categoryId` от [giscus.app](https://giscus.app) (секцията „Enable giscus“ показва готов script с `data-repo-id` и `data-category-id`). За отделна публикация `comments: false` ги изключва.
 
 ## Публикуване
 
