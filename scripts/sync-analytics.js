@@ -51,7 +51,7 @@ function parseCsv(text) {
 async function main() {
   // Проверка на токена и адреса
   const me = await (await gc("GET", "/me")).json();
-  console.log(`[sync] GoatCounter ${SITE} (потребител: ${me.user?.email ?? "?"}) → Neon`);
+  console.log(`[sync v3] GoatCounter ${SITE} (потребител: ${me.user?.email ?? "?"}) → Neon`);
 
   await sql`create table if not exists analytics_sync (id integer primary key default 1 check (id = 1), last_day date, updated_at timestamptz not null default now())`;
   await sql`alter table analytics_sync add column if not exists last_hit_id bigint not null default 0`;
@@ -59,8 +59,10 @@ async function main() {
   const lastHitId = Number(state?.last_hit_id ?? 0);
 
   // 1. Поръчваме експорт от последното известно посещение нататък
-  let exp = await (await gc("POST", "/export", { format: "csv", start_from_hit_id: lastHitId })).json();
-  console.log(`[sync] експорт #${exp.id} от hit ${lastHitId}…`);
+  const req = { format: "csv", start_from_hit_id: lastHitId };
+  console.log(`[sync] POST /export ${JSON.stringify(req)}`);
+  let exp = await (await gc("POST", "/export?format=csv", req)).json();
+  console.log(`[sync] експорт #${exp.id} (${exp.format}) от hit ${lastHitId}…`);
   for (let i = 0; i < 120 && !exp.finished_at; i++) {
     await sleep(2000);
     exp = await (await gc("GET", `/export/${exp.id}`)).json();
