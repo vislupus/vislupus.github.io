@@ -12,7 +12,7 @@
 {%- set ogImage = ogImageUrl or (image if image and image.startsWith("http")) or (page | ogImage({ title: pageTitle or site.title, subtitle: pageDescription, section: ("nav." + section) | t(lang) if section and section != "pages" and section != "index" else "", lang: lang })) -%}
 {%- set ogImage = ogImage | toAbsolute -%}
 <!doctype html>
-<html lang="{{ lang | hreflang }}" data-theme="{{ site.theme }}" data-scheme="{{ site.colorScheme }}" data-lang="{{ lang }}"{% if site.neon.dataApiUrl %} data-neon-api="{{ site.neon.dataApiUrl }}"{% endif %}>
+<html lang="{{ lang | hreflang }}" data-theme="{{ site.theme }}" data-scheme="{{ site.colorScheme }}" data-lang="{{ lang }}"{% if site.neon.dataApiUrl %} data-neon-api="{{ site.neon.dataApiUrl }}"{% endif %}{% if site.neon.authUrl %} data-neon-auth="{{ site.neon.authUrl }}"{% endif %}>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">

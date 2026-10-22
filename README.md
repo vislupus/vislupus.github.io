@@ -135,9 +135,9 @@ description: { en: "…", bg: "…", jp: "…" }   # по желание
 ## Neon
 
 1. Направи проект в [console.neon.tech](https://console.neon.tech).
-2. **Първо включи Data API**: Postgres database → **Data API** → Enable Data API (може без Neon Auth). Това създава ролите `authenticated` и `anonymous`. Копирай **API URL** (`https://….apirest.….neon.tech/neondb/rest/v1`) в GitHub → Settings → Secrets and variables → Actions → като secret или variable `NEON_DATA_API_URL` (или директно в `site.config.js → neon.dataApiUrl`).
+2. **Първо включи Data API**: Postgres database → **Data API** → Enable Data API **с отметката „Use Neon Auth“** (Better Auth). Data API изисква JWT дори за анонимните заявки, а Neon Auth издава анонимен токен (`GET …/auth/token/anonymous`), който сайтът взима сам и кешира. Ако Data API вече е включен без Neon Auth, включи Better Auth от менюто вляво (или от Settings на Data API). Това създава ролите `authenticated` и `anonymous`. Копирай **API URL** (`https://….apirest.….neon.tech/neondb/rest/v1`) в GitHub → Settings → Secrets and variables → Actions → като secret или variable `NEON_DATA_API_URL` (или директно в `site.config.js → neon.dataApiUrl`).
 3. **После** изпълни `neon/schema.sql` в SQL Editor (ако го пуснеш преди Data API, ролята `anonymous` липсва и скриптът спира с „role "anonymous" does not exist“; новата версия на файла я създава сама, но Data API все пак трябва да е включен, за да работят заявките от браузъра). След това: Data API → **Refresh schema cache**.
-4. Заявките без Authorization се изпълняват с ролята `anonymous`, която може само да чете таблицата `reactions` и да вика функциите `add_like`, `remove_like`, `add_play`.
+4. Заявките с анонимния токен се изпълняват с ролята `anonymous`, която може само да чете таблицата `reactions` и да вика функциите `add_like`, `remove_like`, `add_play`. Адресът на Auth се извежда от адреса на Data API; ако е различен, задай `NEON_AUTH_URL` (или `site.config.js → neon.authUrl`). В конзолата на браузъра (F12) има диагностика `[reactions] …`.
 5. **Четене при билда** (броячи на харесвания, прослушвания и прегледи в HTML-а): secret `DATABASE_URL` с connection string.
 6. **Аналитика**: виж по-долу.
 

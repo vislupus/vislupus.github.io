@@ -1,8 +1,9 @@
 -- ============================================================================
 --  Neon (Postgres) за сайта. Изпълни този файл в SQL Editor в console.neon.tech.
 --
---  ВАЖНО: първо включи Data API (Postgres database → Data API → Enable Data API).
---  Това създава ролите authenticated и anonymous. Ако все пак ролята anonymous липсва,
+--  ВАЖНО: първо включи Data API (Postgres database → Data API → Enable Data API) С отметката
+--  „Use Neon Auth“ (Better Auth). Data API иска JWT и за анонимните заявки; Neon Auth издава анонимен
+--  токен (GET …/auth/token/anonymous), който сайтът взима сам. Това създава и ролите authenticated и anonymous. Ако все пак ролята anonymous липсва,
 --  блокът по-долу я създава, за да не спира скриптът с „role "anonymous" does not exist“.
 --
 --  1) reactions – харесвания и прослушвания (рисунки, песни); пишат се от браузъра през Data API
@@ -68,7 +69,7 @@ begin
   return n;
 end $$;
 
--- Права за анонимните заявки от сайта (Data API без Authorization header → ролята anonymous).
+-- Права за анонимните заявки от сайта (анонимен JWT от Neon Auth → ролята anonymous).
 -- Таблицата е само за четене; промените минават само през функциите.
 grant usage on schema public to anonymous;
 grant select on reactions to anonymous;
