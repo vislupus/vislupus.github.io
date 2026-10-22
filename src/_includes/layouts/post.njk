@@ -73,3 +73,7 @@ layout: layouts/base.njk
 {%- if site.analytics.showViews %}
 <script src="/assets/js/views.js" defer></script>
 {%- endif %}
+{%- if site.comments.enabled and comments != false and site.comments.provider != "giscus" %}
+<script src="/assets/js/neon.js" defer></script>
+<script src="/assets/js/comments.js" defer></script>
+{%- endif %}

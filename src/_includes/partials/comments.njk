@@ -1,23 +1,26 @@
-{#- Коментари с giscus (GitHub Discussions). Настройките са в site.config.js → comments. -#}
+{#- Коментари. provider "neon": собствени (neon/schema.sql + comments.js); "giscus": GitHub Discussions. -#}
 <section class="comments" id="comments">
+  {%- if site.comments.provider == "giscus" %}
   <h2 class="section-title">{% icon "message-circle", 20 %} {{ "ui.comments" | t(lang) }}</h2>
   {%- if site.comments.repoId and site.comments.categoryId %}
   <div class="giscus"></div>
-  <script src="https://giscus.app/client.js"
-    data-repo="{{ site.comments.repo }}"
-    data-repo-id="{{ site.comments.repoId }}"
-    data-category="{{ site.comments.category }}"
-    data-category-id="{{ site.comments.categoryId }}"
-    data-mapping="{{ site.comments.mapping }}"
-    data-strict="1"
-    data-reactions-enabled="{{ '1' if site.comments.reactions else '0' }}"
-    data-emit-metadata="0"
-    data-input-position="top"
-    data-theme="preferred_color_scheme"
-    data-lang="{{ 'ja' if lang == 'jp' else lang }}"
-    data-loading="lazy"
-    crossorigin="anonymous" async></script>
+  <script src="https://giscus.app/client.js" data-repo="{{ site.comments.repo }}" data-repo-id="{{ site.comments.repoId }}" data-category="{{ site.comments.category }}" data-category-id="{{ site.comments.categoryId }}" data-mapping="{{ site.comments.mapping }}" data-strict="1" data-reactions-enabled="{{ '1' if site.comments.reactions else '0' }}" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="{{ 'ja' if lang == 'jp' else lang }}" data-loading="lazy" crossorigin="anonymous" async></script>
+  {%- else %}<p class="muted"><small>giscus: добави repoId и categoryId в site.config.js.</small></p>{% endif %}
   {%- else %}
-  <p class="muted"><small>giscus: добави <code>repoId</code> и <code>categoryId</code> в <code>site.config.js</code> (от <a href="https://giscus.app">giscus.app</a>), за да се появят коментарите.</small></p>
+  {%- set c = "comments" | t(lang) %}
+  <div data-comments data-page="{{ section }}:{{ translationKey }}" data-i18n='{{ c | jsonAttr | safe }}'>
+    <h2 class="section-title">{% icon "message-circle", 20 %} {{ c.title }} <span class="muted" data-comments-count></span></h2>
+    <ol class="comments-list" data-comments-list></ol>
+    <p class="comments-status muted" data-comments-status aria-live="polite"></p>
+    <form class="comment-form" autocomplete="off">
+      <p class="reply-note" data-reply-note hidden>{% icon "corner-down-right", 14 %} {{ c.replyTo }} <strong data-reply-name></strong> <button type="button" class="link-btn" data-reply-cancel>{{ c.cancel }}</button></p>
+      <div class="field-row">
+        <label class="field"><span>{{ c.name }}</span><input type="text" name="name" maxlength="60" required></label>
+      </div>
+      <label class="field"><span>{{ c.message }}</span><textarea name="body" rows="4" maxlength="4000" required></textarea></label>
+      <label class="field hp" aria-hidden="true"><span>Website</span><input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      <div class="form-actions"><button type="submit" class="btn btn-primary">{% icon "send", 16 %} <span>{{ c.send }}</span></button><small class="muted">{{ c.note }}</small></div>
+    </form>
+  </div>
   {%- endif %}
 </section>
