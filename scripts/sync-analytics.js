@@ -51,7 +51,15 @@ function parseCsv(text) {
 async function main() {
   // Проверка на токена и адреса
   const me = await (await gc("GET", "/me")).json();
-  console.log(`[sync v3] GoatCounter ${SITE} (потребител: ${me.user?.email ?? "?"}) → Neon`);
+  console.log(`[sync v4] GoatCounter ${SITE} (потребител: ${me.user?.email ?? "?"}) → Neon`);
+  // Диагностика (не спира скрипта): кои сайтове вижда токенът, какви пътища има и общите броячи.
+  for (const [label, path] of [["сайтове", "/sites"], ["пътища", "/paths?limit=10"], ["общо", "/stats/total"], ["hits", "/stats/hits?limit=5"]]) {
+    try {
+      const r = await fetch(`${SITE}/api/v0${path}`, { headers });
+      const body = (await r.text()).slice(0, 600);
+      console.log(`[diag] ${label} GET ${path} → HTTP ${r.status}: ${body}`);
+    } catch (err) { console.log(`[diag] ${label}: ${err.message}`); }
+  }
 
   await sql`create table if not exists analytics_sync (id integer primary key default 1 check (id = 1), last_day date, updated_at timestamptz not null default now())`;
   await sql`alter table analytics_sync add column if not exists last_hit_id bigint not null default 0`;
