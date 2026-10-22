@@ -110,7 +110,7 @@ export default {
   // icon = име на иконка от https://lucide.dev/icons/ или официално лого от Simple Icons (github, bluesky, huggingface, kaggle, facebook, x, youtube, suno …).
   social: [
     { id: "github", label: "GitHub", url: "https://github.com/vislupus", icon: "github" },
-    { id: "bluesky", label: "Bluesky", url: "https://bsky.app/profile/vislupus.bsky.social", icon: "bluesky" },
+    { id: "bluesky", label: "Bluesky", url: "https://bsky.app/profile/nikola-bozhinov.bsky.social", icon: "bluesky" },
     { id: "huggingface", label: "Hugging Face", url: "https://huggingface.co/vislupus", icon: "huggingface" },
     { id: "kaggle", label: "Kaggle", url: "https://www.kaggle.com/vislupus", icon: "kaggle" },
     { id: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/in/nikolabozhinov", icon: "linkedin" },
@@ -138,7 +138,6 @@ export default {
   // Допълнителен текст/снимки за проект: src/content/projects/<име-на-хранилище>_<език>.md
   projects: {
     repos: [
-      "vislupus/ai-songs",
       "vislupus/Diffly",
       "vislupus/gps-adventure",
       "vislupus/happiness-tracker",
@@ -175,9 +174,9 @@ export default {
   comments: {
     enabled: true,
     repo: "vislupus/vislupus.github.io",
-    repoId: "",
-    category: "Comments",
-    categoryId: "",
+    repoId: "MDEwOlJlcG9zaXRvcnkyODg2ODk3NTQ=",
+    category: "Announcements",
+    categoryId: "DIC_kwDOETUOWs4DJV5E",
     mapping: "pathname",
     reactions: true,
   },
