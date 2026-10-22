@@ -48,6 +48,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           NEON_DATA_API_URL: ${{ secrets.NEON_DATA_API_URL || vars.NEON_DATA_API_URL }}
+          NEON_AUTH_URL: ${{ secrets.NEON_AUTH_URL || vars.NEON_AUTH_URL }}
           TZ: Europe/Sofia
       - uses: actions/upload-pages-artifact@v3
         with:

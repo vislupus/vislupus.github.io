@@ -187,5 +187,8 @@ export default {
   // DATABASE_URL (secret в GitHub Actions) се ползва само при билда и за синхронизацията на аналитиката.
   neon: {
     dataApiUrl: process.env.NEON_DATA_API_URL || "",
+    // Адресът на Neon Auth (Better Auth) за анонимния токен. Обикновено не е нужен – извежда се от dataApiUrl
+    // (.apirest. → .neonauth., /rest/v1 → /auth). Задай го само ако е различен.
+    authUrl: process.env.NEON_AUTH_URL || "",
   },
 };
