@@ -1,0 +1,22 @@
+---
+pagination:
+  data: languages
+  size: 1
+  alias: language
+permalink: "/{{ language.code }}/search/"
+layout: layouts/base.njk
+section: search
+translationKey: search
+eleventyComputed:
+  lang: "{{ language.code }}"
+  title: "{{ 'ui.search' | t(language.code) }}"
+---
+<div class="wrap search-page">
+  <header class="page-header"><h1>{% icon "search", 30 %} {{ "ui.search" | t(lang) }}</h1></header>
+  <form class="search-form" role="search" data-search data-index="/{{ lang }}/search-index.json" data-none="{{ 'ui.searchNone' | t(lang) }}" data-hint="{{ 'ui.searchHint' | t(lang) }}" data-results="{{ 'ui.searchResults' | t(lang) }}" onsubmit="return false">
+    <label class="search-box"><span class="sr-only">{{ "ui.search" | t(lang) }}</span>{% icon "search", 20 %}<input type="search" name="q" autocomplete="off" autofocus placeholder="{{ 'ui.searchPlaceholder' | t(lang) }}"></label>
+    <p class="search-status muted" aria-live="polite">{{ "ui.searchHint" | t(lang) }}</p>
+  </form>
+  <ol class="search-results" data-search-results></ol>
+</div>
+<script src="/assets/js/search.js" defer></script>

@@ -1,0 +1,11 @@
+---
+layout: layouts/base.njk
+---
+<article class="wrap page-article">
+  <header class="page-header">
+    {%- if eyebrow %}<p class="eyebrow">{{ eyebrow | ml(lang) }}</p>{% endif %}
+    <h1>{{ title | ml(lang) }}</h1>
+    {%- if description %}<p class="lede">{{ description | ml(lang) }}</p>{% endif %}
+  </header>
+  <div class="prose">{{ content | safe }}</div>
+</article>

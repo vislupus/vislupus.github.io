@@ -1,0 +1,15 @@
+{#- Очаква pr (проект) и lang -#}
+<article class="card project-card">
+  <a class="card-image card-image-repo" href="/{{ lang }}/projects/{{ pr.slug }}/" tabindex="-1" aria-hidden="true"><span class="card-image-fallback">{% icon "folder-git-2", 40 %}<span>{{ pr.name }}</span></span><img src="{{ pr.image }}" alt="" loading="lazy" decoding="async" onerror="this.remove()" eleventy:ignore></a>
+  <div class="card-body">
+    <h3 class="card-title"><a href="/{{ lang }}/projects/{{ pr.slug }}/" data-track="project:{{ pr.name }}">{% icon "folder-git-2", 18 %} {{ pr.name }}</a></h3>
+    <p class="card-text">{{ pr.description or ("projects.noDescription" | t(lang)) }}</p>
+    <ul class="repo-meta">
+      {%- if pr.language %}<li><span class="lang-dot" style="--lang:{{ pr.language | langColor }}"></span>{{ pr.language }}</li>{% endif %}
+      <li title="{{ 'projects.stars' | t(lang) }}">{% icon "star", 14 %} {{ pr.stars | localeNumber(lang) }}</li>
+      {%- if pr.forks %}<li title="{{ 'projects.forks' | t(lang) }}">{% icon "git-fork", 14 %} {{ pr.forks | localeNumber(lang) }}</li>{% endif %}
+      {%- if pr.pushedAt %}<li>{% icon "clock", 14 %} {{ pr.pushedAt | localeDate(lang, "short") }}</li>{% endif %}
+    </ul>
+    {%- if pr.topics.length %}<ul class="tag-list small">{% for tp in pr.topics | limit(4) %}<li><span class="tag">{{ tp }}</span></li>{% endfor %}</ul>{% endif %}
+  </div>
+</article>

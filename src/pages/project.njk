@@ -1,0 +1,15 @@
+---
+pagination:
+  data: projectPages
+  size: 1
+  alias: pp
+permalink: "{{ pp.url }}"
+layout: layouts/project.njk
+section: projects
+eleventyComputed:
+  lang: "{{ pp.lang }}"
+  title: "{{ pp.project.name }}"
+  description: "{{ pp.project.description }}"
+  image: "{{ pp.project.image }}"
+  translationKey: "project-{{ pp.project.slug }}"
+---

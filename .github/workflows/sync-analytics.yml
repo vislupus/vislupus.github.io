@@ -1,0 +1,28 @@
+# Всеки ден изтегля статистиката от GoatCounter (прегледи и кликове) и я записва в Neon.
+# Secrets: GOATCOUNTER_API_TOKEN (GoatCounter → Settings → API, права „Read statistics“)
+#          DATABASE_URL (Neon connection string с права за запис)
+name: Аналитика → Neon
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "41 3 * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    if: ${{ vars.ANALYTICS_SYNC != 'off' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run sync:analytics
+        env:
+          GOATCOUNTER_API_TOKEN: ${{ secrets.GOATCOUNTER_API_TOKEN }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}

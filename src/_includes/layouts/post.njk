@@ -1,0 +1,75 @@
+---
+layout: layouts/base.njk
+---
+{%- set posts = collections["posts_" + lang] -%}
+{%- set seriesPosts = (posts | withSeries(series)) if series else [] -%}
+{%- set toc = content | toc -%}
+<article class="post wrap{% if toc.length > 2 %} has-toc{% endif %}" itemscope itemtype="https://schema.org/BlogPosting">
+  <header class="post-header">
+    <p class="post-meta">
+      <a class="eyebrow" href="/{{ lang }}/blog/">{{ "nav.blog" | t(lang) }}</a>
+      {%- if series %} <span class="sep">·</span> <a class="eyebrow" href="/{{ lang }}/series/{{ series | slugify }}/">{{ series }}</a>{% endif %}
+    </p>
+    <h1 itemprop="headline">{{ title }}</h1>
+    {%- if description %}<p class="lede" itemprop="description">{{ description }}</p>{% endif %}
+    <div class="post-info">
+      <span>{% icon "calendar", 16 %} <time datetime="{{ page.date | isoDate }}" itemprop="datePublished">{{ page.date | localeDate(lang) }}</time></span>
+      {%- if updated %}<span>{% icon "pen-tool", 16 %} {{ "ui.updated" | t(lang) }} <time datetime="{{ updated | isoDate }}" itemprop="dateModified">{{ updated | localeDate(lang) }}</time></span>{% endif %}
+      <span>{% icon "clock", 16 %} {{ "ui.readingTime" | t(lang, { n: content | readingTime(lang) }) }}</span>
+      {%- if site.analytics.showViews %}<span class="views" data-views hidden>{% icon "eye", 16 %} <span data-views-count>{{ neonData.views[page.url] | localeNumber(lang) if neonData.views[page.url] else "" }}</span> {{ "ui.views" | t(lang) }}</span>{% endif %}
+      {%- if draft %}<span class="badge badge-warning">{{ "ui.draft" | t(lang) }}</span>{% endif %}
+    </div>
+    {%- if tags.length %}
+    <ul class="tag-list" aria-label="{{ 'ui.tags' | t(lang) }}">
+      {%- for tg in tags %}<li><a class="tag" href="/{{ lang }}/tags/{{ tg | slugify }}/">{% icon "hash", 12 %}{{ tg }}</a></li>{% endfor %}
+    </ul>
+    {%- endif %}
+  </header>
+
+  {%- if image %}
+  <figure class="post-cover">{{ coverMeta | picture({ alt: imageAlt or title, sizes: "(min-width: 64rem) 60rem, 100vw", eager: true, lightbox: imageCaption or title }) | safe }}{% if imageCaption %}<figcaption>{{ imageCaption }}</figcaption>{% endif %}</figure>
+  {%- endif %}
+
+  {%- if series and seriesPosts.length > 1 %}
+  {%- set idx = 0 %}{% for p in seriesPosts %}{% if p.url == page.url %}{% set idx = loop.index %}{% endif %}{% endfor %}
+  <aside class="series-box">
+    <p class="series-title">{% icon "layers", 18 %} <a href="/{{ lang }}/series/{{ series | slugify }}/">{{ series }}</a> <small>· {{ "ui.partOf" | t(lang, { n: idx, total: seriesPosts.length }) }}</small></p>
+    <ol>
+      {%- for p in seriesPosts %}<li{% if p.url == page.url %} aria-current="page"{% endif %}><a href="{{ p.url }}">{{ p.data.title }}</a></li>{% endfor %}
+    </ol>
+  </aside>
+  {%- endif %}
+
+  <div class="post-layout">
+    {%- if toc.length > 2 %}
+    <nav class="toc" aria-label="{{ 'ui.toc' | t(lang) }}">
+      <p class="toc-title">{% icon "list", 16 %} {{ "ui.toc" | t(lang) }}</p>
+      <ol>
+        {%- for h in toc %}<li class="toc-l{{ h.level }}"><a href="#{{ h.id }}">{{ h.text }}</a></li>{% endfor %}
+      </ol>
+    </nav>
+    {%- endif %}
+    <div class="prose" itemprop="articleBody">{{ content | safe }}</div>
+  </div>
+
+  <footer class="post-footer">
+    {% include "partials/share.njk" %}
+    {%- set prevPost = null %}{% set nextPost = null %}
+    {%- for p in posts %}{% if p.url == page.url %}{% if loop.index0 > 0 %}{% set nextPost = posts[loop.index0 - 1] %}{% endif %}{% if loop.index0 < posts.length - 1 %}{% set prevPost = posts[loop.index0 + 1] %}{% endif %}{% endif %}{% endfor %}
+    <nav class="post-nav" aria-label="{{ 'ui.previous' | t(lang) }} / {{ 'ui.next' | t(lang) }}">
+      {%- if prevPost %}<a class="post-nav-link prev" href="{{ prevPost.url }}"><small>{% icon "arrow-left", 14 %} {{ "ui.previous" | t(lang) }}</small><span>{{ prevPost.data.title }}</span></a>{% else %}<span></span>{% endif %}
+      {%- if nextPost %}<a class="post-nav-link next" href="{{ nextPost.url }}"><small>{{ "ui.next" | t(lang) }} {% icon "arrow-right", 14 %}</small><span>{{ nextPost.data.title }}</span></a>{% endif %}
+    </nav>
+    {%- set rel = posts | related(page.url, tags, series) %}
+    {%- if rel.length %}
+    <section class="related">
+      <h2 class="section-title">{% icon "bookmark", 20 %} {{ "ui.related" | t(lang) }}</h2>
+      <div class="card-grid">{% for p in rel %}{% include "partials/post-card.njk" %}{% endfor %}</div>
+    </section>
+    {%- endif %}
+    {%- if site.comments.enabled and comments != false %}{% include "partials/comments.njk" %}{% endif %}
+  </footer>
+</article>
+{%- if site.analytics.showViews %}
+<script src="/assets/js/views.js" defer></script>
+{%- endif %}

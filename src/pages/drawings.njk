@@ -1,0 +1,57 @@
+---
+pagination:
+  data: languages
+  size: 1
+  alias: language
+permalink: "/{{ language.code }}/drawings/"
+layout: layouts/base.njk
+section: drawings
+translationKey: drawings-index
+eleventyComputed:
+  lang: "{{ language.code }}"
+  title: "{{ 'drawings.title' | t(language.code) }}"
+  description: "{{ 'drawings.lede' | t(language.code) }}"
+---
+{%- set drawings = collections.drawings -%}
+{%- set mediaUsed = [] -%}
+{%- for d in drawings %}{% if d.data.medium and d.data.medium not in mediaUsed %}{% set mediaUsed = (mediaUsed.push(d.data.medium), mediaUsed) %}{% endif %}{% endfor -%}
+<div class="wrap drawings-page" data-drawings>
+  <header class="page-header">
+    <h1>{% icon "palette", 30 %} {{ "drawings.title" | t(lang) }}</h1>
+    <p class="lede">{{ "drawings.lede" | t(lang) }}</p>
+    <div class="page-tools">
+      <div class="segmented" role="tablist" aria-label="{{ 'drawings.gallery' | t(lang) }} / {{ 'drawings.timeline' | t(lang) }}">
+        <button type="button" role="tab" aria-selected="true" data-view="gallery">{% icon "layers", 16 %} {{ "drawings.gallery" | t(lang) }}</button>
+        <button type="button" role="tab" aria-selected="false" data-view="timeline">{% icon "git-fork", 16 %} {{ "drawings.timeline" | t(lang) }}</button>
+      </div>
+      <div class="filter-chips" role="group" aria-label="{{ 'drawings.filter' | t(lang) }}">
+        <button type="button" class="chip" aria-pressed="true" data-filter="all">{{ "drawings.all" | t(lang) }} <small>{{ drawings.length }}</small></button>
+        {%- for m in site.drawings.media %}{% if m in mediaUsed %}
+        <button type="button" class="chip" aria-pressed="false" data-filter="{{ m }}">{{ ("drawings.media." + m) | t(lang) }} <small>{{ (drawings | where("medium", m)).length }}</small></button>
+        {%- endif %}{% endfor %}
+      </div>
+    </div>
+  </header>
+
+  <section class="drawings-gallery" data-view-panel="gallery">
+    <div class="drawing-grid">{% for d in drawings %}{% include "partials/drawing-card.njk" %}{% endfor %}</div>
+  </section>
+
+  <section class="drawings-timeline" data-view-panel="timeline" hidden>
+    {#- Змиевидна линия на времето: редовете се подреждат от JavaScript според ширината; без JS е обикновена решетка. -#}
+    <ol class="snake" data-snake>
+      {%- for d in drawings %}
+      {%- set dTitle = d.data.title | ml(lang) %}
+      <li class="snake-item" data-medium="{{ d.data.medium }}" data-year="{{ d.date.getUTCFullYear() }}">
+        <figure>
+          {{ d.data.imageMeta | picture({ alt: dTitle, sizes: "(min-width: 40rem) 14rem, 45vw", lightbox: dTitle + " · " + (d.date | localeDate(lang, "month")) }) | safe }}
+          <figcaption><time datetime="{{ d.date | isoDate }}">{{ d.date | localeDate(lang, "short") }}</time><span>{{ dTitle }}</span></figcaption>
+        </figure>
+      </li>
+      {%- endfor %}
+    </ol>
+  </section>
+  {%- if not drawings.length %}<p class="muted">Добави рисунки в src/content/drawings/ (виж README).</p>{% endif %}
+</div>
+<script src="/assets/js/drawings.js" defer></script>
+<script src="/assets/js/likes.js" defer></script>

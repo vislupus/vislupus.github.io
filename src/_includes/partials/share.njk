@@ -1,0 +1,7 @@
+<div class="share" data-share data-copied="{{ 'ui.copied' | t(lang) }}">
+  <span class="share-label">{% icon "share-2", 16 %} {{ "ui.share" | t(lang) }}</span>
+  <a class="icon-btn" href="https://bsky.app/intent/compose?text={{ (title + ' ' + (page.url | absoluteUrl)) | urlencode }}" target="_blank" rel="noopener" aria-label="Bluesky" title="Bluesky" data-track="share:bluesky">{% icon "bluesky", 18 %}</a>
+  <a class="icon-btn" href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | absoluteUrl | urlencode }}" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn" data-track="share:linkedin">{% icon "linkedin", 18 %}</a>
+  <a class="icon-btn" href="mailto:?subject={{ title | urlencode }}&body={{ page.url | absoluteUrl | urlencode }}" aria-label="Email" title="Email" data-track="share:email">{% icon "mail", 18 %}</a>
+  <button type="button" class="icon-btn" data-copy="{{ page.url | absoluteUrl }}" aria-label="{{ 'ui.copyLink' | t(lang) }}" title="{{ 'ui.copyLink' | t(lang) }}" data-track="share:copy">{% icon "copy", 18 %}</button>
+</div>

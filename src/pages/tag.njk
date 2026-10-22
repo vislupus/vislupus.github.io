@@ -1,0 +1,21 @@
+---
+pagination:
+  data: collections.tagPages
+  size: 1
+  alias: tp
+permalink: "{{ tp.url }}"
+layout: layouts/base.njk
+section: tags
+eleventyComputed:
+  lang: "{{ tp.lang }}"
+  title: "{{ tp.tag }}"
+  translationKey: "tag-{{ tp.slug }}"
+---
+<div class="wrap">
+  <header class="page-header">
+    <p class="eyebrow"><a href="/{{ lang }}/tags/">{{ "ui.allTags" | t(lang) }}</a></p>
+    <h1>{% icon "hash", 30 %} {{ tp.tag }}</h1>
+    <p class="lede">{{ "ui.taggedWith" | t(lang) }} „{{ tp.tag }}“ · {{ tp.posts.length }}</p>
+  </header>
+  <div class="card-grid">{% for p in tp.posts %}{% include "partials/post-card.njk" %}{% endfor %}</div>
+</div>

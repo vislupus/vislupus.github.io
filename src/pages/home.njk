@@ -1,0 +1,60 @@
+---
+pagination:
+  data: languages
+  size: 1
+  alias: language
+permalink: "/{{ language.code }}/"
+layout: layouts/base.njk
+section: index
+translationKey: home
+bodyClass: is-home
+eleventyComputed:
+  lang: "{{ language.code }}"
+---
+{%- set posts = collections["posts_" + lang] -%}
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div class="hero-text">
+      <p class="eyebrow">{{ site.shortTitle }} · {{ "siteTagline" | t(lang) }}</p>
+      <h1 class="hero-title">{{ "home.hello" | t(lang) }}</h1>
+      <p class="lede">{{ "home.lede" | t(lang) }}</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/{{ lang }}/blog/">{% icon "book-open", 18 %} <span>{{ "nav.blog" | t(lang) }}</span></a>
+        <a class="btn" href="/{{ lang }}/projects/">{% icon "folder-git-2", 18 %} <span>{{ "nav.projects" | t(lang) }}</span></a>
+        <a class="btn" href="/{{ lang }}/about/">{% icon "user", 18 %} <span>{{ "nav.about" | t(lang) }}</span></a>
+      </div>
+      <ul class="social-list hero-social">
+        {%- for s in site.social %}<li><a href="{{ s.url }}" {% if not s.url.startsWith('mailto:') %}target="_blank" rel="me noopener"{% endif %} aria-label="{{ s.label }}" title="{{ s.label }}" data-track="social:{{ s.id }}">{% icon s.icon, 20 %}</a></li>{% endfor %}
+      </ul>
+    </div>
+    <div class="hero-art" aria-hidden="true">{% include "partials/hero-art.njk" %}</div>
+  </div>
+</section>
+
+<section class="wrap home-section">
+  <div class="section-head"><h2 class="section-title">{% icon "book-open", 22 %} {{ "home.latestPosts" | t(lang) }}</h2><a class="more-link" href="/{{ lang }}/blog/">{{ "home.allPosts" | t(lang) }} {% icon "arrow-right", 16 %}</a></div>
+  {%- if posts.length %}
+  <div class="card-grid">{% for p in posts | limit(6) %}{% include "partials/post-card.njk" %}{% endfor %}</div>
+  {%- else %}<p class="muted">{{ "ui.noPosts" | t(lang) }}</p>{% endif %}
+</section>
+
+<section class="wrap home-section">
+  <div class="section-head"><h2 class="section-title">{% icon "folder-git-2", 22 %} {{ "home.featuredProjects" | t(lang) }}</h2><a class="more-link" href="/{{ lang }}/projects/">{{ "home.allProjects" | t(lang) }} {% icon "arrow-right", 16 %}</a></div>
+  <div class="card-grid">{% for pr in projects | limit(3) %}{% include "partials/project-card.njk" %}{% endfor %}</div>
+</section>
+
+<section class="wrap home-section home-split">
+  <div>
+    <div class="section-head"><h2 class="section-title">{% icon "palette", 22 %} {{ "home.recentDrawings" | t(lang) }}</h2><a class="more-link" href="/{{ lang }}/drawings/">{{ "home.allDrawings" | t(lang) }} {% icon "arrow-right", 16 %}</a></div>
+    <div class="drawing-strip">{% for d in collections.drawings | limit(4) %}{% include "partials/drawing-card.njk" %}{% endfor %}</div>
+  </div>
+  <div>
+    <div class="section-head"><h2 class="section-title">{% icon "music", 22 %} {{ "home.songs" | t(lang) }}</h2><a class="more-link" href="/{{ lang }}/songs/">{{ "home.allSongs" | t(lang) }} {% icon "arrow-right", 16 %}</a></div>
+    <ul class="song-strip">
+      {%- for s in songs | limit(4) %}
+      <li><a href="/{{ lang }}/songs/#{{ s.slug }}">{% if s.cover %}<img src="{{ s.cover }}" alt="" width="56" height="56" loading="lazy" eleventy:ignore>{% else %}<span class="song-cover-placeholder">{% icon "music", 20 %}</span>{% endif %}<span><strong>{{ s.title }}</strong><small>{{ s.style | truncate(60) if s.style else s.genre }}</small></span>{% icon "play", 18 %}</a></li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+<script src="/assets/js/likes.js" defer></script>

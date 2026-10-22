@@ -1,0 +1,10 @@
+{#- Очаква d (рисунка) и lang -#}
+{%- set dTitle = d.data.title | ml(lang) -%}
+<figure class="drawing-card" data-medium="{{ d.data.medium }}" data-date="{{ d.date | isoDate }}" data-slug="{{ d.fileSlug }}" data-title="{{ dTitle }}">
+  {{ d.data.imageMeta | picture({ alt: dTitle, sizes: "(min-width: 64rem) 20rem, (min-width: 40rem) 45vw, 100vw", lightbox: dTitle + " · " + (d.date | localeDate(lang, "month")) }) | safe }}
+  <figcaption>
+    <span class="drawing-title">{{ dTitle }}</span>
+    <span class="drawing-meta"><time datetime="{{ d.date | isoDate }}">{{ d.date | localeDate(lang, "month") }}</time> · {{ ("drawings.media." + d.data.medium) | t(lang) }}</span>
+    <button type="button" class="like-btn" data-like="{{ d.fileSlug }}" aria-label="{{ 'ui.like' | t(lang) }}" aria-pressed="false">{% icon "heart", 18 %}<span class="like-count">{{ (neonData.likes[d.fileSlug] | localeNumber(lang)) if neonData.likes[d.fileSlug] else "" }}</span></button>
+  </figcaption>
+</figure>

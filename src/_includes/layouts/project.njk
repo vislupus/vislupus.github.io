@@ -1,0 +1,54 @@
+---
+layout: layouts/base.njk
+---
+{%- set pr = pp.project -%}
+{%- set notes = null -%}
+{%- for n in collections.projectNotes %}{% if n.data.lang == lang and n.data.translationKey | lower == pr.slug %}{% set notes = n %}{% endif %}{% endfor -%}
+<article class="wrap project-page">
+  <header class="page-header project-header">
+    <p class="eyebrow"><a href="/{{ lang }}/projects/">{{ "nav.projects" | t(lang) }}</a></p>
+    <h1>{% icon "folder-git-2", 30 %} {{ pr.name }}</h1>
+    <p class="lede">{{ (notes.data.description | ml(lang)) if notes and notes.data.description else (pr.description or ("projects.noDescription" | t(lang))) }}</p>
+    <div class="project-actions">
+      <a class="btn btn-primary" href="{{ pr.url }}" target="_blank" rel="noopener" data-track="project-repo:{{ pr.name }}">{% icon "github", 18 %} <span>{{ "projects.openRepo" | t(lang) }}</span></a>
+      {%- set site_url = pr.homepage or pr.pagesUrl %}
+      {%- if site_url %}<a class="btn" href="{{ site_url }}" target="_blank" rel="noopener" data-track="project-site:{{ pr.name }}">{% icon "external-link", 18 %} <span>{{ "projects.website" | t(lang) }}</span></a>{% endif %}
+      {%- if pr.release and pr.release.assets.length %}
+        {%- for a in pr.release.assets | limit(3) %}<a class="btn" href="{{ a.url }}" download data-track="project-download:{{ pr.name }}">{% icon "download", 18 %} <span>{{ a.name }}</span> <small>{{ a.size | bytes }}</small></a>{% endfor %}
+      {%- else %}
+      <a class="btn" href="{{ pr.zipUrl }}" data-track="project-zip:{{ pr.name }}">{% icon "file-down", 18 %} <span>{{ "projects.downloadZip" | t(lang) }}</span></a>
+      {%- endif %}
+    </div>
+  </header>
+
+  <div class="project-layout">
+    <aside class="project-side">
+      <dl class="facts">
+        {%- if pr.language %}<div><dt>{{ "projects.language" | t(lang) }}</dt><dd><span class="lang-dot" style="--lang:{{ pr.language | langColor }}"></span>{{ pr.language }}</dd></div>{% endif %}
+        <div><dt>{{ "projects.stars" | t(lang) }}</dt><dd>{% icon "star", 14 %} {{ pr.stars | localeNumber(lang) }}</dd></div>
+        <div><dt>{{ "projects.forks" | t(lang) }}</dt><dd>{% icon "git-fork", 14 %} {{ pr.forks | localeNumber(lang) }}</dd></div>
+        {%- if pr.openIssues %}<div><dt>Issues</dt><dd>{{ pr.openIssues | localeNumber(lang) }} {{ "projects.issues" | t(lang) }}</dd></div>{% endif %}
+        {%- if pr.license %}<div><dt>{{ "projects.license" | t(lang) }}</dt><dd>{{ pr.license }}</dd></div>{% endif %}
+        {%- if pr.createdAt %}<div><dt>{{ "projects.created" | t(lang) }}</dt><dd>{{ pr.createdAt | localeDate(lang, "short") }}</dd></div>{% endif %}
+        {%- if pr.pushedAt %}<div><dt>{{ "projects.updated" | t(lang) }}</dt><dd>{{ pr.pushedAt | localeDate(lang, "short") }}</dd></div>{% endif %}
+        {%- if pr.release %}<div><dt>{{ "projects.latestRelease" | t(lang) }}</dt><dd><a href="{{ pr.release.url }}" target="_blank" rel="noopener">{{ pr.release.tag }}</a>{% if pr.release.publishedAt %} <small>· {{ pr.release.publishedAt | localeDate(lang, "short") }}</small>{% endif %}</dd></div>{% endif %}
+      </dl>
+      {%- if pr.languages.length %}
+      <div class="lang-bar" aria-label="{{ 'projects.languages' | t(lang) }}">
+        <div class="lang-bar-track">{% for l in pr.languages | limit(6) %}<span style="width:{{ l.percent }}%;background:{{ l.name | langColor }}" title="{{ l.name }} {{ l.percent }}%"></span>{% endfor %}</div>
+        <ul>{% for l in pr.languages | limit(6) %}<li><span class="lang-dot" style="--lang:{{ l.name | langColor }}"></span>{{ l.name }} <small>{{ l.percent }}%</small></li>{% endfor %}</ul>
+      </div>
+      {%- endif %}
+      {%- if pr.topics.length %}<ul class="tag-list">{% for tp in pr.topics %}<li><span class="tag">{{ tp }}</span></li>{% endfor %}</ul>{% endif %}
+    </aside>
+    <div class="project-main">
+      {%- if notes %}<div class="prose project-notes">{{ notes.templateContent | safe }}</div>{% endif %}
+      {%- if pr.readme %}
+      <section class="readme">
+        <h2 class="section-title">{% icon "book-open", 20 %} {{ "projects.readme" | t(lang) }}</h2>
+        <div class="prose readme-body">{{ pr.readme.text | readme(pr) | safe }}</div>
+      </section>
+      {%- endif %}
+    </div>
+  </div>
+</article>

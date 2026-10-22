@@ -1,0 +1,10 @@
+{#- Очаква p (публикация) и lang -#}
+<article class="card post-card{% if p.data.image %} has-image{% endif %}">
+  {%- if p.data.image %}<a class="card-image" href="{{ p.url }}" tabindex="-1" aria-hidden="true">{{ p.data.coverMeta | picture({ alt: "", sizes: "(min-width: 48rem) 24rem, 100vw" }) | safe }}</a>{% endif %}
+  <div class="card-body">
+    <p class="card-meta"><time datetime="{{ p.date | isoDate }}">{{ p.date | localeDate(lang, "short") }}</time>{% if p.data.series %} · <span class="series-chip">{% icon "layers", 12 %}{{ p.data.series }}</span>{% endif %}</p>
+    <h3 class="card-title"><a href="{{ p.url }}">{{ p.data.title }}</a></h3>
+    <p class="card-text">{{ p.data.description or (p.templateContent | excerpt(150)) }}</p>
+    {%- if p.data.tags.length %}<ul class="tag-list small">{% for tg in p.data.tags | limit(4) %}<li><a class="tag" href="/{{ lang }}/tags/{{ tg | slugify }}/">{{ tg }}</a></li>{% endfor %}</ul>{% endif %}
+  </div>
+</article>

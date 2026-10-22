@@ -1,0 +1,64 @@
+# Публикува сайта в GitHub Pages при всеки push в master и веднъж на ден
+# (за да се обновят проектите от GitHub, песните и данните от Neon).
+# Settings → Pages → Build and deployment → Source: „GitHub Actions“.
+# Secrets (Settings → Secrets and variables → Actions):
+#   DATABASE_URL        – по желание; connection string от Neon (четене на харесвания и прегледи при билда)
+#   NEON_DATA_API_URL   – по желание (може и като Variable); адресът на Data API за харесванията от браузъра
+name: Публикуване
+
+on:
+  push:
+    branches: [master, main]
+  workflow_dispatch:
+  schedule:
+    - cron: "23 4 * * *"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: pages
+        uses: actions/configure-pages@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Кеш (GitHub API, картинки, шрифтове)
+        uses: actions/cache@v4
+        with:
+          path: .cache
+          key: eleventy-cache-${{ github.run_id }}
+          restore-keys: eleventy-cache-
+      - run: npm ci
+      - name: Билд
+        run: npm run build
+        env:
+          SITE_URL: ${{ steps.pages.outputs.origin }}
+          PATH_PREFIX: ${{ steps.pages.outputs.base_path }}/
+          GITHUB_TOKEN: ${{ github.token }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          NEON_DATA_API_URL: ${{ secrets.NEON_DATA_API_URL || vars.NEON_DATA_API_URL }}
+          TZ: Europe/Sofia
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

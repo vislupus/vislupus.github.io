@@ -1,0 +1,27 @@
+/* ==========================================================================
+   Тема „modern“: чиста, въздушна, меки градиентни петна, стъклени повърхности,
+   заоблени карти и плавни движения.
+   ========================================================================== */
+html[data-theme="modern"] {
+  --radius: 16px; --radius-sm: 10px; --radius-lg: 24px;
+  --shadow: 0 1px 2px rgb(16 24 40 / .04), 0 12px 32px -16px rgb(16 24 40 / .18);
+  --shadow-lg: 0 24px 60px -24px rgb(16 24 40 / .35);
+}
+html[data-theme="modern"] .theme-bg-modern { display: block; }
+html[data-theme="modern"] .art-modern { display: block; }
+html[data-theme="modern"] .blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .35; animation: drift 24s ease-in-out infinite alternate; }
+html[data-theme="modern"] .blob-1 { width: 40vw; height: 40vw; left: -10vw; top: -10vw; background: var(--c-accent); }
+html[data-theme="modern"] .blob-2 { width: 34vw; height: 34vw; right: -8vw; top: 10vh; background: var(--c-accent2); animation-delay: -8s; }
+html[data-theme="modern"] .blob-3 { width: 30vw; height: 30vw; left: 30vw; bottom: -15vw; background: var(--c-curious); opacity: .2; animation-delay: -16s; }
+@keyframes drift { from { transform: translate(0, 0) scale(1); } to { transform: translate(4vw, 3vh) scale(1.08); } }
+html[data-theme="modern"] .hero-title { background: linear-gradient(100deg, var(--c-text), var(--c-accent) 60%, var(--c-accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+html[data-theme="modern"] .site-header { background: color-mix(in srgb, var(--c-bg) 70%, transparent); }
+html[data-theme="modern"] .card, html[data-theme="modern"] .song, html[data-theme="modern"] .drawing-card { background: color-mix(in srgb, var(--c-surface) 85%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+html[data-theme="modern"] .btn-primary { background: linear-gradient(135deg, var(--c-accent), color-mix(in srgb, var(--c-accent) 60%, var(--c-accent2))); border: 0; box-shadow: 0 8px 24px -10px var(--c-accent); }
+html[data-theme="modern"] .brand-mark { background: linear-gradient(135deg, var(--c-accent), var(--c-accent2)); box-shadow: 0 6px 16px -8px var(--c-accent); }
+html[data-theme="modern"] .section-title .icon, html[data-theme="modern"] .page-header h1 .icon { filter: drop-shadow(0 4px 10px color-mix(in srgb, var(--c-accent) 50%, transparent)); }
+html[data-theme="modern"] .nav-list a[aria-current="page"] { box-shadow: 0 6px 16px -8px var(--c-accent); }
+html[data-theme="modern"] .step-num { background: linear-gradient(135deg, var(--c-accent), var(--c-accent2)); }
+html[data-theme="modern"] .callout { backdrop-filter: blur(6px); }
+html[data-theme="modern"] .prose pre { box-shadow: var(--shadow-lg); }
+html[data-theme="modern"] .site-footer { background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--c-accent) 6%, var(--c-bg2))); }

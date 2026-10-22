@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://vislupus.github.io/sitemap.xml

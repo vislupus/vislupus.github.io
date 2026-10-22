@@ -1,0 +1,35 @@
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-about">
+      <a class="brand" href="/{{ lang }}/"><span class="brand-mark" aria-hidden="true">{% include "partials/logo.njk" %}</span><strong>{{ site.title }}</strong></a>
+      <p>{{ "siteTagline" | t(lang) }}</p>
+      <ul class="social-list" aria-label="Social">
+        {%- for s in site.social %}
+        <li><a href="{{ s.url }}" {% if not s.url.startsWith('mailto:') %}target="_blank" rel="me noopener"{% endif %} aria-label="{{ s.label }}" title="{{ s.label }}" data-track="social:{{ s.id }}">{% icon s.icon, 20 %}</a></li>
+        {%- endfor %}
+        <li><a href="/{{ lang }}/feed.xml" aria-label="{{ 'ui.rss' | t(lang) }}" title="{{ 'ui.rss' | t(lang) }}">{% icon "rss", 20 %}</a></li>
+      </ul>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <ul>
+        {%- for item in site.nav %}<li><a href="/{{ lang }}/{{ item }}/">{{ ("nav." + item) | t(lang) }}</a></li>{% endfor %}
+        <li><a href="/{{ lang }}/tags/">{{ "nav.tags" | t(lang) }}</a></li>
+        <li><a href="/{{ lang }}/series/">{{ "nav.series" | t(lang) }}</a></li>
+        <li><a href="/{{ lang }}/search/">{{ "nav.search" | t(lang) }}</a></li>
+      </ul>
+    </nav>
+    <div class="footer-meta">
+      {%- if site.themePreview %}
+      <div class="theme-preview" role="group" aria-label="{{ 'ui.themePreview' | t(lang) }}">
+        <span>{% icon "palette", 16 %} {{ "ui.themePreview" | t(lang) }}</span>
+        <div class="theme-buttons">
+          <button type="button" data-set-theme="modern">{{ "ui.themeModern" | t(lang) }}</button>
+          <button type="button" data-set-theme="sketch">{{ "ui.themeSketch" | t(lang) }}</button>
+          <button type="button" data-set-theme="iso">{{ "ui.themeIso" | t(lang) }}</button>
+        </div>
+      </div>
+      {%- endif %}
+      <p><small>© {% year %} {{ site.author.name }} · {{ "ui.builtWith" | t(lang) }} {{ eleventy.version }} · {{ "ui.lastBuild" | t(lang) }}: {{ site.builtAt | localeDate(lang, "short") }}</small></p>
+    </div>
+  </div>
+</footer>

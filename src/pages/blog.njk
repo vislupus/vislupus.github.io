@@ -1,0 +1,28 @@
+---
+pagination:
+  data: collections.blogPages
+  size: 1
+  alias: pg
+permalink: "{{ pg.url }}"
+layout: layouts/base.njk
+section: blog
+eleventyComputed:
+  lang: "{{ pg.lang }}"
+  title: "{{ 'nav.blog' | t(pg.lang) }}"
+  translationKey: "{{ 'blog-index' if pg.number == 1 else 'blog-page-' + pg.number }}"
+---
+{%- set posts = collections["posts_" + lang] -%}
+<div class="wrap">
+  <header class="page-header">
+    <h1>{% icon "book-open", 30 %} {{ "nav.blog" | t(lang) }}</h1>
+    <p class="lede">{{ "siteTagline" | t(lang) }}</p>
+    <div class="page-tools">
+      {%- set tagsAll = posts | tagList %}
+      <ul class="tag-list">{% for tg in tagsAll | limit(12) %}<li><a class="tag" href="/{{ lang }}/tags/{{ tg.slug }}/">{{ tg.name }} <small>{{ tg.count }}</small></a></li>{% endfor %}{% if tagsAll.length > 12 %}<li><a class="tag tag-more" href="/{{ lang }}/tags/">{{ "ui.allTags" | t(lang) }} {% icon "arrow-right", 12 %}</a></li>{% endif %}</ul>
+    </div>
+  </header>
+  {%- if pg.posts.length %}
+  <div class="card-grid">{% for p in pg.posts %}{% include "partials/post-card.njk" %}{% endfor %}</div>
+  {%- else %}<p class="muted">{{ "ui.noPosts" | t(lang) }}</p>{% endif %}
+  {% include "partials/pagination.njk" %}
+</div>

@@ -1,0 +1,23 @@
+{#- Коментари с giscus (GitHub Discussions). Настройките са в site.config.js → comments. -#}
+<section class="comments" id="comments">
+  <h2 class="section-title">{% icon "message-circle", 20 %} {{ "ui.comments" | t(lang) }}</h2>
+  {%- if site.comments.repoId and site.comments.categoryId %}
+  <div class="giscus"></div>
+  <script src="https://giscus.app/client.js"
+    data-repo="{{ site.comments.repo }}"
+    data-repo-id="{{ site.comments.repoId }}"
+    data-category="{{ site.comments.category }}"
+    data-category-id="{{ site.comments.categoryId }}"
+    data-mapping="{{ site.comments.mapping }}"
+    data-strict="1"
+    data-reactions-enabled="{{ '1' if site.comments.reactions else '0' }}"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="{{ 'ja' if lang == 'jp' else lang }}"
+    data-loading="lazy"
+    crossorigin="anonymous" async></script>
+  {%- else %}
+  <p class="muted"><small>giscus: добави <code>repoId</code> и <code>categoryId</code> в <code>site.config.js</code> (от <a href="https://giscus.app">giscus.app</a>), за да се появят коментарите.</small></p>
+  {%- endif %}
+</section>

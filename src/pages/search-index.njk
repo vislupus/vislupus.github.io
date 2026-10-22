@@ -1,0 +1,24 @@
+---
+pagination:
+  data: languages
+  size: 1
+  alias: language
+permalink: "/{{ language.code }}/search-index.json"
+eleventyExcludeFromCollections: true
+eleventyComputed:
+  lang: "{{ language.code }}"
+---
+{%- set items = [] -%}
+{%- for p in collections["posts_" + lang] -%}
+  {%- set items = (items.push({ type: "post", url: p.url, title: p.data.title, description: p.data.description or "", tags: p.data.tags or [], series: p.data.series or "", date: p.date | isoDate, text: p.templateContent | stripHtml | truncate(4000) }), items) -%}
+{%- endfor -%}
+{%- for pr in projects -%}
+  {%- set items = (items.push({ type: "project", url: "/" + lang + "/projects/" + pr.slug + "/", title: pr.name, description: pr.description or "", tags: pr.topics, date: pr.pushedAt | isoDate, text: (pr.readme.text | stripHtml | truncate(1500)) if pr.readme else "" }), items) -%}
+{%- endfor -%}
+{%- for d in collections.drawings -%}
+  {%- set items = (items.push({ type: "drawing", url: "/" + lang + "/drawings/#" + d.fileSlug, title: d.data.title | ml(lang), description: ("drawings.media." + d.data.medium) | t(lang), tags: [d.data.medium], date: d.date | isoDate, text: d.data.description | ml(lang) }), items) -%}
+{%- endfor -%}
+{%- for s in songs -%}
+  {%- set items = (items.push({ type: "song", url: "/" + lang + "/songs/#" + s.slug, title: s.title, description: s.style | truncate(160), tags: [], date: "", text: s.lyrics | truncate(1500) }), items) -%}
+{%- endfor -%}
+{{ items | json | safe }}

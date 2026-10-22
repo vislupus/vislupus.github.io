@@ -1,0 +1,90 @@
+---
+pagination:
+  data: languages
+  size: 1
+  alias: language
+permalink: "/{{ language.code }}/songs/"
+layout: layouts/base.njk
+section: songs
+translationKey: songs-index
+bodyClass: has-player
+eleventyComputed:
+  lang: "{{ language.code }}"
+  title: "{{ 'songs.title' | t(language.code) }}"
+  description: "{{ 'songs.lede' | t(language.code) }}"
+---
+<div class="wrap songs-page">
+  <header class="page-header">
+    <h1>{% icon "music", 30 %} {{ "songs.title" | t(lang) }}</h1>
+    <p class="lede">{{ "songs.lede" | t(lang) }}</p>
+    <div class="page-tools">
+      <button type="button" class="btn btn-primary" data-play-all>{% icon "play", 18 %} <span>{{ "songs.playAll" | t(lang) }}</span></button>
+      <button type="button" class="btn" data-shuffle-all>{% icon "shuffle", 18 %} <span>{{ "songs.shuffle" | t(lang) }}</span></button>
+      <span class="muted">{{ songs.length }} {{ "songs.tracks" | t(lang) }} · <a href="https://github.com/{{ site.songs.repo }}" target="_blank" rel="noopener">{% icon "github", 14 %} {{ site.songs.repo }}</a></span>
+    </div>
+  </header>
+
+  {%- if songs.length %}
+  <ol class="song-list" data-songs>
+    {%- for s in songs %}
+    <li class="song" id="{{ s.slug }}" data-song='{{ { slug: s.slug, title: s.title, artist: s.artist, src: s.src, cover: s.cover, duration: s.duration } | jsonAttr | safe }}'>
+      <button type="button" class="song-cover" data-play="{{ s.slug }}" aria-label="{{ 'songs.play' | t(lang) }}: {{ s.title }}">
+        {%- if s.cover %}<img src="{{ s.cover }}" alt="" width="96" height="96" loading="lazy" decoding="async" eleventy:ignore>{% else %}<span class="song-cover-placeholder">{% icon "music", 28 %}</span>{% endif %}
+        <span class="song-play-overlay">{% icon "play", 26 %}{% icon "pause", 26 %}</span>
+      </button>
+      <div class="song-body">
+        <h2 class="song-title"><a href="#{{ s.slug }}">{{ s.title }}</a></h2>
+        <p class="song-meta">
+          {%- if s.duration %}<span>{% icon "clock", 14 %} {{ s.duration | duration }}</span>{% endif %}
+          {%- if s.genre %}<span>{% icon "tag", 14 %} {{ s.genre }}</span>{% endif %}
+          <span class="song-eq" aria-hidden="true"><i></i><i></i><i></i></span>
+        </p>
+        {%- if s.style %}<p class="song-style">{{ s.style | truncate(220) }}</p>{% endif %}
+        <div class="song-actions">
+          <button type="button" class="btn btn-small" data-play="{{ s.slug }}">{% icon "play", 16 %} <span>{{ "songs.play" | t(lang) }}</span></button>
+          {%- if s.lyrics %}<button type="button" class="btn btn-small" aria-expanded="false" data-lyrics-toggle="{{ s.slug }}">{% icon "quote", 16 %} <span>{{ "songs.lyrics" | t(lang) }}</span></button>{% endif %}
+          {%- if s.suno %}<a class="btn btn-small" href="{{ s.suno }}" target="_blank" rel="noopener" data-track="song-suno:{{ s.slug }}">{% icon "suno", 16 %} <span>{{ "songs.openOnSuno" | t(lang) }}</span></a>{% endif %}
+          <a class="btn btn-small" href="{{ s.download }}" download data-track="song-download:{{ s.slug }}">{% icon "download", 16 %} <span>{{ "songs.download" | t(lang) }}</span> <small>{{ s.size | bytes }}</small></a>
+        </div>
+        {%- if s.lyrics or s.style %}
+        <div class="song-lyrics" id="lyrics-{{ s.slug }}" hidden>
+          {%- if s.style %}<h3>{{ "songs.style" | t(lang) }}</h3><p class="song-style-full">{{ s.style }}</p>{% endif %}
+          {%- if s.lyrics %}<h3>{{ "songs.lyrics" | t(lang) }}</h3><pre class="lyrics">{{ s.lyrics }}</pre>{% endif %}
+        </div>
+        {%- endif %}
+      </div>
+    </li>
+    {%- endfor %}
+  </ol>
+  {%- else %}
+  <p class="muted">GitHub API не отговори при билда – песните ще се появят при следващия билд.</p>
+  {%- endif %}
+</div>
+
+<div class="player" data-player hidden aria-label="{{ 'songs.nowPlaying' | t(lang) }}">
+  <div class="wrap player-inner">
+    <div class="player-track">
+      <img class="player-cover" alt="" width="48" height="48" eleventy:ignore>
+      <div class="player-text"><strong class="player-title">–</strong><small class="player-artist"></small></div>
+    </div>
+    <div class="player-controls">
+      <button type="button" class="icon-btn" data-player-shuffle aria-pressed="false" aria-label="{{ 'songs.shuffle' | t(lang) }}" title="{{ 'songs.shuffle' | t(lang) }}">{% icon "shuffle", 18 %}</button>
+      <button type="button" class="icon-btn" data-player-prev aria-label="{{ 'songs.prev' | t(lang) }}" title="{{ 'songs.prev' | t(lang) }}">{% icon "skip-back", 20 %}</button>
+      <button type="button" class="icon-btn player-play" data-player-toggle aria-label="{{ 'songs.play' | t(lang) }}" title="{{ 'songs.play' | t(lang) }} / {{ 'songs.pause' | t(lang) }}">{% icon "play", 24 %}{% icon "pause", 24 %}</button>
+      <button type="button" class="icon-btn" data-player-next aria-label="{{ 'songs.next' | t(lang) }}" title="{{ 'songs.next' | t(lang) }}">{% icon "skip-forward", 20 %}</button>
+      <button type="button" class="icon-btn" data-player-repeat aria-pressed="false" aria-label="{{ 'songs.repeat' | t(lang) }}" title="{{ 'songs.repeat' | t(lang) }}">{% icon "repeat", 18 %}</button>
+    </div>
+    <div class="player-progress">
+      <span class="player-time" data-player-current>0:00</span>
+      <input type="range" min="0" max="1000" value="0" step="1" data-player-seek aria-label="{{ 'songs.duration' | t(lang) }}">
+      <span class="player-time" data-player-duration>0:00</span>
+    </div>
+    <div class="player-volume">
+      {% icon "volume-2", 18 %}
+      <input type="range" min="0" max="1" step="0.02" value="0.9" data-player-volume aria-label="{{ 'songs.volume' | t(lang) }}">
+    </div>
+    <button type="button" class="icon-btn" data-player-close aria-label="{{ 'ui.close' | t(lang) }}">{% icon "x", 20 %}</button>
+  </div>
+  <audio data-player-audio preload="none"></audio>
+</div>
+<script src="/assets/js/player.js" defer></script>

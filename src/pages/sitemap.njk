@@ -1,0 +1,11 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+{%- for p in collections.all %}{% if p.url and p.url != '/index.html' and not p.url.endsWith('.json') and not p.url.endsWith('.xml') and not p.url.endsWith('.css') and p.url != '/404.html' %}
+  <url><loc>{{ p.url | absoluteUrl }}</loc>{% if p.date %}<lastmod>{{ (p.data.updated or p.date) | isoDate }}</lastmod>{% endif %}
+  {%- if p.data.translationKey %}{% set tr = collections.translatable | translations(p) %}{% for code, u in tr %}<xhtml:link rel="alternate" hreflang="{{ code | hreflang }}" href="{{ u | absoluteUrl }}"/>{% endfor %}{% endif %}</url>
+{%- endif %}{% endfor %}
+</urlset>

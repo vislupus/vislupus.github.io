@@ -1,0 +1,26 @@
+---
+permalink: /404.html
+layout: layouts/base.njk
+section: pages
+eleventyExcludeFromCollections: true
+eleventyComputed:
+  lang: "{{ site.defaultLanguage }}"
+  title: "{{ 'ui.notFound' | t(site.defaultLanguage) }}"
+---
+<div class="wrap not-found">
+  {%- for l in site.languages %}
+  <section class="not-found-lang" data-lang-block="{{ l.code }}" lang="{{ l.hreflang }}"{% if l.code != site.defaultLanguage %} hidden{% endif %}>
+    <p class="eyebrow">404</p>
+    <h1>{{ "ui.notFound" | t(l.code) }}</h1>
+    <p class="lede">{{ "ui.notFoundText" | t(l.code) }}</p>
+    <p><a class="btn btn-primary" href="/{{ l.code }}/">{% icon "home", 18 %} <span>{{ "ui.goHome" | t(l.code) }}</span></a> <a class="btn" href="/{{ l.code }}/search/">{% icon "search", 18 %} <span>{{ "ui.search" | t(l.code) }}</span></a></p>
+  </section>
+  {%- endfor %}
+  <div class="not-found-art" aria-hidden="true">
+    <svg viewBox="0 0 320 200" width="320" height="200"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M40 150 60 60l30 40 10-40 40 90"/><path d="M160 150c0-50 10-90 40-90s40 40 40 90"/><path d="M170 110h60"/><circle cx="100" cy="30" r="8" stroke="var(--c-accent)"/><path d="M250 40l20-10M265 60l25 0" stroke="var(--c-accent2)"/></g></svg>
+  </div>
+</div>
+<script>
+  // Показва текста на езика от адреса (/bg/..., /jp/...).
+  (function () { var m = location.pathname.match(/^\/(en|bg|jp)\//); if (!m) return; document.querySelectorAll('[data-lang-block]').forEach(function (b) { b.hidden = b.dataset.langBlock !== m[1]; }); document.documentElement.lang = m[1] === 'jp' ? 'ja' : m[1]; })();
+</script>

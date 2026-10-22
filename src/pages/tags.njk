@@ -1,0 +1,20 @@
+---
+pagination:
+  data: languages
+  size: 1
+  alias: language
+permalink: "/{{ language.code }}/tags/"
+layout: layouts/base.njk
+section: tags
+translationKey: tags-index
+eleventyComputed:
+  lang: "{{ language.code }}"
+  title: "{{ 'nav.tags' | t(language.code) }}"
+---
+{%- set posts = collections["posts_" + lang] -%}
+<div class="wrap">
+  <header class="page-header"><h1>{% icon "tags", 30 %} {{ "ui.allTags" | t(lang) }}</h1></header>
+  <ul class="tag-cloud">
+    {%- for tg in posts | tagList %}<li><a class="tag" href="/{{ lang }}/tags/{{ tg.slug }}/" style="--w:{{ tg.count if tg.count < 6 else 6 }}">{% icon "hash", 12 %}{{ tg.name }} <small>{{ tg.count }}</small></a></li>{% endfor %}
+  </ul>
+</div>

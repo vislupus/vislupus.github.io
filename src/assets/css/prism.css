@@ -1,0 +1,13 @@
+/* Оцветяване на кода (Prism класове от @11ty/eleventy-plugin-syntaxhighlight), в тон с темите. */
+.token.comment, .token.prolog, .token.doctype, .token.cdata { color: #8b95a7; font-style: italic; }
+.token.punctuation { color: #aab2c4; }
+.token.property, .token.tag, .token.constant, .token.symbol, .token.deleted { color: #ff7b9c; }
+.token.boolean, .token.number { color: #ffb86c; }
+.token.selector, .token.attr-name, .token.string, .token.char, .token.builtin, .token.inserted { color: #9ee493; }
+.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string, .token.variable { color: #8be9fd; }
+.token.atrule, .token.attr-value, .token.function, .token.class-name { color: #ffd866; }
+.token.keyword { color: #c792ea; }
+.token.regex, .token.important { color: #ff9e64; }
+.token.important, .token.bold { font-weight: 700; }
+.token.italic { font-style: italic; }
+pre[class*="language-"] { tab-size: 2; }
