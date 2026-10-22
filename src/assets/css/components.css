@@ -264,6 +264,8 @@ a.link-card:hover, a.download-card:hover { border-color: var(--c-accent); transf
 .song-actions { display: flex; flex-wrap: wrap; gap: .4rem; }
 .song-panel { margin-top: 1rem; padding-top: 1rem; border-top: var(--border-w) solid var(--c-border); }
 .song-panel h3 { font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--c-muted); margin: 0 0 .5rem; }
+.song [data-play] .icon-pause, .song.is-playing [data-play] .icon-play { display: none; }
+.song.is-playing [data-play] .icon-pause { display: inline-block; }
 .song-actions .like-btn[aria-pressed="true"] { color: var(--c-danger); border-color: var(--c-danger); }
 .song-actions .like-btn .like-count:not(:empty) { margin-left: .1rem; }
 .song-actions .is-copied { color: var(--c-tip); border-color: var(--c-tip); }
@@ -319,7 +321,7 @@ a.link-card:hover, a.download-card:hover { border-color: var(--c-accent); transf
 /* --- Рисунки: галерия, змиевидна линия на времето, харесвания ---------------- */
 .drawing-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: 1.25rem; }
 .drawing-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.drawing-card { margin: 0; background: var(--c-surface); border: var(--border-w) solid var(--c-border); border-radius: var(--radius); overflow: hidden; transition: transform .25s var(--ease), box-shadow .25s; }
+.drawing-card { position: relative; margin: 0; background: var(--c-surface); border: var(--border-w) solid var(--c-border); border-radius: var(--radius); overflow: hidden; transition: transform .25s var(--ease), box-shadow .25s; }
 .drawing-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
 .drawing-card.is-hidden { display: none; }
 .drawing-card a { display: block; aspect-ratio: 1; overflow: hidden; background: var(--c-surface2); }

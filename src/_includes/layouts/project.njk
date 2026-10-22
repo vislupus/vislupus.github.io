@@ -6,6 +6,7 @@ layout: layouts/base.njk
 {%- for n in collections.projectNotes %}{% if n.data.lang == lang and n.data.translationKey | lower == pr.slug %}{% set notes = n %}{% endif %}{% endfor -%}
 <article class="wrap project-page">
   <header class="page-header project-header">
+    <p class="post-meta"><a class="eyebrow" href="/{{ lang }}/projects/">{{ "nav.projects" | t(lang) }}</a></p>
     <h1>{% icon "folder-git-2", 30 %} {{ pr.name }}</h1>
     <p class="lede">{{ (notes.data.description | ml(lang)) if notes and notes.data.description else (pr.description or ("projects.noDescription" | t(lang))) }}</p>
     <div class="project-actions">

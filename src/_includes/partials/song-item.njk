@@ -14,7 +14,7 @@
       <span class="song-eq" aria-hidden="true"><i></i><i></i><i></i></span>
     </p>
     <div class="song-actions">
-      <button type="button" class="btn btn-small" data-play="{{ s.slug }}">{% icon "play", 16 %} <span>{{ "songs.play" | t(lang) }}</span></button>
+      <button type="button" class="btn btn-small" data-play="{{ s.slug }}">{% icon "play", 16 %}{% icon "pause", 16 %} <span>{{ "songs.play" | t(lang) }}</span></button>
       {%- if s.style %}<button type="button" class="btn btn-small" aria-expanded="false" data-panel-toggle="style-{{ s.slug }}">{% icon "sparkles", 16 %} <span>{{ "songs.style" | t(lang) }}</span></button>{% endif %}
       {%- if s.lyrics %}<button type="button" class="btn btn-small" aria-expanded="false" data-panel-toggle="lyrics-{{ s.slug }}">{% icon "quote", 16 %} <span>{{ "songs.lyrics" | t(lang) }}</span></button>{% endif %}
       {%- if s.suno %}<a class="btn btn-small" href="{{ s.suno }}" target="_blank" rel="noopener" data-track="song-suno:{{ s.slug }}">{% icon "suno", 16 %} <span>Suno</span></a>{% endif %}

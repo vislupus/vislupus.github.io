@@ -142,7 +142,8 @@ html[data-scheme="dark"] .only-light { display: none; }
 
 /* --- Заглавия на страници ---------------------------------------------------- */
 .page-header { max-width: 52rem; margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
-.page-header h1 .icon { color: var(--c-accent); }
+.page-header h1 { display: flex; align-items: center; gap: .5rem; }
+.page-header h1 .icon { color: var(--c-accent); flex: none; }
 .eyebrow { display: inline-block; font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--c-accent); margin: 0 0 .5rem; text-decoration: none; }
 .lede { font-size: var(--fs-lg); color: var(--c-muted); max-width: 46rem; text-wrap: pretty; }
 .page-tools { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin-top: 1rem; }

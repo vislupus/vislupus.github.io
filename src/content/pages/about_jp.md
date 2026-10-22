@@ -1,4 +1,5 @@
 ---
+section: about
 title: 私について
 description: コード、数学、墨、歌で遊ぶブルガリアのeラーニング開発者。
 eyebrow: ニコラ・ボジノフ · vislupus

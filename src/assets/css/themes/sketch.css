@@ -14,7 +14,8 @@ html[data-theme="sketch"] {
 html[data-theme="sketch"] .art-sketch { display: block; color: var(--c-text); }
 html[data-theme="sketch"] body { background-image: radial-gradient(color-mix(in srgb, var(--c-border) 18%, transparent) 1px, transparent 1px); background-size: 22px 22px; }
 html[data-theme="sketch"] h1, html[data-theme="sketch"] h2, html[data-theme="sketch"] h3 { letter-spacing: 0; }
-html[data-theme="sketch"] .hero-title, html[data-theme="sketch"] .page-header h1 { position: relative; display: inline-block; }
+html[data-theme="sketch"] .hero-title { position: relative; display: inline-block; }
+html[data-theme="sketch"] .page-header h1 { position: relative; width: fit-content; }
 html[data-theme="sketch"] .hero-title::after, html[data-theme="sketch"] .page-header h1::after { content: ""; position: absolute; left: 0; right: 0; bottom: -.15em; height: .45em; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M2 7c40-6 80-4 120-2s50 3 76-3' fill='none' stroke='%23e03131' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / 100% 100%; opacity: .9; z-index: -1; }
 html[data-theme="sketch"] .brand-mark { background: transparent; color: var(--c-text); border: var(--border-w) solid var(--c-border); border-radius: var(--radius-sm); }
 html[data-theme="sketch"] .nav-list a { border-radius: var(--radius-sm); }
