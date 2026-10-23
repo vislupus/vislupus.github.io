@@ -29,8 +29,8 @@ npm run screenshots  # снимки на екрана на трите дизай
 | `src/assets/js/` | Скриптовете: меню/тема, lightbox, карти, диаграми, графики, търсене, плейър, рисунки, харесвания, аналитика |
 | `lib/` | Логиката при билда: Markdown, shortcode-ове, GitHub, песни, OG картинки, Neon |
 | `neon/schema.sql` | Таблиците и функциите в Neon |
-| `scripts/` | `sync-analytics.js` (GoatCounter → Neon), `screenshots.js`, `placeholders.js` |
-| `.github/workflows/` | `deploy.yml` (публикуване), `sync-analytics.yml` (аналитика всеки ден) |
+| `scripts/` | `screenshots.js`, `placeholders.js` |
+| `.github/workflows/` | `deploy.yml` (публикуване) |
 
 ## Трите дизайна
 
@@ -139,15 +139,12 @@ description: { en: "…", bg: "…", jp: "…" }   # по желание
 3. **После** изпълни `neon/schema.sql` в SQL Editor (ако го пуснеш преди Data API, ролята `anonymous` липсва и скриптът спира с „role "anonymous" does not exist“; новата версия на файла я създава сама, но Data API все пак трябва да е включен, за да работят заявките от браузъра). След това: Data API → **Refresh schema cache**.
 4. Заявките с анонимния токен се изпълняват с ролята `anonymous`, която може само да чете таблицата `reactions` и да вика функциите `add_like`, `remove_like`, `add_play`. Адресът на Auth се извежда от адреса на Data API; ако е различен, задай `NEON_AUTH_URL` (или `site.config.js → neon.authUrl`). В конзолата на браузъра (F12) има диагностика `[reactions] …`.
 5. **Четене при билда** (броячи на харесвания, прослушвания и прегледи в HTML-а): secret `DATABASE_URL` с connection string.
-6. **Аналитика**: виж по-долу.
 
-## Аналитика (GoatCounter → Neon)
+## Аналитика и прегледи
 
-Скриптът на GoatCounter е в `site.config.js → analytics`. Освен прегледите се записват и събития: клик по навигация, социални мрежи, смяна на език, външни връзки, сваляния, бутони на проекти и песни (всичко с `data-track="…"` в шаблоните плюс автоматично всички външни връзки). В GoatCounter се виждат с отметката „events“.
+Скриптът на GoatCounter е в `site.config.js → analytics`. Той брои общата статистика (посещения, източници, държави) и събития: клик по навигация, социални мрежи, смяна на език, външни връзки, сваляния, бутони на проекти и песни (всичко с `data-track="…"` в шаблоните плюс автоматично всички външни връзки). В GoatCounter се виждат с отметката „events“.
 
-За да се показва броячът на прегледите на публикациите: GoatCounter → Settings → **Allow adding visitor counts on your website**.
-
-Workflow-ът `sync-analytics.yml` всеки ден записва статистиката в Neon (таблици `page_views`, `events`; изгледи `page_views_total`, `events_total`). Ползва експорта на GoatCounter (CSV на всички посещения) с курсор, така че всяко пускане добавя само новите посещения. Нужни secrets: `GOATCOUNTER_API_TOKEN` (GoatCounter → Settings → API, с права „Export data“ и „Read statistics“) и `DATABASE_URL`.
+Броячът „прегледи“ на публикациите и проектите е отделен и се пази в Neon (таблица `page_views`, функция `add_view`): при отваряне на страницата браузърът го увеличава веднъж на сесия и показва новия брой. Преводите на една публикация делят един брояч. При билда броячите се вграждат в HTML-а (ако има `DATABASE_URL`), а след зареждане се обновяват на живо.
 
 ## Коментари
 

@@ -23,7 +23,9 @@ layout: layouts/base.njk
 
   <div class="project-layout">
     <aside class="project-side">
+      {%- set pageKey = "projects:" + pr.slug %}
       <dl class="facts">
+        {%- if site.analytics.showViews %}<div data-views data-page="{{ pageKey }}"{% if not neonData.views[pageKey] %} hidden{% endif %}><dt>{{ "ui.views" | t(lang) | capitalize }}</dt><dd>{% icon "eye", 14 %} <span data-views-count>{{ neonData.views[pageKey] | localeNumber(lang) if neonData.views[pageKey] else "" }}</span></dd></div>{% endif %}
         {%- if pr.language %}<div><dt>{{ "projects.language" | t(lang) }}</dt><dd><span class="lang-dot" style="--lang:{{ pr.language | langColor }}"></span>{{ pr.language }}</dd></div>{% endif %}
         <div><dt>{{ "projects.stars" | t(lang) }}</dt><dd>{% icon "star", 14 %} {{ pr.stars | localeNumber(lang) }}</dd></div>
         <div><dt>{{ "projects.forks" | t(lang) }}</dt><dd>{% icon "git-fork", 14 %} {{ pr.forks | localeNumber(lang) }}</dd></div>
@@ -53,3 +55,5 @@ layout: layouts/base.njk
     </div>
   </div>
 </article>
+<script src="/assets/js/neon.js" defer></script>
+{%- if site.analytics.showViews %}<script src="/assets/js/views.js" defer></script>{% endif %}
