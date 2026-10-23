@@ -165,8 +165,7 @@ export default {
     goatcounter: "https://vislupus.goatcounter.com",
     // Записва кликове по връзки и бутони като събития (виж src/assets/js/analytics.js).
     trackClicks: true,
-    // Показва брояч на прегледите на всяка публикация. В GoatCounter → Settings → трябва да е включено
-    // „Allow adding visitor counts on your website“.
+    // Брояч на прегледите на публикациите и проектите – брои се в Neon (таблица page_views) при отваряне на страницата.
     showViews: true,
   },
 

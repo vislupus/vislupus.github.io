@@ -7,7 +7,6 @@
   "scripts": {
     "dev": "eleventy --serve --incremental",
     "build": "eleventy",
-    "sync:analytics": "node scripts/sync-analytics.js",
     "screenshots": "node scripts/screenshots.js"
   },
   "engines": {

@@ -7,7 +7,8 @@
 --  блокът по-долу я създава, за да не спира скриптът с „role "anonymous" does not exist“.
 --
 --  1) reactions – харесвания и прослушвания (рисунки, песни); пишат се от браузъра през Data API
---  2) page_views, events – аналитика, синхронизирана от GoatCounter (scripts/sync-analytics.js)
+--  2) page_views – прегледи на публикации и проекти (броят се от браузъра)
+--  3) comments – коментари
 -- ============================================================================
 
 do $$ begin
@@ -81,42 +82,35 @@ alter table reactions enable row level security;
 drop policy if exists "public read reactions" on reactions;
 create policy "public read reactions" on reactions for select to anonymous using (true);
 
--- --- 2. Аналитика от GoatCounter ----------------------------------------------------
+-- --- 2. Прегледи на страници -----------------------------------------------------
+-- Брои се от браузъра при отваряне на публикация или проект (веднъж на сесия), през функцията add_view.
+-- GoatCounter остава за общата статистика; тук е само „колко пъти е гледана страницата“.
 create table if not exists page_views (
-  path        text not null,               -- напр. /en/blog/seven-rila-lakes/
-  day         date not null,
-  views       integer not null default 0,  -- посетители за деня
-  title       text,
-  synced_at   timestamptz not null default now(),
-  primary key (path, day)
-);
-create index if not exists page_views_path_idx on page_views (path);
-
-create table if not exists events (
-  name        text not null,               -- напр. click:social:bluesky, outbound:github.com, download:track.gpx
-  day         date not null,
-  count       integer not null default 0,
-  title       text,
-  synced_at   timestamptz not null default now(),
-  primary key (name, day)
-);
-
-create table if not exists analytics_sync (
-  id          integer primary key default 1 check (id = 1),
-  last_day    date,
-  last_hit_id bigint not null default 0,        -- курсор на експорта от GoatCounter
+  page        text primary key,             -- ключ на страницата, общ за преводите ѝ: напр. blog:seven-rila-lakes, projects:diffly
+  views       integer not null default 0 check (views >= 0),
   updated_at  timestamptz not null default now()
 );
-alter table analytics_sync add column if not exists last_hit_id bigint not null default 0;
+-- Ако таблицата е от старата схема (с колони path/day), първо я махни: drop table page_views;
 
-create or replace view page_views_total as
-  select path, max(title) as title, sum(views)::integer as views, max(day) as last_day
-  from page_views group by path order by views desc;
-create or replace view events_total as
-  select name, sum(count)::integer as count, max(day) as last_day
-  from events group by name order by count desc;
+create or replace function add_view(p_page text) returns integer
+language plpgsql security definer set search_path = public as $$
+declare n integer;
+begin
+  if p_page is null or length(p_page) > 200 or p_page !~ '^[a-z0-9:_-]+$' then raise exception 'invalid page'; end if;
+  insert into page_views (page, views) values (p_page, 1)
+    on conflict (page) do update set views = page_views.views + 1, updated_at = now()
+    returning views into n;
+  return n;
+end $$;
 
--- След промяна на схемата: Data API → „Refresh schema cache“.
+grant select on page_views to anonymous;
+grant execute on function add_view(text) to anonymous;
+alter table page_views enable row level security;
+drop policy if exists "public read page views" on page_views;
+create policy "public read page views" on page_views for select to anonymous using (true);
+
+-- Старите таблици от синхронизацията с GoatCounter вече не се ползват:
+-- drop view if exists page_views_total; drop view if exists events_total; drop table if exists events; drop table if exists analytics_sync;
 
 -- --- 3. Коментари -----------------------------------------------------------------
 -- Пишат се от браузъра (анонимен токен → ролята anonymous → функцията add_comment), четат се от изгледа comments_public.
