@@ -6,6 +6,7 @@ updated: 2026-10-05
 tags: [python, math, chaos, matplotlib, science]
 image: images/lorenz/lorenz_attractor.png
 imageAlt: The Lorenz attractor plotted in 3D
+draft: true
 ---
 
 Imagine a world where even the smallest butterfly can destroy the whole planet. It sounds ridiculous, right? However, there may be some truth in it. In the mid-twentieth century the mathematician Edward Lorenz developed a simple mathematical model of atmospheric convection. The model contains a system of three ordinary differential equations which we now know as the Lorenz equations:

@@ -1,67 +1,70 @@
 ---
 section: about
 title: About me
-description: E-learning developer from Bulgaria who plays with code, mathematics, ink and songs.
+description: I build software, ask far too many questions, and constantly find myself diving into something new. Here I share what I learn, create, and discover along the way.
 eyebrow: Nikola Bozhinov · vislupus
 ---
 
-<div class="about-hero">
-  <img class="about-avatar" src="https://avatars.githubusercontent.com/u/19327937?v=4" alt="Nikola Bozhinov" width="160" height="160" eleventy:ignore>
-  <div>
+Hi! I'm **Nikola Bozhinov** — a physicist by training, a software developer by profession, and someone who stubbornly keeps trying to fit far too many interests into a single day.
 
-Hi, I'm **Nikola Bozhinov**, an e-learning developer from Bulgaria. During the day I build courses and the tools that make them; after that I follow whatever is interesting: a physics simulation, a Japanese grammar point, a brush and a bottle of ink, a melody that needs words.
+If there's one thing that ties all my pursuits together, it's **curiosity**. I love understanding how things work, why the world is arranged exactly the way it is, and what would happen if we tried doing something differently. Sometimes the answers hide in a mathematical equation, other times — in a few lines of code. And sometimes the best thing I can do is step away from the computer, pick up a brush and try to paint something with just a few strokes.
 
-This site is my field notebook. Expect Python plots, strange attractors, maps from mountain walks, drawings, and songs I write with AI. It is written in three languages because the people I want to talk to live in three countries.
+That's probably why I've never managed to stick to just one hobby.
 
-  </div>
-</div>
+Professionally, I work in **software development**, mostly on digital textbooks and educational tools. I like the idea of technology making knowledge more accessible and learning more interesting. Especially satisfying is the moment when an idea that started as a doodle on a sheet of paper gradually turns into something real, working and useful.
 
-## What I do
+Lately, more and more of my attention has been taken up by **artificial intelligence**. Not so much because of the hype around it, but because of the possibilities it opens up. I'm interested in how we can use it to understand complex things better, to learn in new ways, and to turn ideas into projects that until recently would have seemed almost impossible. I love experimenting, testing how far technology can go, and sometimes discovering its limits the hard way.
 
-:::: columns
-::: col
-#### Code
+But as much as I love technology, the world outside the screen is at least as interesting to me.
 
-Python for data and little experiments, vanilla JavaScript for the web, and whatever a project needs. Most of it is on [GitHub](https://github.com/vislupus) and on the [projects](/en/projects/) page.
-:::
+I have a particular weakness for **Japan** — its culture, language, art, history and that hard-to-explain blend of ancient traditions and modern life. I'm learning Japanese, folding origami and trying to master *sumi-e* — Japanese ink painting. What draws me to it is the idea that sometimes just a few brushstrokes are enough to capture the essence of something. In theory, it sounds wonderful. In practice, the brush doesn't always agree with me. You can see the results of our arguments on the page with my [drawings](/en/drawings/).
 
-::: col
-#### Learning design
+And yes, I like anime. It would be strange to leave out that particular detail.
 
-Interactive lessons, assessments and the pipelines behind them. I care a lot about how things are explained.
-:::
-::::
+My other big weakness is **travel**. I love discovering places I've only ever seen on a map or in a photo. Unfamiliar cities, mountain trails, old fortresses, hidden waterfalls and those small discoveries that rarely make it into travel guides.
 
-:::: columns
-::: col
-#### Japanese
+If you ever see me hurrying through a forest, I'm probably on my way to a waterfall or a forgotten fortress where just getting there is an adventure in itself. Sometimes the trail turns out to be more interesting than the destination. Other times I discover that "just a little further" can mean quite a lot more walking than I had planned.
 
-Studying every day. I build my own tools for it: a trainer, a reader for song lyrics, flashcards.
-:::
+And, of course, I almost always carry a camera. **Photography** is my way of keeping at least a small piece of the places and moments that move me. Although some views stubbornly refuse to fit in the frame.
 
-::: col
-#### Drawing and music
+I love music too, although I can neither sing nor play an instrument. This is where artificial intelligence comes to the rescue — I make songs with it, and for me it's one more way to explore, to experiment and sometimes simply to escape from too many thoughts. My songs also have [their own page](/en/songs/) on the site. And when everything gets too loud, a long walk usually works wonders.
 
-Digital sketches, sumi-e ink, and songs made with Suno. See the [drawings](/en/drawings/) and [songs](/en/songs/) pages.
-:::
-::::
+At first glance, programming, physics, Japanese painting, music and wandering around forgotten fortresses may not seem to have much in common. For me, though, they're all different ways of getting to know the world — and of discovering how much I still don't know.
 
-## A short timeline
+**This site is my little corner of the internet.** Something between a personal diary, a creative studio, a laboratory for experiments and an album of memories. Here I collect my [projects](/en/projects/), ideas, travels, drawings, music and everything else that, for one reason or another, has managed to hold my attention long enough for me to want to share it.
 
-<ol class="about-timeline">
-  <li><time>now</time><div><strong>Writing this notebook</strong><br>Eleventy, three languages, three designs to choose from.</div></li>
-  <li><time>2025</time><div><strong>AI songs and datasets</strong><br>First songs with Suno, a Bulgarian TTS dataset, a reader for Japanese lyrics.</div></li>
-  <li><time>2023</time><div><strong>Ink</strong><br>Started sumi-e. One breath, one stroke.</div></li>
-  <li><time>2020</time><div><strong>First blog</strong><br>Jekyll, the Lorenz attractor and a sudoku generator. It never really launched.</div></li>
-  <li><time>…</time><div><strong>E-learning</strong><br>Years of courses, platforms and the quiet joy of a lesson that finally makes sense.</div></li>
-</ol>
+The site is in three languages — Bulgarian, English and Japanese. Because interesting ideas don't belong to just one language, and curious people are everywhere in the world.
 
-## Now
+## Why does this site exist?
 
-::: curious
-Currently reading about numerical methods, drawing crows, and trying to get a song chorus to sound right in Japanese.
-:::
+I could have made an ordinary portfolio — a few projects, a list of technologies, a professional bio and maybe a few impressive-sounding sentences.
 
-## Say hello
+But that would tell only a small part of the story.
 
-The fastest way is [Bluesky](https://bsky.app/profile/vislupus.bsky.social). Code lives on [GitHub](https://github.com/vislupus), models and datasets on [Hugging Face](https://huggingface.co/vislupus) and [Kaggle](https://www.kaggle.com/vislupus). Email works too: [nikolaobozhinov@gmail.com](mailto:nikolaobozhinov@gmail.com).
+There are plenty of places on the internet where everyone looks confident, successful and completely sure of what they're doing. I'd like there to be room here for questions too, for unfinished ideas, for attempts that don't work the first time, and for those strange projects that begin with the thought: "I wonder if this is even possible?"
+
+**This isn't a showcase of perfect results. It's more of an open workshop.**
+
+Some things here will be useful. Others will probably be a little strange. And some may have no practical use at all, other than that I found them interesting to make. That's a perfectly good reason.
+
+I'll share on the [blog](/en/blog/) what I learn, what I create and what I discover along the way. Sometimes it will be about software, artificial intelligence or an interesting problem in physics. Other times — about a Japanese word, an ink painting, music, a fortress lost among the hills or a journey to the other side of the world.
+
+I don't promise that everything will be devoted to a single topic. In fact, it almost certainly won't be.
+
+But maybe that's the best thing about curiosity — you never know where the next question will take you.
+
+**If something here makes you want to learn more, try something new, or simply look at something familiar in a different way, then this site has done its job.**
+
+## Let's connect
+
+One of the best things about the internet is the chance to meet people whose paths would probably never have crossed yours otherwise.
+
+If we share some interests, if you're working on something curious, want to exchange ideas or just feel like talking about technology, science, Japan, art or travel — I'd be glad to hear from you.
+
+You can find me on [Bluesky](https://bsky.app/profile/vislupus.bsky.social), and my projects and experiments with code on [GitHub](https://github.com/vislupus). Some of my work with models and data is on [Hugging Face](https://huggingface.co/vislupus) and [Kaggle](https://www.kaggle.com/vislupus).
+
+And if you prefer good old email, my address is [nikolaobozhinov@gmail.com](mailto:nikolaobozhinov@gmail.com).
+
+**Thanks for stopping by!**
+
+I hope you find something interesting here. And if you leave with more questions than you came with — even better.

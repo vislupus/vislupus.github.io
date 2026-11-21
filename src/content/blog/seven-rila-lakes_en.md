@@ -9,6 +9,7 @@ seriesDescription: Walks in Rila, Pirin and the Balkan range, with maps and trac
 image: images/rila/cover.jpg
 imageAlt: The lakes seen from the Lake Peak
 imageCaption: Looking down from the Lake Peak (Езерен връх), early morning.
+draft: true
 ---
 
 The Seven Rila Lakes are the most visited place in the Rila mountains, and for a good reason: in a few hours the path climbs past seven glacial lakes, each on its own terrace. This is the route I walked, the map, the track and the photos.

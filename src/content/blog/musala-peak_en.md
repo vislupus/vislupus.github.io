@@ -4,6 +4,7 @@ description: Up and down the 2925 m peak from Borovets, with the chairlift, the 
 date: 2026-10-11
 tags: [travel, mountains, bulgaria, hiking]
 series: Bulgarian mountains
+draft: true
 ---
 
 Musala is the highest peak of the Balkan peninsula and, thanks to the Yastrebets gondola from Borovets, one of the easiest 2900 m summits you can reach in a day.

@@ -3,6 +3,7 @@ title: "Everything a post can contain"
 description: A living reference of every block this blog supports – callouts, formulas, diagrams, charts, maps, galleries, videos, embeds, downloads and cards.
 date: 2026-10-20
 tags: [meta, writing, markdown]
+draft: true
 ---
 
 This post is the cheat sheet I use when writing. Every block below is written in plain Markdown with a few shortcodes; the source file is `src/content/blog/writing-guide_en.md`.
