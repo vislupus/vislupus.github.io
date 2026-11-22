@@ -148,6 +148,10 @@ export default {
       "vislupus/llm-coding-benchmarks",
       "vislupus/ai-generated-web-tools",
       "vislupus/Bulgarian-TTS-dataset",
+      "vislupus/dream-records-android",
+      "vislupus/WaifuVerse",
+      "vislupus/RAWVision-Camera",
+      "vislupus/StepAnalyzer",
     ],
     // true = добавя и всички други публични хранилища на автора (без forks и архивирани)
     autoDiscover: false,
@@ -161,7 +165,7 @@ export default {
     // Скрити песни: не се показват на сайта, но остават в хранилището. Пиши заглавието или името на файла
     // (главни/малки букви и препинателни знаци нямат значение), напр. hidden: ["Wednesday Blues", "Summer Slumber"].
     // Песен може да се скрие и от самото хранилище: ред „hidden: true“ в началото на нейния .md файл.
-    hidden: [],
+    hidden: ["Mnemonica Blues", "Mnemonics of Decay System Grave", "Плейлистата на Клет Коледно издание"],
   },
 
   // --- Карти ---------------------------------------------------------------
