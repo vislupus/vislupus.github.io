@@ -48,20 +48,44 @@ $$
 
 ## Диаграми и графики
 
-```mermaid
+{% mermaid %}
 flowchart TD
   A[Markdown файл] --> B(Eleventy)
   B --> C{Има ли диаграма?}
   C -- да --> D[Зарежда Mermaid само тук]
   C -- не --> E[Чист HTML]
-```
+{% endmermaid %}
 
-```chart
+{% chart %}
 {
   "type": "doughnut",
   "data": { "labels": ["Код", "Писане", "Рисуване", "Музика"], "datasets": [{ "data": [40, 25, 20, 15] }] }
 }
-```
+{% endchart %}
+
+Цветовете, рамката и височината на графиката се задават в самия таг. Конфигурацията може да е JSON или обикновен JavaScript обект:
+
+{% chart { colors: ["#0d9488", "#f97316", "#8b5cf6"], border: "#ffffff", borderWidth: 3, height: "18rem", caption: "Графика със собствени цветове и бяла рамка" } %}
+{
+  type: "bar",
+  data: { labels: ["Пекин", "Сиан", "Шанхай"], datasets: [{ label: "Дни", data: [6, 3, 4] }] }
+}
+{% endchart %}
+
+## Карта с транспорт
+
+{% map {
+  fit: true, labels: true, caption: "Маршрут с различен транспорт и постоянни надписи",
+  markers: [
+    { lat: 42.6977, lng: 23.3219, label: "София" },
+    { lat: 41.0082, lng: 28.9784, label: "Истанбул", by: "plane" },
+    { lat: 40.1826, lng: 29.0669, label: "Бурса", by: "ship", dir: "bottom" },
+    { lat: 39.9334, lng: 32.8597, label: "Анкара", by: "train" },
+    { lat: 38.6431, lng: 34.8289, label: "Гьореме", by: "bus" }
+  ]
+} %}
+
+> Цитатите са с различен шрифт и лек фон, за да се отличават от останалия текст.
 
 ## Код
 
@@ -98,8 +122,8 @@ def greet(name: str) -> str:
 | --- | --- |
 | Секция | `::: tip` … `:::` |
 | Формула | `$…$` и `$$…$$` |
-| Диаграма | ` ```mermaid ` |
-| Графика | ` ```chart ` с JSON |
+| Диаграма | `{% raw %}{% mermaid %} … {% endmermaid %}{% endraw %}` |
+| Графика | `{% raw %}{% chart { colors: […] } %} … {% endchart %}{% endraw %}` |
 | Карта | `{% raw %}{% map { … } %}{% endraw %}` |
 | Галерия | `{% raw %}{% gallery "images/папка" %}{% endraw %}` |
 

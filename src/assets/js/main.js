@@ -49,14 +49,33 @@
     setTimeout(() => box?.classList.remove("is-copied"), 1800);
   }));
 
-  // Активна точка в съдържанието при скрол
+  // Съдържание: активната точка при скрол; подточките се показват само за текущия раздел, за да се побира без скрол.
   const toc = $(".toc");
   if (toc && "IntersectionObserver" in window) {
-    const links = new Map($$("a", toc).map((a) => [a.getAttribute("href").slice(1), a]));
+    const items = $$("li", toc);
+    let group = -1;
+    items.forEach((li) => { if (li.classList.contains("toc-l2")) group++; li.dataset.group = String(Math.max(group, 0)); });
+    toc.classList.add("is-collapsible");
+    const links = new Map(items.map((li) => { const a = $("a", li); return [a.getAttribute("href").slice(1), a]; }));
+    const fit = () => {
+      // Ако все пак е по-високо от екрана, долният му край се залепя за долния край на екрана.
+      const header = parseFloat(getComputedStyle(html).getPropertyValue("--header-h")) * parseFloat(getComputedStyle(html).fontSize) || 68;
+      const top = header + 24, room = innerHeight - top - 16;
+      toc.style.setProperty("--toc-top", `${toc.offsetHeight > room ? Math.min(top, innerHeight - toc.offsetHeight - 16) : top}px`);
+    };
+    const activate = (a) => {
+      const li = a.closest("li"), g = li.dataset.group;
+      links.forEach((x) => x.classList.remove("is-active"));
+      a.classList.add("is-active");
+      items.forEach((x) => { x.classList.toggle("is-open", x.dataset.group === g); x.classList.toggle("is-current", x.classList.contains("toc-l2") && x.dataset.group === g && x !== li); });
+      fit();
+    };
     const io = new IntersectionObserver((entries) => {
-      for (const en of entries) if (en.isIntersecting) { links.forEach((a) => a.classList.remove("is-active")); links.get(en.target.id)?.classList.add("is-active"); }
+      for (const en of entries) if (en.isIntersecting) { const a = links.get(en.target.id); if (a) activate(a); }
     }, { rootMargin: "-10% 0px -75% 0px" });
     links.forEach((_, id) => { const h = document.getElementById(id); if (h) io.observe(h); });
+    items.filter((x) => x.dataset.group === "0").forEach((x) => x.classList.add("is-open"));
+    addEventListener("resize", fit); fit();
   }
 
   // Сгъваеми панели (стил и текст на песните): <button data-panel-toggle="id">

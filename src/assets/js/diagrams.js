@@ -28,7 +28,7 @@
     if (window.mermaid) return res();
     const s = document.createElement("script"); s.src = "/assets/vendor/mermaid.min.js"; s.onload = res; s.onerror = rej; document.head.append(s);
   });
-  load().then(render).catch(() => {});
+  load().then(render).catch(() => blocks.forEach((b) => { b.classList.add("is-failed"); console.warn("[mermaid] библиотеката не се зареди"); }));
   document.addEventListener("schemechange", render);
   document.addEventListener("themechange", render);
 })();

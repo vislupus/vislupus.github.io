@@ -36,6 +36,8 @@ export default {
     body: "'Roboto Variable', Roboto, system-ui, -apple-system, 'Segoe UI', sans-serif",
     heading: "'Roboto Variable', Roboto, system-ui, -apple-system, 'Segoe UI', sans-serif",
     mono: "'Roboto Mono Variable', 'Roboto Mono', ui-monospace, Menlo, Consolas, monospace",
+    // Шрифт за цитатите (> текст) – Roboto Serif, за да се отличават от основния текст.
+    quote: "'Roboto Serif Variable', 'Roboto Serif', Georgia, 'Times New Roman', serif",
     // Roboto няма японски знаци – за японските страници се добавя Noto Sans JP (от Google Fonts).
     japanese: "'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', Meiryo, sans-serif",
     japaneseStylesheet: "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300..700&display=swap",
@@ -153,7 +155,21 @@ export default {
 
   // --- Песни ---------------------------------------------------------------
   // Четат се от хранилището: всеки .mp3 с .md до него (връзка към Suno, стил, текст). Обложката е от ID3 тага.
-  songs: { repo: "vislupus/ai-songs", branch: "main" },
+  songs: {
+    repo: "vislupus/ai-songs",
+    branch: "main",
+    // Скрити песни: не се показват на сайта, но остават в хранилището. Пиши заглавието или името на файла
+    // (главни/малки букви и препинателни знаци нямат значение), напр. hidden: ["Wednesday Blues", "Summer Slumber"].
+    // Песен може да се скрие и от самото хранилище: ред „hidden: true“ в началото на нейния .md файл.
+    hidden: [],
+  },
+
+  // --- Карти ---------------------------------------------------------------
+  // Плочките на картата (Leaflet). По подразбиране OpenStreetMap; може да се смени с друг доставчик.
+  maps: {
+    tiles: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  },
 
   // --- Рисунки -------------------------------------------------------------
   // Техники за филтъра. Надписите са в i18n.js → drawings.media. Добави нова техника тук и там.

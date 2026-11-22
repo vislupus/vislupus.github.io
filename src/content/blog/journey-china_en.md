@@ -586,7 +586,7 @@ It's also interesting that almost no figure was found intact. The roofs of the p
 
 If you think all Chinese people follow one religion – or that they are all atheists – you're wrong. Several main religions are practised in China, but I definitely didn't expect there to be Muslims too. Yet they have lived in Xi'an for more than a thousand years. The Muslims here are mostly Hui – descendants of Arab and Persian merchants who came along the Silk Road and mixed with the local Chinese – and they have created their own quarter.
 
-```chart
+{% chart %}
 {
   "type": "doughnut",
   "data": {
@@ -605,7 +605,7 @@ If you think all Chinese people follow one religion – or that they are all ath
     ]
   }
 }
-```
+{% endchart %}
 
 ::: note
 The data in the chart is an estimate from the CIA World Factbook (2020). Religion in China is very hard to measure, because Buddhism, Taoism and folk beliefs are often intertwined and many people don't consider them a "religion". According to an analysis by Pew Research, only about one in ten Chinese say they belong to a religion, but around a third believe in the Buddha or in bodhisattvas.

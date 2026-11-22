@@ -48,7 +48,7 @@ $$
 
 ## Diagrams and charts
 
-```mermaid
+{% mermaid %}
 sequenceDiagram
   participant M as Markdown
   participant E as Eleventy
@@ -56,14 +56,38 @@ sequenceDiagram
   M->>E: build
   E->>B: static HTML
   B->>B: mermaid.render() only here
-```
+{% endmermaid %}
 
-```chart
+{% chart %}
 {
   "type": "bar",
   "data": { "labels": ["Mon", "Tue", "Wed", "Thu", "Fri"], "datasets": [{ "label": "Words written", "data": [320, 540, 120, 860, 410] }] }
 }
-```
+{% endchart %}
+
+Colours, border and height are set on the tag itself. The configuration can be JSON or a plain JavaScript object:
+
+{% chart { colors: ["#0d9488", "#f97316", "#8b5cf6"], border: "#ffffff", borderWidth: 3, height: "18rem", caption: "A chart with its own colours and a white border" } %}
+{
+  type: "bar",
+  data: { labels: ["Beijing", "Xi'an", "Shanghai"], datasets: [{ label: "Days", data: [6, 3, 4] }] }
+}
+{% endchart %}
+
+## A map with transport
+
+{% map {
+  fit: true, labels: true, caption: "A route with different transport and permanent labels",
+  markers: [
+    { lat: 42.6977, lng: 23.3219, label: "Sofia" },
+    { lat: 41.0082, lng: 28.9784, label: "Istanbul", by: "plane" },
+    { lat: 40.1826, lng: 29.0669, label: "Bursa", by: "ship", dir: "bottom" },
+    { lat: 39.9334, lng: 32.8597, label: "Ankara", by: "train" },
+    { lat: 38.6431, lng: 34.8289, label: "Göreme", by: "bus" }
+  ]
+} %}
+
+> Quotes use a different typeface and a light background so they stand out from the text.
 
 ## Code
 
@@ -116,7 +140,7 @@ Right column text with a list:
 | --- | --- |
 | Callout | `::: tip` … `:::` |
 | Formula | `$…$` and `$$…$$` |
-| Diagram | ` ```mermaid ` |
-| Chart | ` ```chart ` with JSON |
+| Diagram | `{% raw %}{% mermaid %} … {% endmermaid %}{% endraw %}` |
+| Chart | `{% raw %}{% chart { colors: […] } %} … {% endchart %}{% endraw %}` |
 | Map | `{% raw %}{% map { … } %}{% endraw %}` |
 | Gallery | `{% raw %}{% gallery "images/folder" %}{% endraw %}` |

@@ -72,7 +72,7 @@ Run the same loop for three starting points that differ by $10^{-5}$ and the tra
 
 The divergence grows roughly exponentially. A simple chart of the distance between two such trajectories:
 
-```chart
+{% chart %}
 {
   "type": "line",
   "data": {
@@ -81,7 +81,7 @@ The divergence grows roughly exponentially. A simple chart of the distance betwe
   },
   "options": { "scales": { "y": { "type": "logarithmic", "title": { "display": true, "text": "distance (log)" } }, "x": { "title": { "display": true, "text": "time" } } } }
 }
-```
+{% endchart %}
 
 ::: tip
 Use `scipy.integrate.solve_ivp` with the RK45 method for real work. Euler is only good for understanding the idea.
@@ -89,10 +89,10 @@ Use `scipy.integrate.solve_ivp` with the RK45 method for real work. Euler is onl
 
 How the pieces fit together:
 
-```mermaid
+{% mermaid %}
 flowchart LR
   A[Initial conditions] --> B[Euler step]
   B --> C{t < T?}
   C -- yes --> B
   C -- no --> D[Plot with matplotlib]
-```
+{% endmermaid %}
