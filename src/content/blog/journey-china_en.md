@@ -17,16 +17,16 @@ And it was amazing. We spent 11 days in China – from 3 to 13 May 2026 – and 
 
 {% map {
   lat: 28.9830794, lng: 108.7842326, zoom: 17, route: true, fit: true,
-  caption: "Approximate route of the trip",
+  labels: true, caption: "Approximate route of the trip",
   markers: [
     { lat: 39.90421, lng: 116.40739, label: "Beijing" },
-    { lat: 34.4272843, lng: 112.8591628, label: "Dengfeng (Shaolin)" },
-    { lat: 34.5560, lng: 112.4700, label: "Luoyang (Longmen)" },
-    { lat: 34.26581, lng: 108.95409, label: "Xi'an" },
-    { lat: 25.287687, lng: 110.2090038, label: "Guilin" },
-    { lat: 24.7781, lng: 110.4966, label: "Yangshuo" },
-    { lat: 25.7550, lng: 110.1150, label: "Longji" },
-    { lat: 31.23041, lng: 121.4737, label: "Shanghai" }
+    { lat: 34.4272843, lng: 112.8591628, label: "Dengfeng (Shaolin)", by: "train" },
+    { lat: 34.5560, lng: 112.4700, label: "Luoyang (Longmen)", by: "bus" },
+    { lat: 34.26581, lng: 108.95409, label: "Xi'an", by: "train" },
+    { lat: 25.287687, lng: 110.2090038, label: "Guilin", by: "plane" },
+    { lat: 24.7781, lng: 110.4966, label: "Yangshuo", by: "bus" },
+    { lat: 25.7550, lng: 110.1150, label: "Longji", by: "bus" },
+    { lat: 31.23041, lng: 121.4737, label: "Shanghai", by: "plane" }
   ]
 } %}
 
@@ -135,7 +135,6 @@ The palace itself was built between 1406 and 1420 under the Yongle Emperor of th
 
 {% gallery "images/china/forbidden_city", { 
   captions: { 
-    "IMG_20260504_111944.jpg": "Double roofs of yellow tiles – a colour reserved for the emperor alone",
     "IMG_20260504_093756.jpg": "The marble huabiao column in front of Tiananmen Gate",
     "IMG_20260504_094309.jpg": "One of the gates on the way from Tiananmen to the palace",
     "IMG_20260504_095625.jpg": "The Golden Water River and the marble bridges in front of the Gate of Supreme Harmony",
@@ -146,6 +145,7 @@ The palace itself was built between 1406 and 1420 under the Yongle Emperor of th
     "IMG_20260504_101709.jpg": "One of the pavilions around the square",
     "IMG_20260504_104632.jpg": "The throne in the Hall of Central Harmony – here the emperor prepared before the great ceremonies",
     "IMG_20260504_104902.jpg": "The main halls stand on three levels of marble terraces",
+    "IMG_20260504_111944.jpg": "Double roofs of yellow tiles – a colour reserved for the emperor alone",
     "IMG_20260504_105617.jpg": "The largest stone carving in the palace – carved from a single block of marble"
   }, columns: 3
 } %}
@@ -283,8 +283,6 @@ The descent was fast, but I had to be very careful because the steps were even s
 
 {% gallery "images/china/wall", { 
   captions: { 
-    "IMG_20260505_102337.jpg": "Juyongguan Pass and the fortress in the valley",
-    "IMG_20260505_101708-Pano.jpg": "Panorama of the whole pass – the wall climbs up both slopes",
     "IMG_20260505_090028.jpg": "The inscription reads “He who has not reached the Great Wall is not a true hero!” – a line from a 1935 poem by Mao",
     "IMG_20260505_090956.jpg": "Looking back at the fortress in the valley",
     "IMG_20260505_092047.jpg": "The steep steps up to one of the watchtowers",
@@ -293,6 +291,8 @@ The descent was fast, but I had to be very careful because the steps were even s
     "IMG_20260505_095337.jpg": "The gate of the pass – a road still runs beneath it today",
     "IMG_20260505_095928.jpg": "“Juyong’s Layered Greenery” – a view counted among Beijing’s famous sights since the 12th century",
     "IMG_20260505_101110.jpg": "A watchtower on the opposite hill",
+    "IMG_20260505_102337.jpg": "Juyongguan Pass and the fortress in the valley",
+    "IMG_20260505_101708-Pano.jpg": "Panorama of the whole pass – the wall climbs up both slopes",
     "IMG_20260505_102002.jpg": "On the way down",
     "IMG_20260505_102114.jpg": "The almost empty wall – far from the crowds"
   }, columns: 3
@@ -324,7 +324,6 @@ The Marble Boat is a stone pavilion in the shape of a boat, built in 1755. Cixi 
 
 {% gallery "images/china/summer_palace", { 
   captions: { 
-    "IMG_20260505_151217.jpg": "Kunming Lake covers about three quarters of the palace grounds",
     "IMG_20260505_140948.jpg": "The Hall of Benevolence and Longevity – here Cixi received ministers and foreign envoys",
     "IMG_20260505_141015.jpg": "The bronze qilin – a mythical creature that brings luck and drives away evil",
     "IMG_20260505_141326.jpg": "Bronze figures and vessels in the courtyard in front of the hall",
@@ -335,7 +334,8 @@ The Marble Boat is a stone pavilion in the shape of a boat, built in 1755. Cixi 
     "IMG_20260505_144813.jpg": "A pavilion on the slope of Longevity Hill",
     "IMG_20260505_150727.jpg": "A marble bridge among the willows",
     "IMG_20260505_151012.jpg": "The Marble Boat – the upper part is actually wooden, painted to look like marble",
-    "IMG_20260505_151124.jpg": "The boat that will never sail"
+    "IMG_20260505_151124.jpg": "The boat that will never sail",
+    "IMG_20260505_151217.jpg": "Kunming Lake covers about three quarters of the palace grounds"
   }, columns: 3
 } %}
 
@@ -361,7 +361,6 @@ This was the place where the Chinese emperor symbolically communicated with Heav
 
 {% gallery "images/china/temple_of_heaven", { 
   captions: { 
-    "IMG_20260506_090531.jpg": "In the middle of the stairs is carved the “imperial path” – only the emperor was carried over it",
     "IMG_20260506_083604.jpg": "The Hall of Prayer for Good Harvests on its three marble terraces",
     "IMG_20260506_084553.jpg": "Inside: 4 central pillars for the seasons, 12 for the months and 12 for the hours of the day",
     "IMG_20260506_084905.jpg": "One of the side halls",
@@ -369,6 +368,7 @@ This was the place where the Chinese emperor symbolically communicated with Heav
     "IMG_20260506_085033.jpg": "The blue tiles symbolise Heaven",
     "IMG_20260506_085647.jpg": "Almost 40 metres tall – and not a single metal nail",
     "IMG_20260506_090031.jpg": "The square in front of the hall in the morning",
+    "IMG_20260506_090531.jpg": "In the middle of the stairs is carved the “imperial path” – only the emperor was carried over it",
     "IMG_20260506_090412.jpg": "A round hall in a square courtyard – “Heaven is round and Earth is square”"
   }, columns: 3
 } %}
@@ -567,7 +567,6 @@ It's also interesting that almost no figure was found intact. The roofs of the p
 
 {% gallery "images/china/warriors", { 
   captions: { 
-    "IMG_20260508_132914.jpg": "A figure with hands hidden in its sleeves", 
     "IMG_20260508_122657.jpg": "Pit No. 1 – the largest; it is thought to hold about 6,000 figures", 
     "IMG_20260508_122905.jpg": "The rows of infantry, facing east", 
     "IMG_20260508_123516.jpg": "Clay horses in one of the trenches", 
@@ -578,7 +577,8 @@ It's also interesting that almost no figure was found intact. The roofs of the p
     "IMG_20260508_130709.jpg": "Pit No. 2 – unexcavated figures still lie under these waves of earth", 
     "IMG_20260508_131733.jpg": "A high-ranking officer – only a handful of these “generals” have been found", 
     "IMG_20260508_132451.jpg": "A general of the army", 
-    "IMG_20260508_132544.jpg": "A reconstruction of the original colours – the figures were once brightly painted"
+    "IMG_20260508_132544.jpg": "A reconstruction of the original colours – the figures were once brightly painted",
+    "IMG_20260508_132914.jpg": "A figure with hands hidden in its sleeves" 
   }, columns: 3
 } %}
 
@@ -695,7 +695,6 @@ After the cave we walked to the impressive rock shaped like an elephant that has
 
 {% gallery "images/china/elephant_trunk_hill", { 
   captions: { 
-    "IMG_20260509_163958.jpg": "The elephant seen from the other bank", 
     "IMG_20260509_161050.jpg": "Guilin from the top of the hill – the limestone hills are literally inside the city", 
     "IMG_20260509_161611.jpg": "The Li River from the top", 
     "IMG_20260509_161927.jpg": "The Puxian Pagoda on top – from afar it looks like the hilt of a sword stuck into the elephant’s back", 
@@ -703,7 +702,8 @@ After the cave we walked to the impressive rock shaped like an elephant that has
     "IMG_20260509_162622.jpg": "Under the “trunk” – the rocks bear inscriptions dating back to the Tang and Song dynasties", 
     "IMG_20260509_162829.jpg": "“Elephant Hill and the Water Moon”", 
     "IMG_20260509_163147.jpg": "A Buddhist niche carved into the rock", 
-    "IMG_20260509_163549.jpg": "The classic view – the elephant drinking from the river"
+    "IMG_20260509_163549.jpg": "The classic view – the elephant drinking from the river",
+    "IMG_20260509_163958.jpg": "The elephant seen from the other bank" 
   }, columns: 3
 } %}
 
@@ -766,7 +766,6 @@ The cruise itself was pleasant, though not something that can't be seen elsewher
 
 {% gallery "images/china/boat", { 
   captions: { 
-    "IMG_20260510_151723.jpg": "The little town among the hills at the end of the cruise", 
     "IMG_20260510_141204.jpg": "The limestone hills line up one after another as in a Chinese painting", 
     "IMG_20260510_141531.jpg": "Bamboo groves along the bank", 
     "IMG_20260510_141734.jpg": "Sheer cliffs above the river", 
@@ -777,7 +776,8 @@ The cruise itself was pleasant, though not something that can't be seen elsewher
     "IMG_20260510_145137.jpg": "Green islands in the river", 
     "IMG_20260510_145307.jpg": "Our boat", 
     "IMG_20260510_150117.jpg": "Almost every hill here has a name based on what it looks like", 
-    "IMG_20260510_151518.jpg": "Towards the end of the cruise"
+    "IMG_20260510_151518.jpg": "Towards the end of the cruise",
+    "IMG_20260510_151723.jpg": "The little town among the hills at the end of the cruise"
   }, columns: 3
 } %}
 
@@ -803,7 +803,6 @@ The Yao women of the neighbouring village of Huangluo are famous for their extre
 
 {% gallery "images/china/lundzi", { 
   captions: { 
-    "IMG_20260511_140134.jpg": "The Longji terraces – the “Dragon’s Backbone”", 
     "IMG_20260511_123201-Pano.jpg": "A panorama with one of the villages among the terraces", 
     "IMG_20260511_122332.jpg": "The village nestled on the slope", 
     "IMG_20260511_123702.jpg": "A tree decorated with red ribbons for luck", 
@@ -814,7 +813,8 @@ The Yao women of the neighbouring village of Huangluo are famous for their extre
     "IMG_20260511_130512.jpg": "The terraces descend towards the valley", 
     "IMG_20260511_131304.jpg": "Curving lines wherever you look", 
     "IMG_20260511_133135.jpg": "The village’s wooden houses", 
-    "IMG_20260511_134006.jpg": "Looking towards the opposite slope"
+    "IMG_20260511_134006.jpg": "Looking towards the opposite slope",
+    "IMG_20260511_140134.jpg": "The Longji terraces – the “Dragon’s Backbone”"
   }, columns: 3
 } %}
 
@@ -883,7 +883,6 @@ In the town itself is also the Kezhi Garden – an old private estate built betw
 
 {% gallery "images/china/kezhi_garden", { 
   captions: { 
-    "IMG_20260512_114051.jpg": "The round “moon gate” – a symbol of completeness and unity", 
     "IMG_20260512_110832.jpg": "A white house reflected in the pond", 
     "IMG_20260512_110959.jpg": "A pavilion under ancient trees", 
     "IMG_20260512_111108.jpg": "A stone bridge and a pavilion over the water", 
@@ -894,7 +893,8 @@ In the town itself is also the Kezhi Garden – an old private estate built betw
     "IMG_20260512_113254.jpg": "Here you can see the Western influence – a building with columns and balustrades", 
     "IMG_20260512_113326.jpg": "A pavilion on an artificial rock hill", 
     "IMG_20260512_113409.jpg": "Koi carp – a symbol of perseverance and success", 
-    "IMG_20260512_113657.jpg": "Koi in front of the moon bridge"
+    "IMG_20260512_113657.jpg": "Koi in front of the moon bridge",
+    "IMG_20260512_114051.jpg": "The round “moon gate” – a symbol of completeness and unity"
   }, columns: 3
 } %}
 
@@ -928,7 +928,6 @@ When you're in Shanghai, be sure to take an evening walk along the river and adm
 
 {% gallery "images/china/shanghai", { 
   captions: { 
-    "IMG_20260512_211636.jpg": "Louis Vuitton’s “ship” The Louis on Nanjing Road – a shop, café and exhibition, opened in 2025", 
     "IMG_20260512_193007.jpg": "The Shanghai Tower – 632 metres, the third-tallest building in the world", 
     "IMG_20260512_193318.jpg": "The skyscrapers of Lujiazui up close", 
     "IMG_20260512_193852.jpg": "The Oriental Pearl from the river", 
@@ -936,6 +935,7 @@ When you're in Shanghai, be sure to take an evening walk along the river and adm
     "IMG_20260512_200144.jpg": "On 12 May, International Nurses Day, the buildings salute the “angels in white”", 
     "IMG_20260512_200420.jpg": "The light shows on the façades never stop for a moment", 
     "IMG_20260512_200943.jpg": "The Bund – colonial buildings from the early 20th century",
+    "IMG_20260512_211636.jpg": "Louis Vuitton’s “ship” The Louis on Nanjing Road – a shop, café and exhibition, opened in 2025", 
     "IMG_20260512_222125.jpg": "The Monument to the People’s Heroes in Huangpu Park – where the garden “forbidden” to the Chinese once stood", 
     "IMG_20260512_222217.jpg": "Pudong seen from the Bund", 
     "IMG_20260512_223445.jpg": "The HSBC Building from 1923 – one of the most beautiful on the Bund", 
@@ -951,7 +951,6 @@ Our goal was to go up to 259 metres and walk on the glass floor. Believe me, eve
 
 {% gallery "images/china/tower", { 
   captions: { 
-    "IMG_20260513_094759.jpg": "My feet above 259 metres of empty space", 
     "IMG_20260513_090451.jpg": "The Oriental Pearl – 468 metres", 
     "IMG_20260513_091851.jpg": "The Huangpu River and the Bund from above", 
     "IMG_20260513_091857.jpg": "The ships on the river look like toys", 
@@ -962,7 +961,8 @@ Our goal was to go up to 259 metres and walk on the glass floor. Believe me, eve
     "IMG_20260513_093321.jpg": "The three giants: the Shanghai Tower, the “Bottle Opener” (the World Financial Center) and Jin Mao", 
     "IMG_20260513_094028.jpg": "The glass floor – the first steps are the hardest", 
     "IMG_20260513_094108.jpg": "The Bund through the glass", 
-    "IMG_20260513_094333.jpg": "The skyscrapers through the glass wall"
+    "IMG_20260513_094333.jpg": "The skyscrapers through the glass wall",
+    "IMG_20260513_094759.jpg": "My feet above 259 metres of empty space" 
   }, columns: 3
 } %}
 
@@ -978,7 +978,6 @@ Legend has it that someone reported to the emperor that the Pan family was build
 
 {% gallery "images/china/yuyuan_garden", { 
   captions: { 
-    "IMG_20260513_151055.jpg": "The gate to the Inner Garden with Chinese guardian lions, called shishi", 
     "IMG_20260513_144515.jpg": "The dragons on the walls that guard the garden", 
     "IMG_20260513_144555.jpg": "Rock compositions and a pavilion – a Chinese garden is a whole landscape in miniature", 
     "IMG_20260513_144703.jpg": "A small pavilion with calligraphy and a decorative stone", 
@@ -989,6 +988,7 @@ Legend has it that someone reported to the emperor that the Pan family was build
     "IMG_20260513_145711.jpg": "A pavilion over the water", 
     "IMG_20260513_145955.jpg": "Willows over the pond", 
     "IMG_20260513_150425.jpg": "A moon gate guarded by two stone lions", 
+    "IMG_20260513_151055.jpg": "The gate to the Inner Garden with Chinese guardian lions, called shishi", 
     "IMG_20260513_150534.jpg": "The old theatre stage, where performances were staged"
   }, columns: 3
 } %}
