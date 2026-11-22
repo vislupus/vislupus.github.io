@@ -75,6 +75,10 @@
   <link rel="stylesheet" href="/assets/css/prism.css">
   {%- if hasMath %}<link rel="stylesheet" href="/assets/vendor/katex/katex.min.css">{% endif %}
   {%- if hasMap %}<link rel="stylesheet" href="/assets/vendor/leaflet/leaflet.css">{% endif %}
+  {#- Библиотеките за карти, графики и диаграми се теглят с предимство, за да не чакат снимките на страницата #}
+  {%- if hasMap %}<link rel="preload" as="script" href="/assets/vendor/leaflet/leaflet.js" fetchpriority="high">{% endif %}
+  {%- if hasChart %}<link rel="preload" as="script" href="/assets/vendor/chart.umd.js" fetchpriority="high">{% endif %}
+  {%- if hasMermaid %}<link rel="preload" as="script" href="/assets/vendor/mermaid.min.js">{% endif %}
   <script>
     // Преди рисуването: тъмна/светла тема и (при преглед) избраният дизайн, за да няма премигване.
     (function () {
@@ -103,8 +107,8 @@
   {%- if site.analytics.goatcounter and not site.isDev %}<script src="/assets/js/analytics.js" defer></script>{% endif %}
   {%- if hasLightbox %}<script src="/assets/js/lightbox.js" defer></script>{% endif %}
   {%- if hasMap %}<script src="/assets/vendor/leaflet/leaflet.js" defer></script><script src="/assets/js/map.js" defer></script>{% endif %}
-  {%- if hasMermaid %}<script src="/assets/js/diagrams.js" defer></script>{% endif %}
-  {%- if hasChart %}<script src="/assets/js/charts.js" defer></script>{% endif %}
+  {%- if hasMermaid %}<script src="/assets/vendor/mermaid.min.js" defer></script><script src="/assets/js/diagrams.js" defer></script>{% endif %}
+  {%- if hasChart %}<script src="/assets/vendor/chart.umd.js" defer></script><script src="/assets/js/charts.js" defer></script>{% endif %}
   {%- if hasYoutube %}<script src="/assets/js/youtube.js" defer></script>{% endif %}
   {%- block scripts %}{% endblock %}
 </body>

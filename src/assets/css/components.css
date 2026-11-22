@@ -68,14 +68,18 @@ a.tag:hover { color: var(--c-accent); border-color: var(--c-accent); background:
 .post-cover figcaption { text-align: center; color: var(--c-muted); font-size: var(--fs-sm); margin-top: .5rem; }
 .post-layout { display: grid; grid-template-columns: minmax(0, var(--prose)); justify-content: center; gap: 2rem; }
 .post.has-toc .post-layout { grid-template-columns: minmax(0, var(--prose)) 15rem; }
-.toc { order: 2; position: sticky; top: calc(var(--header-h) + 1.5rem); align-self: start; font-size: .88rem; max-height: calc(100dvh - var(--header-h) - 3rem); overflow: auto; }
+.toc { order: 2; position: sticky; top: var(--toc-top, calc(var(--header-h) + 1.5rem)); align-self: start; font-size: .86rem; line-height: 1.35; }
 .toc-title { display: flex; align-items: center; gap: .4rem; font-weight: 700; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--c-muted); margin: 0 0 .5rem; }
 .toc ol { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--c-border); }
-.toc li a { display: block; padding: .3rem .8rem; color: var(--c-muted); text-decoration: none; border-left: 2px solid transparent; margin-left: -2px; }
-.toc li.toc-l3 a { padding-left: 1.6rem; font-size: .84rem; }
+.toc li a { display: block; padding: .28rem .8rem; color: var(--c-muted); text-decoration: none; border-left: 2px solid transparent; margin-left: -2px; overflow-wrap: anywhere; }
+.toc li.toc-l3 a { padding: .2rem .8rem .2rem 1.6rem; font-size: .8rem; }
 .toc li a:hover, .toc li a.is-active { color: var(--c-accent); border-left-color: var(--c-accent); }
+.toc li.is-current > a { color: var(--c-text); font-weight: 600; }
+/* С JavaScript подточките се виждат само за раздела, който се чете – така съдържанието се побира без скрол. */
+.toc.is-collapsible li.toc-l3:not(.is-open) { display: none; }
 @media (min-width: 64.01rem) { .post.has-toc .post-header, .post.has-toc .post-footer, .post.has-toc .series-box { margin-left: max(0px, calc(50% - (var(--prose) + 17rem) / 2)); margin-right: 0; } }
-@media (max-width: 64rem) { .post.has-toc .post-layout { grid-template-columns: minmax(0, var(--prose)); } .toc { position: static; order: -1; max-height: none; padding: 1rem 1.25rem; background: var(--c-surface2); border-radius: var(--radius); } .toc ol { border: 0; } }
+/* На телефон и таблет съдържанието се скрива изцяло. */
+@media (max-width: 64rem) { .post.has-toc .post-layout { grid-template-columns: minmax(0, var(--prose)); } .toc { display: none; } }
 .post-footer { max-width: var(--prose); margin: 3rem auto 0; display: flex; flex-direction: column; gap: 2.5rem; }
 .post-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .post-nav-link { display: flex; flex-direction: column; gap: .2rem; padding: 1rem 1.2rem; background: var(--c-surface); border: var(--border-w) solid var(--c-border); border-radius: var(--radius); text-decoration: none; color: inherit; font-weight: 600; transition: border-color .2s, transform .2s var(--ease); }
@@ -114,10 +118,17 @@ a.tag:hover { color: var(--c-accent); border-color: var(--c-accent); background:
 .prose ul, .prose ol { padding-left: 1.5em; }
 .prose li { margin-block: .3em; }
 .prose li::marker { color: var(--c-accent); }
-.prose blockquote { margin-inline: 0; padding: .5rem 1.25rem; border-left: 4px solid var(--c-accent); background: var(--c-surface2); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; color: var(--c-muted); font-size: 1.05em; }
+.prose blockquote { position: relative; margin-inline: 0; padding: 1rem 1.4rem 1rem 3.2rem; border-left: 4px solid var(--c-accent); background: color-mix(in srgb, var(--c-accent) 7%, var(--c-surface)); border-radius: 0 var(--radius) var(--radius) 0; color: var(--c-text); font-family: var(--font-quote); font-style: italic; font-size: 1.08em; line-height: 1.6; }
+.prose blockquote::before { content: "“"; position: absolute; left: .8rem; top: .15rem; font-family: var(--font-quote); font-style: normal; font-size: 3.2rem; line-height: 1; color: var(--c-accent); opacity: .55; }
 .prose blockquote p:last-child { margin-bottom: 0; }
+.prose blockquote cite, .prose blockquote footer { display: block; margin-top: .5rem; font-family: var(--font-body); font-style: normal; font-size: .88em; color: var(--c-muted); }
 .prose img { border-radius: var(--radius); }
 .prose figure { margin-inline: 0; }
+.figure > a { display: block; }
+.figure img { width: 100%; height: auto; }
+.prose ul.gallery { padding-left: 0; }
+.prose ul.gallery li { margin-block: 0; }
+.prose ul.gallery li::marker { content: none; }
 .prose figcaption, .figure figcaption { font-size: var(--fs-sm); color: var(--c-muted); text-align: center; margin-top: .6rem; }
 .prose .figure-wide { width: min(60rem, 100vw - 2 * var(--gutter)); margin-left: 50%; transform: translateX(-50%); }
 .table-wrap { overflow-x: auto; margin: 0 0 1.25em; border: var(--border-w) solid var(--c-border); border-radius: var(--radius); }
@@ -188,6 +199,37 @@ a.tag:hover { color: var(--c-accent); border-color: var(--c-accent); background:
 .map-figure figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 1rem; }
 .map-figure figcaption a { display: inline-flex; align-items: center; gap: .25rem; text-decoration: none; }
 .leaflet-container { font-family: var(--font-body); }
+/* Плочките и иконките на Leaflet не бива да наследяват стиловете за снимки в текста (сенки, заобляне, max-width) –
+   иначе между плочките се появяват линии. */
+.leaflet-container img, .prose .leaflet-container img { max-width: none !important; max-height: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0; background: none; }
+.leaflet-container a { text-decoration: none; }
+.map { --by-plane: var(--c-accent2); --by-train: var(--c-accent); --by-bus: var(--c-tip); --by-ship: var(--c-note); --by-car: var(--c-curious); --by-walk: var(--c-warning); --by-bike: var(--c-danger); }
+.map-leg { stroke-linecap: round; }
+.map-leg.by-plane { stroke: var(--by-plane); stroke-dasharray: 2 9; stroke-width: 3; }
+.map-leg.by-train { stroke: var(--by-train); stroke-dasharray: 12 6; stroke-width: 3.5; stroke-linecap: butt; }
+.map-leg.by-bus { stroke: var(--by-bus); stroke-width: 3.5; }
+.map-leg.by-ship { stroke: var(--by-ship); stroke-dasharray: 1 7; stroke-width: 4; }
+.map-leg.by-car { stroke: var(--by-car); stroke-width: 3; }
+.map-leg.by-walk { stroke: var(--by-walk); stroke-dasharray: 3 6; stroke-width: 3; }
+.map-leg.by-bike { stroke: var(--by-bike); stroke-dasharray: 8 4 2 4; stroke-width: 3; }
+.map-leg-icon { display: grid !important; place-items: center; border-radius: 50%; background: var(--c-surface); border: 2px solid var(--leg, var(--c-accent)); color: var(--leg, var(--c-accent)); box-shadow: 0 2px 6px rgb(0 0 0 / .25); }
+.map-leg-icon.by-plane { --leg: var(--by-plane); } .map-leg-icon.by-train { --leg: var(--by-train); } .map-leg-icon.by-bus { --leg: var(--by-bus); } .map-leg-icon.by-ship { --leg: var(--by-ship); } .map-leg-icon.by-car { --leg: var(--by-car); } .map-leg-icon.by-walk { --leg: var(--by-walk); } .map-leg-icon.by-bike { --leg: var(--by-bike); }
+.map-leg-icon svg { width: 15px; height: 15px; display: block; }
+.leaflet-tooltip.map-label { font: 600 .78rem/1.2 var(--font-body); color: #1a1b1e; padding: .2rem .5rem; border-radius: 6px; border: 0; box-shadow: 0 2px 8px rgb(0 0 0 / .25); }
+.leaflet-tooltip.map-label a { color: inherit; }
+.map-legend { list-style: none !important; margin: .6rem 0 0 !important; padding: 0 !important; display: flex; flex-wrap: wrap; gap: .4rem 1.2rem; font-size: var(--fs-sm); color: var(--c-muted); --by-plane: var(--c-accent2); --by-train: var(--c-accent); --by-bus: var(--c-tip); --by-ship: var(--c-note); --by-car: var(--c-curious); --by-walk: var(--c-warning); --by-bike: var(--c-danger); }
+.map-legend li { display: inline-flex; align-items: center; gap: .35rem; margin: 0; }
+.map-legend li::marker { content: none; }
+.map-legend-line { display: inline-block; width: 1.8rem; height: 0; border-top: 3px solid var(--leg); }
+.map-legend .by-plane { --leg: var(--by-plane); } .map-legend .by-plane .map-legend-line { border-top-style: dotted; }
+.map-legend .by-train { --leg: var(--by-train); } .map-legend .by-train .map-legend-line { border-top-style: dashed; }
+.map-legend .by-bus { --leg: var(--by-bus); }
+.map-legend .by-ship { --leg: var(--by-ship); } .map-legend .by-ship .map-legend-line { border-top-style: dotted; border-top-width: 4px; }
+.map-legend .by-car { --leg: var(--by-car); }
+.map-legend .by-walk { --leg: var(--by-walk); } .map-legend .by-walk .map-legend-line { border-top-style: dashed; }
+.map-legend .by-bike { --leg: var(--by-bike); } .map-legend .by-bike .map-legend-line { border-top-style: dashed; }
+.map-legend .icon { color: var(--leg); }
+.map-figure figcaption { margin-top: .5rem; }
 html[data-scheme="dark"] .leaflet-tile-pane { filter: brightness(.85) contrast(1.05) saturate(.9); }
 @media (prefers-color-scheme: dark) { html:not([data-scheme="light"]) .leaflet-tile-pane { filter: brightness(.85) contrast(1.05) saturate(.9); } }
 
@@ -224,7 +266,12 @@ a.link-card:hover, a.download-card:hover { border-color: var(--c-accent); transf
 /* --- Диаграми и графики ------------------------------------------------------ */
 .diagram pre.mermaid { background: var(--c-surface); color: var(--c-text); border: var(--border-w) solid var(--c-border); text-align: center; overflow: auto; }
 .diagram pre.mermaid svg { margin-inline: auto; max-width: 100%; height: auto; }
-.chart-box { position: relative; height: 22rem; padding: 1rem; background: var(--c-surface); border: var(--border-w) solid var(--c-border); border-radius: var(--radius); }
+.chart { margin: 0 0 1.5em; }
+.chart-box { position: relative; height: 22rem; }
+.chart-box canvas { max-width: 100%; }
+.chart-box .missing { position: absolute; inset: auto 0 0 0; text-align: center; }
+.chart figcaption, .diagram figcaption { font-size: var(--fs-sm); color: var(--c-muted); text-align: center; margin-top: .6rem; }
+.diagram pre.mermaid.is-failed { white-space: pre; text-align: left; font-size: .8rem; }
 
 /* --- Проекти ----------------------------------------------------------------- */
 .project-header h1 .icon { vertical-align: -.1em; }

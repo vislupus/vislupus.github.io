@@ -44,17 +44,17 @@ $$
 
 ## 図とグラフ
 
-```mermaid
+{% mermaid %}
 flowchart LR
   A[Markdown] --> B(Eleventy) --> C[静的HTML]
-```
+{% endmermaid %}
 
-```chart
+{% chart %}
 {
   "type": "radar",
   "data": { "labels": ["コード", "執筆", "絵", "音楽", "旅"], "datasets": [{ "label": "今月", "data": [8, 6, 7, 5, 9] }] }
 }
-```
+{% endchart %}
 
 ## 写真とギャラリー
 

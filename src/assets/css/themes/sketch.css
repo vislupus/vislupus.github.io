@@ -68,8 +68,6 @@ html[data-theme="sketch"] .btn-primary, html[data-theme="sketch"] .chip[aria-pre
 html[data-theme="sketch"] .btn-primary:hover { background: var(--c-accent); }
 html[data-theme="sketch"] .segmented button[aria-selected="true"] { box-shadow: none; background: var(--c-surface2); border: var(--border-w) solid var(--c-border); border-radius: var(--radius-sm); }
 html[data-theme="sketch"] .callout-title { color: var(--cc); }
-html[data-theme="sketch"] .prose blockquote { border-left: var(--border-w) solid var(--c-border); background: transparent; border-radius: 0; position: relative; }
-html[data-theme="sketch"] .prose blockquote::before { content: "“"; position: absolute; left: .6rem; top: -.4rem; font-size: 3rem; color: var(--c-accent); opacity: .5; }
 html[data-theme="sketch"] .prose img, html[data-theme="sketch"] .post-cover img, html[data-theme="sketch"] .gallery a { border: var(--border-w) solid var(--c-border); box-shadow: var(--shadow); }
 html[data-theme="sketch"] .prose code:not(pre code) { border-radius: 4px; border-color: var(--c-border); }
 html[data-theme="sketch"] .prose a:not(.btn):not(.tag) { text-decoration: none; background: linear-gradient(transparent 60%, color-mix(in srgb, var(--c-accent2) 30%, transparent) 60%); }
@@ -85,3 +83,4 @@ html[data-theme="sketch"] .heading-anchor { color: var(--c-accent); }
 html[data-theme="sketch"] .eyebrow { color: var(--c-accent); }
 html[data-theme="sketch"] .more-link { text-decoration: underline; text-decoration-style: wavy; text-decoration-color: var(--c-accent2); }
 html[data-theme="sketch"] .lede { font-style: italic; }
+html[data-theme="sketch"] .prose blockquote { border: var(--border-w) dashed var(--c-border); border-radius: var(--radius-sm); background: var(--c-surface2); }

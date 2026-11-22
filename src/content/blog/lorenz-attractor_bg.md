@@ -62,7 +62,7 @@ plt.show()
 
 ![Три траектории с почти еднакво начало](images/lorenz/lorenz_attractor_many.png)
 
-```chart
+{% chart %}
 {
   "type": "line",
   "data": {
@@ -71,7 +71,7 @@ plt.show()
   },
   "options": { "scales": { "y": { "type": "logarithmic" } } }
 }
-```
+{% endchart %}
 
 ::: tip
 За истинска работа ползвай `scipy.integrate.solve_ivp` с метода RK45. Ойлер е само за разбиране на идеята.

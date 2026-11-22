@@ -12,7 +12,7 @@ export default {
     coverMeta: async (data) => imageMeta(data.imagePath, [480, 960, 1600]),
     ogImageUrl: async (data) => ogImageFrom(data.imagePath, data.page.fileSlug),
     permalink: (data) => {
-      if (data.draft && process.env.ELEVENTY_RUN_MODE !== "serve") return false;
+      if (data.draft && process.env.ELEVENTY_RUN_MODE !== "serve" && process.env.DRAFTS !== "1") return false;
       const { key, lang } = splitSlug(data.page.fileSlug);
       return data.permalink || `/${lang}/blog/${data.slug || key}/`;
     },

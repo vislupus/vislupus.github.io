@@ -29,6 +29,7 @@ eleventyExcludeFromCollections: true
   --font-body: {{ site.fonts.body | safe }};
   --font-heading: {{ site.fonts.heading | safe }};
   --font-mono: {{ site.fonts.mono | safe }};
+  --font-quote: {{ (site.fonts.quote or site.fonts.body) | safe }};
   --font-jp: {{ site.fonts.japanese | safe }};
 }
 html[data-lang="jp"] { --font-body: {{ site.fonts.japanese | safe }}, {{ site.fonts.body | safe }}; --font-heading: {{ site.fonts.japanese | safe }}, {{ site.fonts.heading | safe }}; }

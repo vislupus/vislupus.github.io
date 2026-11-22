@@ -18,6 +18,7 @@ export default function (eleventyConfig) {
     // Шрифтове (Roboto и Roboto Mono, променливи, само woff2)
     "node_modules/@fontsource-variable/roboto/files/roboto-{latin,latin-ext,cyrillic,cyrillic-ext,greek}-wght-{normal,italic}.woff2": "assets/fonts",
     "node_modules/@fontsource-variable/roboto-mono/files/roboto-mono-{latin,latin-ext,cyrillic,cyrillic-ext,greek}-wght-normal.woff2": "assets/fonts",
+    "node_modules/@fontsource-variable/roboto-serif/files/roboto-serif-{latin,latin-ext,cyrillic,cyrillic-ext}-wght-{normal,italic}.woff2": "assets/fonts",
     // Библиотеки, които се зареждат само на страниците, където трябват
     "node_modules/leaflet/dist/leaflet.js": "assets/vendor/leaflet/leaflet.js",
     "node_modules/leaflet/dist/leaflet.css": "assets/vendor/leaflet/leaflet.css",
@@ -64,7 +65,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("markdownInline", (s) => (s ? md.renderInline(String(s)) : ""));
 
   // --- Колекции ----------------------------------------------------------------
-  const published = (p) => !p.data.draft || process.env.ELEVENTY_RUN_MODE === "serve";
+  const published = (p) => !p.data.draft || (process.env.ELEVENTY_RUN_MODE === "serve" || process.env.DRAFTS === "1");
   const byDateDesc = (a, b) => b.date - a.date;
   eleventyConfig.addCollection("posts", (api) => api.getFilteredByGlob("src/content/blog/**/*.md").filter(published).sort(byDateDesc));
   for (const l of languages) {
@@ -204,6 +205,8 @@ export default function (eleventyConfig) {
   eleventyConfig.addShortcode("youtube", sc.youtubeShortcode);
   eleventyConfig.addShortcode("iframe", sc.iframeShortcode);
   eleventyConfig.addPairedShortcode("embed", sc.embedPaired);
+  eleventyConfig.addPairedShortcode("chart", sc.chartPaired);
+  eleventyConfig.addPairedShortcode("mermaid", sc.mermaidPaired);
   eleventyConfig.addAsyncShortcode("download", sc.downloadShortcode);
   eleventyConfig.addShortcode("video", sc.videoShortcode);
   eleventyConfig.addAsyncShortcode("link", sc.linkShortcode);

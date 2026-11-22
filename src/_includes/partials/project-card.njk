@@ -1,6 +1,6 @@
 {#- Очаква pr (проект) и lang -#}
 <article class="card project-card">
-  <a class="card-image card-image-repo" href="/{{ lang }}/projects/{{ pr.slug }}/" tabindex="-1" aria-hidden="true"><span class="card-image-fallback">{% icon "folder-git-2", 40 %}<span>{{ pr.name }}</span></span><img src="{{ pr.image }}" alt="" loading="lazy" decoding="async" onerror="this.remove()" eleventy:ignore></a>
+  <a class="card-image card-image-repo" href="/{{ lang }}/projects/{{ pr.slug }}/" tabindex="-1" aria-hidden="true"><span class="card-image-fallback">{% icon "folder-git-2", 40 %}<span>{{ pr.name }}</span></span>{% if pr.image %}<img src="{{ pr.image }}" alt="" width="1200" height="600" loading="lazy" decoding="async" onerror="this.remove()" eleventy:ignore>{% endif %}</a>
   <div class="card-body">
     <h3 class="card-title"><a href="/{{ lang }}/projects/{{ pr.slug }}/" data-track="project:{{ pr.name }}">{% icon "folder-git-2", 18 %} {{ pr.name }}</a></h3>
     <p class="card-text">{{ pr.description or ("projects.noDescription" | t(lang)) }}</p>
