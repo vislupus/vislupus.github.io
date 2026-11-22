@@ -365,7 +365,7 @@ a.link-card:hover, a.download-card:hover { border-color: var(--c-accent); transf
 .player-time { font-size: .8rem; color: var(--c-muted); font-variant-numeric: tabular-nums; min-width: 2.6rem; }
 .player-time:last-child { text-align: right; }
 .player input[type="range"] { flex: 1; accent-color: var(--c-accent); height: 1.5rem; margin: 0; }
-.player-volume { display: flex; align-items: center; gap: .4rem; color: var(--c-muted); width: 8rem; }
+.player-volume { display: flex; align-items: center; gap: .4rem; color: var(--c-muted); width: 8rem; margin-right: 10px; }
 @media (max-width: 52rem) { .player-inner { grid-template-columns: 1fr auto auto; grid-template-areas: "track controls close" "progress progress progress"; row-gap: .25rem; padding-block: .5rem; } .player-track { grid-area: track; } .player-controls { grid-area: controls; } .player-progress { grid-area: progress; } .player-volume { display: none; } [data-player-close] { grid-area: close; } .has-player.player-open { padding-bottom: 7.5rem; } }
 
 /* --- Рисунки: галерия, змиевидна линия на времето, харесвания ---------------- */
