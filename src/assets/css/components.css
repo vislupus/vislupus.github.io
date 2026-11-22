@@ -64,6 +64,9 @@ a.tag:hover { color: var(--c-accent); border-color: var(--c-accent); background:
 .post-info { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; color: var(--c-muted); font-size: var(--fs-sm); margin-top: .75rem; }
 .post-info span { display: inline-flex; align-items: center; gap: .35rem; }
 .post-cover { max-width: 60rem; margin: 0 auto 2rem; }
+.post-cover > a { display: block; }
+/* Със съдържание отстрани корицата е широка колкото текста и съдържанието заедно и е подравнена с тях. */
+@media (min-width: 64.01rem) { .post.has-toc .post-cover { max-width: calc(var(--prose) + 17rem); } }
 .post-cover img { width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
 .post-cover figcaption { text-align: center; color: var(--c-muted); font-size: var(--fs-sm); margin-top: .5rem; }
 .post-layout { display: grid; grid-template-columns: minmax(0, var(--prose)); justify-content: center; gap: 2rem; }

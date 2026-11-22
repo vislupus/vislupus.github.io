@@ -28,7 +28,7 @@ layout: layouts/base.njk
   </header>
 
   {%- if image %}
-  <figure class="post-cover">{{ coverMeta | picture({ alt: imageAlt or title, sizes: "(min-width: 64rem) 60rem, 100vw", eager: true, lightbox: imageCaption or title }) | safe }}{% if imageCaption %}<figcaption>{{ imageCaption }}</figcaption>{% endif %}</figure>
+  <figure class="post-cover">{{ coverMeta | picture({ alt: imageAlt or title, sizes: "(min-width: 64rem) 63rem, 100vw", eager: true, lightbox: imageCaption or title }) | safe }}{% if imageCaption %}<figcaption>{{ imageCaption }}</figcaption>{% endif %}</figure>
   {%- endif %}
 
   {%- if series and seriesPosts.length > 1 %}
