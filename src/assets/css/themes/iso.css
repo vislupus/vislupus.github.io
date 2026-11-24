@@ -35,9 +35,7 @@ html[data-theme="iso"] .step-num { display: grid; }
 html[data-theme="iso"] .site-footer { background: var(--c-bg2); border-top: 3px solid var(--c-accent); }
 html[data-theme="iso"] .footer-inner { position: relative; }
 html[data-theme="iso"] .social-list a { border-radius: 6px; box-shadow: 2px 2px 0 0 color-mix(in srgb, var(--c-accent) 30%, transparent); }
-html[data-theme="iso"] .snake-row::before, html[data-theme="iso"] .snake-row::after { border-color: var(--c-accent); border-style: solid; opacity: .6; }
 html[data-theme="iso"] .snake-item img { border-radius: 8px; box-shadow: 5px 5px 0 -1px color-mix(in srgb, var(--c-accent2) 40%, transparent); }
-html[data-theme="iso"] .snake-year { transform: skewX(-10deg); }
 html[data-theme="iso"] .toc ol { border-left: 3px solid var(--c-accent); }
 html[data-theme="iso"] .player { border-top: 3px solid var(--c-accent); }
 html[data-theme="iso"] .lightbox { background: rgb(5 15 12 / .96); }

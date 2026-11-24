@@ -74,7 +74,7 @@ html[data-theme="sketch"] .prose a:not(.btn):not(.tag) { text-decoration: none; 
 html[data-theme="sketch"] .prose h2::before { content: "# "; color: var(--c-accent); font-weight: 400; }
 html[data-theme="sketch"] .section-title::after { content: ""; flex: 1; margin-left: .75rem; height: 2px; background: repeating-linear-gradient(90deg, var(--c-border) 0 6px, transparent 6px 11px); opacity: .6; }
 html[data-theme="sketch"] .site-footer { background: transparent; border-top: var(--border-w) dashed var(--c-border); }
-html[data-theme="sketch"] .snake-row::before, html[data-theme="sketch"] .snake-row::after { border-color: var(--c-text); border-style: dashed; }
+html[data-theme="sketch"] .snake-line path { stroke: var(--c-text); stroke-dasharray: 7 7; stroke-width: 2.5; }
 html[data-theme="sketch"] .snake-item:nth-child(even) img { transform: rotate(1.2deg); }
 html[data-theme="sketch"] .toc ol { border-left: var(--border-w) dashed var(--c-border); }
 html[data-theme="sketch"] .map { border-radius: var(--radius-sm); }
