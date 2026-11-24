@@ -44,7 +44,7 @@ eleventyComputed:
       {%- set dTitle = d.data.title | ml(lang) %}
       <li class="snake-item" data-medium="{{ d.data.medium }}" data-year="{{ d.date.getUTCFullYear() }}">
         <figure>
-          {{ d.data.imageMeta | picture({ alt: dTitle, sizes: "(min-width: 40rem) 14rem, 45vw", lightbox: dTitle + " · " + (d.date | localeDate(lang, "month")) }) | safe }}
+          {{ d.data.imageMeta | picture({ alt: dTitle, sizes: "(min-width: 40rem) 14rem, 45vw", lightbox: dTitle + " · " + (d.date | localeDate(lang, "month")), ai: d.data.imageAiMeta, aiLabel: "drawings.withAi" | t(lang) }) | safe }}
           <figcaption><time datetime="{{ d.date | isoDate }}">{{ d.date | localeDate(lang, "short") }}</time><span>{{ dTitle }}</span></figcaption>
         </figure>
       </li>

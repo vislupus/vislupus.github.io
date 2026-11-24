@@ -41,6 +41,7 @@ export default {
       openOnSuno: "Open on Suno", download: "Download MP3", duration: "Duration", nowPlaying: "Now playing", tracks: "tracks", all: "All", spotlight: "In the spotlight", playAll: "Play all",
       plays: "plays", likes: "likes", share: "Share song", allSongs: "All songs", listen: "Listen", shareText: "Listen to {title}", page: "Song", copied: "Link copied" },
     drawings: {
+      original: "Original", withAi: "With AI", compare: "Compare", versions: "Version",
       title: "Drawings", lede: "Digital sketches and sumi-e ink. Newest first. Click a picture to see it full screen.",
       gallery: "Gallery", timeline: "Timeline", all: "All", filter: "Technique", newest: "Newest", oldest: "Oldest", count: "drawings",
       media: { digital: "Digital", "sumi-e": "Sumi-e", ink: "Ink", pencil: "Pencil", watercolor: "Watercolor" },
@@ -89,6 +90,7 @@ export default {
       openOnSuno: "Отвори в Suno", download: "Свали MP3", duration: "Продължителност", nowPlaying: "Сега свири", tracks: "песни", all: "Всички", spotlight: "На светлината на прожекторите", playAll: "Пусни всички",
       plays: "прослушвания", likes: "харесвания", share: "Сподели песента", allSongs: "Всички песни", listen: "Слушай", shareText: "Чуй {title}", page: "Песен", copied: "Връзката е копирана" },
     drawings: {
+      original: "Оригинал", withAi: "С AI", compare: "Сравни", versions: "Версия",
       title: "Рисунки", lede: "Дигитални скици и туш суми-е. Най-новите са първи. Кликни върху рисунка, за да я видиш на цял екран.",
       gallery: "Галерия", timeline: "Линия на времето", all: "Всички", filter: "Техника", newest: "Най-нови", oldest: "Най-стари", count: "рисунки",
       media: { digital: "Дигитални", "sumi-e": "Суми-е", ink: "Туш", pencil: "Молив", watercolor: "Акварел" },
@@ -137,6 +139,7 @@ export default {
       openOnSuno: "Sunoで開く", download: "MP3をダウンロード", duration: "長さ", nowPlaying: "再生中", tracks: "曲", all: "すべて", spotlight: "スポットライト", playAll: "すべて再生",
       plays: "回再生", likes: "いいね", share: "歌を共有", allSongs: "すべての歌", listen: "聴く", shareText: "{title}を聴く", page: "歌", copied: "リンクをコピーしました" },
     drawings: {
+      original: "オリジナル", withAi: "AI加工", compare: "比較", versions: "バージョン",
       title: "絵", lede: "デジタルスケッチと墨絵。新しいものから順に。クリックすると全画面で見られます。",
       gallery: "ギャラリー", timeline: "タイムライン", all: "すべて", filter: "技法", newest: "新しい順", oldest: "古い順", count: "点",
       media: { digital: "デジタル", "sumi-e": "墨絵", ink: "インク", pencil: "鉛筆", watercolor: "水彩" },
