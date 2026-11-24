@@ -181,6 +181,28 @@ a.tag:hover { color: var(--c-accent); border-color: var(--c-accent); background:
 .lightbox figure { margin: 0; width: 100%; height: 100%; display: grid; grid-template-rows: 1fr auto; place-items: center; padding: 3.5rem 4rem 1rem; }
 .lightbox img { max-width: 100%; max-height: calc(100dvh - 6.5rem); width: auto; height: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 80px rgb(0 0 0 / .5); opacity: 0; transition: opacity .25s; }
 .lightbox img.is-ready { opacity: 1; }
+/* Сцена на lightbox-а и сравнение на две версии (оригинал / с AI) */
+.lb-stage { position: relative; display: inline-grid; max-width: 100%; --pos: 50%; }
+.lb-stage > img { grid-area: 1 / 1; }
+.lb-stage .lb-ai { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; object-fit: cover; opacity: 1; box-shadow: none; }
+.lb-stage.is-compare .lb-ai { clip-path: inset(0 0 0 var(--pos)); }
+.lb-range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; touch-action: pan-y; }
+.lb-divider { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 0 1px rgb(0 0 0 / .25); pointer-events: none; }
+.lb-knob { position: absolute; top: 50%; left: 50%; width: 2.4rem; height: 2.4rem; margin: -1.2rem 0 0 -1.2rem; border-radius: 50%; background: #fff; color: #111; display: grid; place-items: center; box-shadow: 0 4px 14px rgb(0 0 0 / .45); }
+.lb-range:focus-visible ~ .lb-divider .lb-knob, .lb-stage:has(.lb-range:focus-visible) .lb-knob { outline: 3px solid var(--c-accent); outline-offset: 2px; }
+.lb-tag { position: absolute; top: .6rem; padding: .2rem .6rem; border-radius: 999px; background: rgb(0 0 0 / .55); color: #fff; font-size: .75rem; font-weight: 600; pointer-events: none; }
+.lb-tag-a { left: .6rem; } .lb-tag-b { right: .6rem; }
+.lb-modes { position: absolute; top: .75rem; right: 7.75rem; display: inline-flex; gap: .15rem; padding: .25rem; border-radius: 999px; background: rgb(255 255 255 / .1); }
+.lb-modes button { display: inline-flex; align-items: center; gap: .35rem; height: 2.5rem; padding: 0 .9rem; border-radius: 999px; color: #fff; font-size: .85rem; font-weight: 600; transition: background .2s; }
+.lb-modes button:hover { background: rgb(255 255 255 / .18); }
+.lb-modes button[aria-pressed="true"] { background: #fff; color: #111; }
+.lightbox:not(:has(.lb-full:not([hidden]))) .lb-modes { right: 4.25rem; }
+@media (max-width: 40rem) { .lb-modes { right: 4.25rem; } .lb-modes button { padding: 0 .65rem; } .lb-modes button span { display: none; } .lightbox:has(.lb-full:not([hidden])) .lb-modes { right: 7.75rem; } .lightbox.has-modes .lb-counter { top: 4rem; } }
+/* Рисунка с версия с AI в галерията и линията на времето: при посочване оригиналът преминава във версията с AI. */
+.has-ai { position: relative; display: block; }
+.has-ai .img-ai { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .45s var(--ease); }
+.has-ai:hover .img-ai, .has-ai:focus-visible .img-ai { opacity: 1; }
+.ai-badge { position: absolute; right: .5rem; bottom: .5rem; display: inline-flex; align-items: center; gap: .2rem; padding: .2rem .5rem; border-radius: 999px; background: rgb(0 0 0 / .6); color: #fff; font-size: .7rem; font-weight: 700; letter-spacing: .04em; pointer-events: none; }
 .lightbox figcaption { color: #ddd; font-size: var(--fs-sm); padding: .5rem 0; min-height: 2rem; text-align: center; }
 .lightbox figcaption:empty { display: none; }
 .lb-counter { position: absolute; top: 1rem; left: 1.25rem; font-size: .85rem; color: #bbb; font-variant-numeric: tabular-nums; }

@@ -4,7 +4,26 @@
   const links = [...document.querySelectorAll("a[data-lightbox]")];
   if (!dlg || !links.length || typeof HTMLDialogElement !== "function") return;
 
-  const img = dlg.querySelector("img"), cap = dlg.querySelector("figcaption"), counter = dlg.querySelector(".lb-counter");
+  const img = dlg.querySelector(".lb-img"), cap = dlg.querySelector("figcaption"), counter = dlg.querySelector(".lb-counter");
+  // Рисунки с две версии (<a data-ai="…">): оригинал, с AI или сравнение с плъзгач.
+  const aiImg = dlg.querySelector(".lb-ai"), modes = dlg.querySelector(".lb-modes"), range = dlg.querySelector(".lb-range");
+  const divider = dlg.querySelector(".lb-divider"), tags = [...dlg.querySelectorAll(".lb-tag")], stage = dlg.querySelector(".lb-stage");
+  let mode = "compare";
+  const setPos = (v) => stage.style.setProperty("--pos", `${v}%`);
+  const setMode = (m) => {
+    mode = m;
+    const has = Boolean(aiImg.getAttribute("src"));
+    modes.hidden = !has;
+    aiImg.hidden = !has || m === "original";
+    const cmp = has && m === "compare";
+    range.hidden = divider.hidden = !cmp;
+    tags.forEach((t) => { t.hidden = !cmp; });
+    stage.classList.toggle("is-compare", cmp);
+    dlg.classList.toggle("has-modes", has);
+    modes.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
+  };
+  modes.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => setMode(b.dataset.mode)));
+  range.addEventListener("input", () => setPos(range.value));
   const groups = new Map();
   for (const a of links) {
     const g = a.closest("[data-gallery], .drawing-grid, .snake, .prose, .drawing-strip") ?? document.body;
@@ -18,13 +37,15 @@
     img.classList.remove("is-ready");
     img.src = a.href;
     img.alt = a.querySelector("img")?.alt || "";
+    if (a.dataset.ai) { aiImg.src = a.dataset.ai; range.value = 50; setPos(50); } else aiImg.removeAttribute("src");
+    setMode(mode);
     cap.textContent = a.dataset.caption || img.alt;
     counter.textContent = `${index + 1} / ${list.length}`;
     dlg.classList.toggle("is-single", list.length < 2);
     const ready = () => img.classList.add("is-ready");
     if (img.complete) ready(); else img.addEventListener("load", ready, { once: true });
     // Предварително зареждане на съседите
-    for (const k of [index + 1, index - 1]) { const p = new Image(); p.src = list[(k + list.length) % list.length].href; }
+    for (const k of [index + 1, index - 1]) { const n = list[(k + list.length) % list.length]; new Image().src = n.href; if (n.dataset.ai) new Image().src = n.dataset.ai; }
   };
   const open = (a) => {
     list = [...groups.entries()].find(([, arr]) => arr.includes(a))?.[1] ?? links;
@@ -53,13 +74,14 @@
   dlg.addEventListener("click", (e) => { if (e.target === dlg || e.target.tagName === "FIGURE") close(); });
   dlg.addEventListener("close", () => { document.body.style.overflow = ""; });
   dlg.addEventListener("keydown", (e) => {
+    if (e.target === range) return; // стрелките местят плъзгача за сравнение
     if (e.key === "ArrowLeft") show(index - 1);
     else if (e.key === "ArrowRight") show(index + 1);
     else if (e.key === "f" || e.key === "F") full.click();
   });
   // Свайп на телефон
   let x0 = null;
-  dlg.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+  dlg.addEventListener("touchstart", (e) => { x0 = e.target === range ? null : e.touches[0].clientX; }, { passive: true });
   dlg.addEventListener("touchend", (e) => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 50) show(index + (dx < 0 ? 1 : -1)); x0 = null; });
   // Отваряне по #hash (напр. /drawings/#fox)
   if (location.hash) { const a = document.querySelector(`[data-slug="${CSS.escape(location.hash.slice(1))}"] a[data-lightbox]`); if (a) open(a); }
