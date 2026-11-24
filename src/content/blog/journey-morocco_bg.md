@@ -28,7 +28,8 @@ draft: true
   Това ли беше първият ти трекинг с мулета и камили?
 #}
 
-{# 📷 {% figure "images/morocco/ИМЕ.jpg", "Надпис под снимката" %} #}
+{% figure "images/morocco/ChatGPT Image Apr 29, 2026, 10_07_56 AM.png", "Инфографика на маршрута ни" %}
+
 
 {% map {
   lat: 30.8, lng: -6.8, zoom: 6, route: true, fit: true,

@@ -29,7 +29,7 @@ draft: true
   Полетът през Истанбул – колко часа пътувахте?
 #}
 
-{# 📷 {% figure "images/thailand/ИМЕ.jpg", "Надпис под снимката" %} #}
+{% figure "images/thailand/ChatGPT Image May 15, 2026, 02_56_50 PM.png", "Инфографика на маршрута ни" %}
 
 {% map {
   lat: 14.5, lng: 100.2, zoom: 5, route: true, fit: true,
