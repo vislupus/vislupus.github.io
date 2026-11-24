@@ -51,6 +51,8 @@
     list = [...groups.entries()].find(([, arr]) => arr.includes(a))?.[1] ?? links;
     show(list.indexOf(a));
     dlg.showModal();
+    // Фокусът не бива да пада върху плъзгача за сравнение – иначе стрелките го местят, вместо да сменят рисунката.
+    dlg.querySelector(".lb-close").focus({ preventScroll: true });
     document.body.style.overflow = "hidden";
   };
   const close = () => { if (document.fullscreenElement) document.exitFullscreen?.(); dlg.close(); };
