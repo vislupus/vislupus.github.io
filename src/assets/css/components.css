@@ -393,17 +393,14 @@ a.link-card:hover, a.download-card:hover { border-color: var(--c-accent); transf
 .snake-item time { font-weight: 700; color: var(--c-accent); }
 .snake-item.is-hidden { display: none; }
 /* С JavaScript: редове, които се редуват ляво→дясно и дясно→ляво, свързани с извита линия */
-.snake.is-ready { display: block; --line: 3px; --cell: 12rem; }
-.snake-row { display: flex; gap: 1rem; padding: 1.5rem 1rem; position: relative; }
+/* С JavaScript (drawings.js): най-старата рисунка е долу вляво, редовете се редят нагоре и сменят посоката,
+   а една SVG крива минава през центровете на рисунките и свършва при най-новата. */
+.snake.is-ready { display: block; position: relative; box-sizing: border-box; margin-inline: auto; max-width: 100%; --cell: 12rem; --gap: 1rem; --cols: 1; --turn: clamp(2rem, 5vw, 4rem); padding-inline: var(--turn); width: calc(var(--cols) * var(--cell) + (var(--cols) - 1) * var(--gap) + 2 * var(--turn)); }
+.snake-row { display: flex; gap: var(--gap); padding-block: 1.25rem; position: relative; z-index: 1; }
 .snake-row.is-reverse { flex-direction: row-reverse; }
-.snake-row::before { content: ""; position: absolute; left: 1rem; right: 1rem; top: 50%; border-top: var(--line) dashed var(--c-border); z-index: 0; }
-.snake-row .snake-item { flex: 0 0 var(--cell); position: relative; z-index: 1; }
-.snake-row .snake-item figure { background: var(--c-bg); padding: .25rem; border-radius: var(--radius); }
-.snake-row:not(.is-last)::after { content: ""; position: absolute; top: 50%; width: calc(var(--cell) / 2 + 1rem); height: calc(100% + 1px); border: var(--line) dashed var(--c-border); z-index: 0; }
-.snake-row:not(.is-reverse):not(.is-last)::after { right: 0; border-left: 0; border-radius: 0 999px 999px 0; }
-.snake-row.is-reverse:not(.is-last)::after { left: 0; border-right: 0; border-radius: 999px 0 0 999px; }
-.snake-row .snake-item::before { content: ""; position: absolute; top: calc(50% - .5rem); left: calc(50% - .5rem); width: 1rem; height: 1rem; border-radius: 50%; background: var(--c-accent); border: 3px solid var(--c-bg); z-index: 2; display: none; }
-.snake.is-ready { margin-inline: auto; }
+.snake-row .snake-item { flex: 0 0 var(--cell); min-width: 0; position: relative; }
+.snake-line { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; overflow: visible; pointer-events: none; }
+.snake-line path { fill: none; stroke: color-mix(in srgb, var(--c-accent) 70%, transparent); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 .snake-item.is-year-start::after { content: attr(data-year); position: absolute; top: -.4rem; left: .25rem; z-index: 3; padding: .2rem .7rem; border-radius: 999px; background: var(--c-accent); color: var(--c-accentText); font-weight: 800; font-size: .8rem; box-shadow: var(--shadow); }
 
 /* --- Търсене ----------------------------------------------------------------- */
