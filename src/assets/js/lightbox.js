@@ -9,7 +9,17 @@
   const aiImg = dlg.querySelector(".lb-ai"), modes = dlg.querySelector(".lb-modes"), range = dlg.querySelector(".lb-range");
   const divider = dlg.querySelector(".lb-divider"), tags = [...dlg.querySelectorAll(".lb-tag")], stage = dlg.querySelector(".lb-stage");
   let mode = "compare";
-  const setPos = (v) => stage.style.setProperty("--pos", `${v}%`);
+  // Надписът „Оригинал“ се вижда само докато целият е върху оригинала (вляво от разделителя), а „С AI“ –
+  // само докато целият е върху версията с AI (вдясно). Ако разделителят го застъпи, надписът изчезва.
+  const updateTags = () => {
+    const w = stage.clientWidth;
+    if (!w || range.hidden) return;
+    const x = (Number(range.value) / 100) * w, gap = 6;
+    const [a, b] = tags;
+    a.classList.toggle("is-off", a.offsetLeft + a.offsetWidth + gap > x);
+    b.classList.toggle("is-off", b.offsetLeft - gap < x);
+  };
+  const setPos = (v) => { stage.style.setProperty("--pos", `${v}%`); updateTags(); };
   const setMode = (m) => {
     mode = m;
     const has = Boolean(aiImg.getAttribute("src"));
@@ -21,7 +31,11 @@
     stage.classList.toggle("is-compare", cmp);
     dlg.classList.toggle("has-modes", has);
     modes.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
+    updateTags();
   };
+  img.addEventListener("load", updateTags);
+  addEventListener("resize", updateTags);
+  if ("ResizeObserver" in window) new ResizeObserver(updateTags).observe(stage);
   modes.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => setMode(b.dataset.mode)));
   range.addEventListener("input", () => setPos(range.value));
   const groups = new Map();

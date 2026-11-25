@@ -192,7 +192,8 @@ a.tag:hover { color: var(--c-accent); border-color: var(--c-accent); background:
 .lb-divider { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 0 1px rgb(0 0 0 / .25); pointer-events: none; }
 .lb-knob { position: absolute; top: 50%; left: 50%; width: 2.4rem; height: 2.4rem; margin: -1.2rem 0 0 -1.2rem; border-radius: 50%; background: #fff; color: #111; display: grid; place-items: center; box-shadow: 0 4px 14px rgb(0 0 0 / .45); }
 .lb-range:focus-visible ~ .lb-divider .lb-knob, .lb-stage:has(.lb-range:focus-visible) .lb-knob { outline: 3px solid var(--c-accent); outline-offset: 2px; }
-.lb-tag { position: absolute; top: .6rem; padding: .2rem .6rem; border-radius: 999px; background: rgb(0 0 0 / .55); color: #fff; font-size: .75rem; font-weight: 600; pointer-events: none; }
+.lb-tag { position: absolute; top: .6rem; padding: .2rem .6rem; border-radius: 999px; background: rgb(0 0 0 / .55); color: #fff; font-size: .75rem; font-weight: 600; white-space: nowrap; pointer-events: none; transition: opacity .15s; }
+.lb-tag.is-off { opacity: 0; }
 .lb-tag-a { left: .6rem; } .lb-tag-b { right: .6rem; }
 .lb-modes { position: absolute; top: .75rem; right: 7.75rem; display: inline-flex; gap: .15rem; padding: .25rem; border-radius: 999px; background: rgb(255 255 255 / .1); }
 .lb-modes button { display: inline-flex; align-items: center; gap: .35rem; height: 2.5rem; padding: 0 .9rem; border-radius: 999px; color: #fff; font-size: .85rem; font-weight: 600; white-space: nowrap; transition: background .2s; }
