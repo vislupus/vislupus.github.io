@@ -205,7 +205,9 @@ a.tag:hover { color: var(--c-accent); border-color: var(--c-accent); background:
 .has-ai { position: relative; display: block; }
 .has-ai .img-ai { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .45s var(--ease); }
 .has-ai:hover .img-ai, .has-ai:focus-visible .img-ai { opacity: 1; }
-.ai-badge { position: absolute; right: .5rem; bottom: .5rem; display: inline-flex; align-items: center; gap: .2rem; padding: .2rem .5rem; border-radius: 999px; background: rgb(0 0 0 / .6); color: #fff; font-size: .7rem; font-weight: 700; letter-spacing: .04em; pointer-events: none; }
+/* Знакът „AI“ се появява заедно с версията с AI (при посочване), за да не изглежда оригиналът като правен с AI. */
+.ai-badge { position: absolute; right: .5rem; bottom: .5rem; display: inline-flex; align-items: center; gap: .2rem; padding: .2rem .5rem; border-radius: 999px; background: rgb(0 0 0 / .6); color: #fff; font-size: .7rem; font-weight: 700; letter-spacing: .04em; pointer-events: none; opacity: 0; transition: opacity .45s var(--ease); }
+.has-ai:hover .ai-badge, .has-ai:focus-visible .ai-badge { opacity: 1; }
 .lightbox figcaption { align-self: start; color: #ddd; font-size: var(--fs-sm); line-height: 1.35; padding: .6rem 0 0; max-height: 100%; overflow: hidden; text-align: center; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .lightbox figcaption:empty { display: none; }
 .lb-counter { position: absolute; top: 1rem; left: 1.25rem; font-size: .85rem; color: #bbb; font-variant-numeric: tabular-nums; }
