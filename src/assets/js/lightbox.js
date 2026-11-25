@@ -81,13 +81,19 @@
   dlg.querySelector(".lb-close").addEventListener("click", close);
   const full = dlg.querySelector(".lb-full");
   if (!document.fullscreenEnabled) full.hidden = true;
-  full.addEventListener("click", () => { if (document.fullscreenElement) document.exitFullscreen(); else dlg.requestFullscreen?.(); });
+  // На цял екран влиза вътрешната обвивка, не <dialog> (за него браузърите отказват: „Dialog elements are invalid“).
+  const frame = dlg.querySelector(".lb-frame");
+  full.addEventListener("click", () => {
+    if (document.fullscreenElement) { document.exitFullscreen?.(); return; }
+    const req = frame.requestFullscreen?.() ?? frame.webkitRequestFullscreen?.();
+    req?.catch?.((err) => console.warn("[lightbox] цял екран:", err.message));
+  });
   document.addEventListener("fullscreenchange", () => {
     const fs = Boolean(document.fullscreenElement);
     dlg.classList.toggle("is-fullscreen", fs);
     full.setAttribute("aria-label", fs ? dlg.dataset.i18nExit : dlg.dataset.i18nFullscreen);
   });
-  dlg.addEventListener("click", (e) => { if (e.target === dlg || e.target.tagName === "FIGURE") close(); });
+  dlg.addEventListener("click", (e) => { if (e.target === dlg || e.target === frame || e.target.tagName === "FIGURE") close(); });
   dlg.addEventListener("close", () => { document.body.style.overflow = ""; });
   dlg.addEventListener("keydown", (e) => {
     if (e.target === range) return; // стрелките местят плъзгача за сравнение

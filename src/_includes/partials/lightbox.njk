@@ -1,24 +1,27 @@
 <dialog class="lightbox" aria-label="{{ 'ui.fullscreen' | t(lang) }}" data-i18n-fullscreen="{{ 'ui.fullscreen' | t(lang) }}" data-i18n-exit="{{ 'ui.exitFullscreen' | t(lang) }}">
-  <figure>
-    {#- Сцена: основната снимка; при рисунка с версия с AI – втора снимка върху нея и плъзгач за сравнение. -#}
-    <div class="lb-stage">
-      <img class="lb-img" alt="">
-      <img class="lb-ai" alt="" aria-hidden="true" hidden>
-      <span class="lb-divider" aria-hidden="true" hidden><span class="lb-knob">{% icon "chevrons-left-right", 18 %}</span></span>
-      <span class="lb-tag lb-tag-a" aria-hidden="true" hidden>{{ "drawings.original" | t(lang) }}</span>
-      <span class="lb-tag lb-tag-b" aria-hidden="true" hidden>{{ "drawings.withAi" | t(lang) }}</span>
-      <input class="lb-range" type="range" min="0" max="100" value="50" step="0.1" aria-label="{{ 'drawings.compare' | t(lang) }}" hidden>
+  {#- Вътрешна обвивка: тя влиза на цял екран (браузърите не позволяват това за самия <dialog>). -#}
+  <div class="lb-frame">
+    <figure>
+      {#- Сцена: основната снимка; при рисунка с версия с AI – втора снимка върху нея и плъзгач за сравнение. -#}
+      <div class="lb-stage">
+        <img class="lb-img" alt="">
+        <img class="lb-ai" alt="" aria-hidden="true" hidden>
+        <span class="lb-divider" aria-hidden="true" hidden><span class="lb-knob">{% icon "chevrons-left-right", 18 %}</span></span>
+        <span class="lb-tag lb-tag-a" aria-hidden="true" hidden>{{ "drawings.original" | t(lang) }}</span>
+        <span class="lb-tag lb-tag-b" aria-hidden="true" hidden>{{ "drawings.withAi" | t(lang) }}</span>
+        <input class="lb-range" type="range" min="0" max="100" value="50" step="0.1" aria-label="{{ 'drawings.compare' | t(lang) }}" hidden>
+      </div>
+      <figcaption></figcaption>
+    </figure>
+    <div class="lb-counter" aria-live="polite"></div>
+    <div class="lb-modes" role="group" aria-label="{{ 'drawings.versions' | t(lang) }}" hidden>
+      <button type="button" data-mode="original" aria-pressed="false">{% icon "pencil", 16 %}<span>{{ "drawings.original" | t(lang) }}</span></button>
+      <button type="button" data-mode="ai" aria-pressed="false">{% icon "sparkles", 16 %}<span>{{ "drawings.withAi" | t(lang) }}</span></button>
+      <button type="button" data-mode="compare" aria-pressed="true">{% icon "columns-2", 16 %}<span>{{ "drawings.compare" | t(lang) }}</span></button>
     </div>
-    <figcaption></figcaption>
-  </figure>
-  <div class="lb-counter" aria-live="polite"></div>
-  <div class="lb-modes" role="group" aria-label="{{ 'drawings.versions' | t(lang) }}" hidden>
-    <button type="button" data-mode="original" aria-pressed="false">{% icon "pencil", 16 %}<span>{{ "drawings.original" | t(lang) }}</span></button>
-    <button type="button" data-mode="ai" aria-pressed="false">{% icon "sparkles", 16 %}<span>{{ "drawings.withAi" | t(lang) }}</span></button>
-    <button type="button" data-mode="compare" aria-pressed="true">{% icon "columns-2", 16 %}<span>{{ "drawings.compare" | t(lang) }}</span></button>
+    <button type="button" class="lb-btn lb-prev" aria-label="{{ 'ui.previous' | t(lang) }}">{% icon "chevron-left", 28 %}</button>
+    <button type="button" class="lb-btn lb-next" aria-label="{{ 'ui.next' | t(lang) }}">{% icon "chevron-right", 28 %}</button>
+    <button type="button" class="lb-btn lb-full" aria-label="{{ 'ui.fullscreen' | t(lang) }}">{% icon "maximize", 22 %}{% icon "minimize", 22 %}</button>
+    <button type="button" class="lb-btn lb-close" aria-label="{{ 'ui.close' | t(lang) }}">{% icon "x", 24 %}</button>
   </div>
-  <button type="button" class="lb-btn lb-prev" aria-label="{{ 'ui.previous' | t(lang) }}">{% icon "chevron-left", 28 %}</button>
-  <button type="button" class="lb-btn lb-next" aria-label="{{ 'ui.next' | t(lang) }}">{% icon "chevron-right", 28 %}</button>
-  <button type="button" class="lb-btn lb-full" aria-label="{{ 'ui.fullscreen' | t(lang) }}">{% icon "maximize", 22 %}{% icon "minimize", 22 %}</button>
-  <button type="button" class="lb-btn lb-close" aria-label="{{ 'ui.close' | t(lang) }}">{% icon "x", 24 %}</button>
 </dialog>
